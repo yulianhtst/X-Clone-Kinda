@@ -6,7 +6,22 @@ import TestFn from "../Test";
 export default function AsideComponent() {
     const router = useRouter()
 
-    const onClickhandler = (e: MouseEvent<HTMLDivElement>, path: string) => {
+    const routes = [
+        { path: '/', label: 'Home' },
+        { path: '/explore', label: 'Explore' },
+        { path: '/notifications', label: 'Notifications' },
+        { path: '/messages', label: 'Messages' },
+        { path: '/lists', label: 'Lists' },
+        { path: '/bookmarks', label: 'Bookmarks' },
+        { path: '/communities', label: 'Communities' },
+        { path: '/premium', label: 'Premium' },
+        { path: '/profile', label: 'Profile' },
+        { path: '/more', label: 'More' },
+    ];
+
+    const onClickHandler = (path: string) => {
+        console.log(path);
+        
         router.push(path)
     }
 
@@ -35,18 +50,14 @@ export default function AsideComponent() {
                     },
                 }}
             >
-                <Box onClick={(e) => onClickhandler(e, '/')} ><Typography>Home</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/explore')} ><Typography>Explore</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/notifications')} ><Typography>Notifications</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/messages')} ><Typography>Messages</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/lists')} ><Typography>Lists</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/bookmarks')} ><Typography>Bookmarks</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/communities')} ><Typography>Communities</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/premium')} ><Typography>Premium</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/profile')} ><Typography>Profile</Typography></Box>
-                <Box onClick={(e) => onClickhandler(e, '/more')} ><Typography>More</Typography></Box>
-                {/* <Button startIcon={'Helloo'} fullWidth={true}></Button> */}
-
+                {routes.map((route, index) => (
+                    <Box
+                        key={index}
+                        onClick={() => onClickHandler(route.path)}
+                    >
+                        <Typography>{route.label}</Typography>
+                    </Box>
+                ))}
             </Box>
         </Box >
     )
