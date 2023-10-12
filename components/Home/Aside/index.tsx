@@ -1,7 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import type { MouseEvent } from "react";
-import TestFn from "../Test";
 
 export default function AsideComponent() {
     const router = useRouter()
@@ -20,8 +18,6 @@ export default function AsideComponent() {
     ];
 
     const onClickHandler = (path: string) => {
-        console.log(path);
-        
         router.push(path)
     }
 
@@ -41,17 +37,17 @@ export default function AsideComponent() {
                     ">*": {
                         color: "white",
                         textAlign: 'left',
-                        width: '100%',
                         cursor: 'pointer',
-                        "&:hover": {
-                            backgroundColor: 'white'
-                        },
+                        // "&:hover": {
+                        // backgroundColor: 'white'
+                        // },
 
                     },
                 }}
             >
                 {routes.map((route, index) => (
                     <Box
+                        component="button"
                         key={index}
                         onClick={() => onClickHandler(route.path)}
                     >

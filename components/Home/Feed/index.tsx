@@ -1,4 +1,5 @@
 import { Box, Button, Typography } from "@mui/material";
+import PostComponent from "./PostComponent";
 
 export default function FeedComponent() {
     return (
@@ -15,6 +16,7 @@ export default function FeedComponent() {
                     width: '100%'
                 }}
             >
+                <PostComponent />
                 <Button>Lorem ipsum dolorimus eius amet accusamus aliquam sit?</Button>
                 <Button>Lorem ipsum dolorimus eius amet accusamus aliquam sit?</Button>
                 <Button>Lorem ipsum dolorimus eius amet accusamus aliquam sit?</Button>
