@@ -1,11 +1,9 @@
-import { Box, Button, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import AsideComponent from "./Aside";
-import FeedComponent from "./Feed";
 import SuggestionsComponent from "./Suggestions";
-import { useRouter } from "next/router";
 import { routeRenderingHandler } from "@/HOC/routeRenderingHandler";
 
-function RoutingComponent(props) {
+function RoutingComponent(props: any) {
     const { renderComponent } = props
 
     return (
@@ -24,7 +22,7 @@ function RoutingComponent(props) {
             {renderComponent}
 
 
-            
+
             {/* НЕ Е ПРИОРИТЕТ */}
             <SuggestionsComponent />
 
