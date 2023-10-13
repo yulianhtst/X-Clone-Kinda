@@ -7,8 +7,9 @@ const PostSchema = new Schema({
   content: { type: String },
   craeted_at: { type: timeStamp },
   //Video gif picture  //   media: { type: String },
-  comments: { type: [ObjectId] },
-  likes: { type: [ObjectId] },
+  comments: { type: [ObjectId] ,ref:"Comment"},
+  //If something break is here
+  likes: { type: [ObjectId] ,ref:"PostLikes"},
 });
 
 export const Post = model("Post", PostSchema);

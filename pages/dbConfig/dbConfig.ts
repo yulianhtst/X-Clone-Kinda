@@ -3,7 +3,8 @@ import mongoose from "mongoose";
 
 export async function connect() {
   try {
-    await mongoose.connect(CONNECTION_STRING);
+    mongoose.connect(CONNECTION_STRING);
+    console.log("db connected");
   } catch (error) {
     console.error(error);
   }
