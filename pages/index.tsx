@@ -1,4 +1,3 @@
-import LoginComponent from '@/components/Login';
 import RoutingComponent from '@/components/Home';
 import Head from 'next/head'
 
