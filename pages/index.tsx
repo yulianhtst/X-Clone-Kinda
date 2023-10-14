@@ -1,3 +1,4 @@
+import LoginComponent from '@/components/Login';
 import Layout from '@/components/layout/MainLayout';
 import HomePage from '@/components/pages/HomePage';
 import Head from 'next/head'
@@ -15,12 +16,12 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
+      <LoginComponent />
+      {/* <Layout>
         <HomePage />
-      </Layout>
+      </Layout> */}
 
       {/* Дали е логнат потребителят*/}
-      {/* <LoginComponent /> */}
     </>
   )
 }
