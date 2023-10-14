@@ -1,6 +1,10 @@
-import RoutingComponent from "@/components/Home";
+import Layout from "@/components/layout/MainLayout";
+import BookmarksPage from "@/components/pages/BookmarksPage";
 
-export default function Explore() {
-    return <RoutingComponent />
-    // return <h1>hi</h1>
+export default function Bookmarks() {
+    return (
+        <Layout>
+            <BookmarksPage />
+        </Layout>
+    )
 }

@@ -1,6 +1,10 @@
-import RoutingComponent from "@/components/Home";
+import Layout from "@/components/layout/MainLayout";
+import NotificationsPage from "@/components/pages/NotificationsPage";
 
-export default function Explore() {
-    return <RoutingComponent />
-    // return <h1>hi</h1>
+export default function Notifications() {
+    return (
+        <Layout>
+            <NotificationsPage />
+        </Layout>
+    )
 }

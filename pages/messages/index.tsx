@@ -1,6 +1,10 @@
-import RoutingComponent from "@/components/Home";
+import Layout from "@/components/layout/MainLayout";
+import MessagesPage from "@/components/pages/MessagesPage";
 
-export default function Explore() {
-    return <RoutingComponent />
-    // return <h1>hi</h1>
+export default function Messages() {
+    return (
+        <Layout>
+            <MessagesPage />
+        </Layout>
+    )
 }

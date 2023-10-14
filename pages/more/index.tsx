@@ -1,6 +1,10 @@
-import RoutingComponent from "@/components/Home";
+import Layout from "@/components/layout/MainLayout";
+import MorePage from "@/components/pages/MorePage";
 
-export default function Explore() {
-    return <RoutingComponent />
-    // return <h1>hi</h1>
+export default function More() {
+    return (
+        <Layout>
+            <MorePage />
+        </Layout>
+    )
 }

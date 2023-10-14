@@ -1,6 +1,10 @@
-import RoutingComponent from "@/components/Home";
+import Layout from "@/components/layout/MainLayout";
+import CommunitiesPage from "@/components/pages/CommunitiesPage";
 
-export default function Explore() {
-    return <RoutingComponent />
-    // return <h1>hi</h1>
+export default function Communities() {
+    return (
+        <Layout>
+            <CommunitiesPage />
+        </Layout>
+    )
 }

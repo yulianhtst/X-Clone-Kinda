@@ -1,8 +1,11 @@
-import RoutingComponent from '@/components/Home';
+import Layout from '@/components/layout/MainLayout';
+import HomePage from '@/components/pages/HomePage';
 import Head from 'next/head'
 
 export default function Home() {
   let stan: number;
+
+
   return (
     <>
       <Head>
@@ -11,7 +14,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <RoutingComponent />
+
+      <Layout>
+        <HomePage />
+      </Layout>
+
       {/* Дали е логнат потребителят*/}
       {/* <LoginComponent /> */}
     </>
