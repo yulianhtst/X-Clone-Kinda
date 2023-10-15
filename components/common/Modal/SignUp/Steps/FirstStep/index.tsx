@@ -1,6 +1,6 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
 
-export default function FirstModalPage({ onClickHandler }) {
+export default function FirstModalStep({ onClickHandler }) {
     return (<>
 
         <Box

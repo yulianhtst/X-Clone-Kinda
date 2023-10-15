@@ -4,8 +4,11 @@ import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react'
 import ModalLayout from "@/components/layout/ModalLayout";
 
-import FirstModalPage from "./FirstPage";
-import SecondModalPage from "./SecondPage";
+import FirstModalStep from "./Steps/FirstStep";
+import SecondModalStep from "./Steps/SecondStep";
+import ThirdModalStep from "./Steps/ThirdStep";
+import FourthModalStep from "./Steps/FourthStep";
+import FifthModalStep from "./Steps/FifthStep";
 
 export default function SingUp() {
     const [step, setStep] = useState(1)
@@ -38,10 +41,19 @@ export default function SingUp() {
             <ModalLayout>
 
                 {
-                    step === 1 && <FirstModalPage onClickHandler={onNextBtnClickHandler} />
+                    step === 1 && <FirstModalStep onClickHandler={onNextBtnClickHandler} />
                 }
                 {
-                    step === 2 && <SecondModalPage />
+                    step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
+                }
+                {
+                    step === 3 && <ThirdModalStep onClickHandler={onNextBtnClickHandler} />
+                }
+                {
+                    step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
+                }
+                {
+                    step === 5 && <FifthModalStep onClickHandler={onNextBtnClickHandler} />
                 }
 
 
