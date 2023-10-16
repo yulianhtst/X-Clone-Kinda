@@ -2,6 +2,12 @@ import { NODEMAILER_EMAIL, NODEMAILER_PASS, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from 'nodemailer';
 
+///////////////////////////////////////////////////////////
+//      PROBLEMS THAT NEED TO BE FIXED 
+//      THE PIN IS NOT UNIQUE TO THE USER.
+//      OTHER USERS CAN ENTER THE PIN SEND TO THE USER BY EMAIL
+//      ONE PIN CAN VERIFY TWO EMAILS.
+
 // const transporter = nodemailer.createTransport({
 //     service: "gmail",
 //     // host: 'smtp.gmail.com', // Gmail SMTP server
@@ -28,20 +34,39 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse
 ) {
-    const mailOptions = {
-        from: NODEMAILER_EMAIL,
-        to: 'yulianhtst3@gmail.com',
-        subject: 'Hello from Nodemailer',
-        text: 'This is a test email sent with Nodemailer!',
-        html: '<p>This is a test email sent with <b>Nodemailer</b>!</p>',
-    };
+    const action = req.headers["action"]
+    console.log(action);
 
-    try {
-        const info = await transporter.sendMail(mailOptions);
-        console.log('Email sent: ', info.response);
-        res.status(200).json({ message: 'Email sent successfully' });
-    } catch (error) {
-        console.error('Error sending email: ', error);
-        res.status(500).json({ error: 'Email could not be sent' });
+    let PIN;
+
+    if (action === 'Send-Email') {
+
+        const { name, email } = req.body
+
+        PIN = Math.floor(Math.random() * 1000000)
+        const mailOptions = {
+            from: NODEMAILER_EMAIL,
+            to: `${email}`,
+            subject: `Hello ${name}`,
+            text: 'This is a test email sent with Nodemailer!',
+            html: `<p>This is a test email sent with <b>${PIN}</b>!</p>`,
+        };
+
+        try {
+            const info = await transporter.sendMail(mailOptions);
+            console.log('Email sent: ', info.response);
+            res.status(200).json({ message: 'Email sent successfully' });
+        } catch (error) {
+            console.error('Error sending email: ', error);
+            res.status(500).json({ error: 'Email could not be sent' });
+        }
     }
+    if (action === 'Verify-PIN') {
+        const { pin } = req.body
+        if (pin === PIN) {
+            console.log('YESSSSSSSSSSSSSSSSs');
+        }
+
+    }
+
 }

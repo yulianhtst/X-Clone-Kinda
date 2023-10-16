@@ -16,6 +16,7 @@ export default function SingUp() {
     const onNextBtnClickHandler = () => {
         setStep(step + 1)
     }
+
     return (
         <>
             <Box
