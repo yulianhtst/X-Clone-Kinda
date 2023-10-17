@@ -1,4 +1,4 @@
-import { Schema, model, Types } from "mongoose";
+import mongoose, { Schema, model, Types } from "mongoose";
 const { ObjectId } = Types;
 
 const ActivitySchema = new Schema({
@@ -8,4 +8,5 @@ const ActivitySchema = new Schema({
   posts_likes: { type: [ObjectId], ref: "PostLikes" },
 });
 
-export const Activity = model("Activity", ActivitySchema);
+export default mongoose.models.Activity ||
+  mongoose.model("Activity", ActivitySchema);

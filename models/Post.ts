@@ -1,5 +1,5 @@
 import { timeStamp } from "console";
-import { Schema, model, Types } from "mongoose";
+import mongoose, { Schema, model, Types } from "mongoose";
 const { ObjectId } = Types;
 
 const PostSchema = new Schema({
@@ -7,9 +7,9 @@ const PostSchema = new Schema({
   content: { type: String },
   craeted_at: { type: timeStamp },
   //Video gif picture  //   media: { type: String },
-  comments: { type: [ObjectId] ,ref:"Comment"},
+  comments: { type: [ObjectId], ref: "Comment" },
   //If something break is here
-  likes: { type: [ObjectId] ,ref:"PostLikes"},
+  likes: { type: [ObjectId], ref: "PostLikes" },
 });
 
-export const Post = model("Post", PostSchema);
+export default mongoose.models.Post || mongoose.model("Post", PostSchema);

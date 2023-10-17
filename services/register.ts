@@ -9,7 +9,7 @@ import {
   OAUTH_CLIENT_SECRET,
   OAUTH_REFRESH_TOKEN,
 } from "@/Constants";
-import { CreateUserSession } from "@/models/CreateUserSession";
+import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
 let PIN;
 

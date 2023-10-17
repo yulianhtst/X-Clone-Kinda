@@ -25,7 +25,8 @@ export default function ThirdModalStep({ onClickHandler }) {
         }
 
         const res = await fetch(API + "mailer", options)
-        const resJson = await res.json()
+        const { sessionToken } = await res.json()
+        window.sessionStorage.setItem('SignInSession', sessionToken)
     }
 
 

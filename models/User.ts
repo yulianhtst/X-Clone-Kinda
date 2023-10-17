@@ -1,4 +1,4 @@
-import { Schema, model, Types } from "mongoose";
+import mongoose, { Schema, model, Types } from "mongoose";
 const { ObjectId } = Types;
 
 const UserSchema = new Schema({
@@ -11,4 +11,4 @@ const UserSchema = new Schema({
   // activity: { type: ObjectId, ref: "Activity" },
 });
 
-export const User = model("User", UserSchema);
+export default mongoose.models.User || mongoose.model("User", UserSchema);

@@ -1,4 +1,5 @@
 import { timeStamp } from "console";
+import mongoose from "mongoose";
 import { Schema, model, Types } from "mongoose";
 const { ObjectId } = Types;
 
@@ -9,4 +10,5 @@ const CommentSchema = new Schema({
   //If something break is here
   likes: { type: [ObjectId], ref: "CommentLikes" },
 });
-export const Comment = model("Comment", CommentSchema);
+export default mongoose.models.Comment ||
+  mongoose.model("Comment", CommentSchema);
