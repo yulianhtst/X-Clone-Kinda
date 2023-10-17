@@ -12,6 +12,11 @@ import FifthModalStep from "./Steps/FifthStep";
 
 export default function SingUp() {
     const [step, setStep] = useState(1)
+    const [form, setForm] = useState({
+        name: '',
+        email: '',
+        password: '',
+    })
 
     const onNextBtnClickHandler = () => {
         setStep(step + 1)

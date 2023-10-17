@@ -7,23 +7,16 @@ import nodemailer from 'nodemailer';
 //      THE PIN IS NOT UNIQUE TO THE USER.
 //      OTHER USERS CAN ENTER THE PIN SEND TO THE USER BY EMAIL
 //      ONE PIN CAN VERIFY TWO EMAILS.
+//      TODO THIS I WILL NEED TOKEN ? WHICH I WILL SEND TO SERVER
+//      ALSO I WILL NNED TO CHECK WITH REQUEST IF THE EMAIL ALREADY EXISTS 
 
-// const transporter = nodemailer.createTransport({
-//     service: "gmail",
-//     // host: 'smtp.gmail.com', // Gmail SMTP server
-//     // port: 465,
-//     // secure: true, // Use secure connection
-//     auth: {
-//         user: NODEMAILER_EMAIL, // Your Gmail email address
-//         pass: NODEMAILER_PASS, // App-specific password generated in your Gmail settings
-//     },
-// });
+
 let transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
         type: 'OAuth2',
-        user: NODEMAILER_EMAIL, // Your Gmail email address
-        pass: NODEMAILER_PASS, // App-specific password generated in your Gmail settings
+        user: NODEMAILER_EMAIL,
+        pass: NODEMAILER_PASS, 
         clientId: OAUTH_CLIENT_ID,
         clientSecret: OAUTH_CLIENT_SECRET,
         refreshToken: OAUTH_REFRESH_TOKEN
