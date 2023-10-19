@@ -1,6 +1,13 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import { useState } from 'react'
 
-export default function FirstModalStep({ onClickHandler }) {
+export default function FirstModalStep({ onClickHandler, onBlurHandler, isEmailFree }: { onClickHandler: () => void, onBlurHandler: () => void, isEmailFree: boolean }) {
+    const [isEmailValid, setIsEmailValid] = useState(true)
+    let message = null
+
+
+    message = isEmailFree ? '' : 'Email taken'
+    message = isEmailValid ? '' : "Please enter a valid email"
     return (<>
 
         <Box
@@ -26,11 +33,18 @@ export default function FirstModalStep({ onClickHandler }) {
             }}
         >
             <TextField
+                onBlur={onBlurHandler}
+                name="name"
                 label="Name"
                 sx={{
                     margin: '10px 0'
                 }} />
             <TextField
+                onBlur={onBlurHandler}
+                error={!isEmailFree}
+                helperText={message}
+
+                name="email"
                 label="Email"
                 sx={{
                     margin: '10px 0'

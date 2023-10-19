@@ -2,6 +2,8 @@ import { Modal, Box, Typography, Button, TextField, IconButton, Checkbox } from 
 import ModalButton from "../../Common/ModalButton"
 
 export default function SecondModalStep({ onClickHandler }) {
+    console.log(window.sessionStorage.getItem('SignInSession'));
+
     return (
         <>
             <Box display="flex" flexDirection="column" sx={{ overflowX: 'hidden', overflowY: 'auto', height: '340px' }}>

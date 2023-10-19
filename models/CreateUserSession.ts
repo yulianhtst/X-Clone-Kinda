@@ -8,4 +8,4 @@ const CreateUserSessionSchema = new Schema({
 // mongoose.models.Customer || mongoose.model('Customer', customerSchema);
 // export const CreateUserSession = model("CreateUserSession", CreateUserSessionSchema);
 // 
-export default mongoose.models.CreateUserSession|| mongoose.model("CreateUserSession", CreateUserSessionSchema);
+export default mongoose.models?.CreateUserSession || mongoose.model("CreateUserSession", CreateUserSessionSchema);

@@ -8,19 +8,22 @@ export default function FourthModalStep({ onClickHandler }) {
     console.log(inputRef);
 
     const onNextClickFetch = async () => {
+        const token = window.sessionStorage.getItem('SignInSession')
         const options = {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 "Content-Type": "application/json",
                 "Action": "Verify-PIN"
             },
-            body: JSON.stringify(inputRef)
+            body: JSON.stringify({ PIN: inputRef.current })
+            // body: JSON.stringify({ PIN: 174000 })
         }
 
-        const res = await fetch(API + "mailer", options)
-        const resJson = await res.json()
+        const res = await fetch(API + "verifypin", options)
+        // const resJson = await res.json()
     }
- 
+
     return (
         <>
             <Box

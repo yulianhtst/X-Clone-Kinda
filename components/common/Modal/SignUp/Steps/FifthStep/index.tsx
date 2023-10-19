@@ -32,8 +32,9 @@ export default function FifthModalStep({ onClickHandler }) {
             >
 
                 <TextField
-                    label="PIN"
-                    name="pin"
+                    label="Password"
+                    name="password"
+                    type="password"
                     sx={{
                         margin: '10px 0'
                     }}

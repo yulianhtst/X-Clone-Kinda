@@ -2,6 +2,7 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
 import {
+  API,
   JWT_SECRET,
   NODEMAILER_EMAIL,
   NODEMAILER_PASS,
@@ -11,9 +12,9 @@ import {
 } from "@/Constants";
 import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
-let PIN;
+let PIN: number;
 
-export const sendEmails = async (name, email) => {
+export const sendEmails = async (name: string, email: string) => {
   console.log("email");
 
   let transporter = nodemailer.createTransport({
@@ -39,7 +40,7 @@ export const sendEmails = async (name, email) => {
   return await transporter.sendMail(mailOptions);
 };
 
-export const createSessionDb = async (email) => {
+export const createSessionDb = async (email: string) => {
   await connect();
   PIN = Math.floor(Math.random() * 1000000);
 
@@ -53,4 +54,21 @@ export const createSessionDb = async (email) => {
   });
   userSession.save();
   return token;
+};
+
+export const checkEmailAvailability = async (email: string) => {
+  try {
+    const response = await fetch(API + "verify/verifyemail", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ email }),
+    });
+    const { isEmailFree } = await response.json();
+    return isEmailFree;
+    // setFree(isEmailFree);
+  } catch (error) {
+    console.error(error);
+  }
 };

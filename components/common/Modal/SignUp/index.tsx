@@ -9,9 +9,11 @@ import SecondModalStep from "./Steps/SecondStep";
 import ThirdModalStep from "./Steps/ThirdStep";
 import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
+import { checkEmailAvailability } from "@/services/register";
 
 export default function SingUp() {
     const [step, setStep] = useState(1)
+    const [free, setFree] = useState(false)
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -21,6 +23,22 @@ export default function SingUp() {
     const onNextBtnClickHandler = () => {
         setStep(step + 1)
     }
+    const updateFormValue = (name: string, value: string) => {
+        setForm(state => ({ ...state, [name]: value }));
+    };
+
+
+    const onInputBlurHandler = async (e: { target: { name: string; value: string; }; }) => {
+        const { name, value } = e.target;
+
+        if (name === "email") {
+            const isAvailable = await checkEmailAvailability(value);
+            setFree(isAvailable)
+        } else {
+            updateFormValue(name, value);
+        }
+    };
+    console.log(free);
 
     return (
         <>
@@ -47,7 +65,7 @@ export default function SingUp() {
             <ModalLayout>
 
                 {
-                    step === 1 && <FirstModalStep onClickHandler={onNextBtnClickHandler} />
+                    step === 1 && <FirstModalStep isEmailFree={free} onClickHandler={onNextBtnClickHandler} onBlurHandler={onInputBlurHandler} />
                 }
                 {
                     step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
