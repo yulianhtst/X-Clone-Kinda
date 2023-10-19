@@ -2,7 +2,7 @@ const { config } = require('process')
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: true,
+  reactStrictMode: false,
   webpack: (config) => {
     config.resolve.fallback = {
       fs: false,

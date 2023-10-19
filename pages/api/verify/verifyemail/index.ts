@@ -11,11 +11,12 @@ export default async function handler(
   const { email } = req.body;
 
   const response = await User.findOne({ email });
-  console.log(response);
-  
+
   if (!response) {
+    //If response is null email is available
     return res.json({ success: true, isEmailFree: true });
   } else {
+    //If response return a instance then the email is already taken
     return res.json({ success: true, isEmailFree: false });
   }
 }

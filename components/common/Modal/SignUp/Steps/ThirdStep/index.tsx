@@ -3,15 +3,11 @@ import ModalButton from "../../Common/ModalButton"
 import { API } from "@/Constants"
 import { useState } from 'react'
 
-export default function ThirdModalStep({ onClickHandler }) {
-    const [temporaryForm, setTemporaryForm] = useState({
-        name: '',
-        email: ''
-    })
+export default function ThirdModalStep({ onClickHandler, formData }) {
+    const [temporaryForm, setTemporaryForm] = useState({})
 
     // const name;
     // const email;
-    console.log(temporaryForm);
 
 
     const onNextClickFetch = async () => {
@@ -56,7 +52,9 @@ export default function ThirdModalStep({ onClickHandler }) {
             >
                 <TextField
                     onChange={(e) => setTemporaryForm(state => ({ ...state, name: e.target.value }))}
-
+                    value={formData.name}
+                    disabled
+                    onClick={() => console.log('clicked')}
                     label="Name"
                     name="name"
                     sx={{
@@ -65,7 +63,8 @@ export default function ThirdModalStep({ onClickHandler }) {
                 />
                 <TextField
                     onChange={(e) => setTemporaryForm(state => ({ ...state, email: e.target.value }))}
-
+                    value={formData.email}
+                    disabled
                     label="Email"
                     name="email"
                     sx={{

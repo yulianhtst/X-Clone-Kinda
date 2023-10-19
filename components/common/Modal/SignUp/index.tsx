@@ -1,7 +1,7 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ModalLayout from "@/components/layout/ModalLayout";
 
 import FirstModalStep from "./Steps/FirstStep";
@@ -13,7 +13,6 @@ import { checkEmailAvailability } from "@/services/register";
 
 export default function SingUp() {
     const [step, setStep] = useState(1)
-    const [free, setFree] = useState(false)
     const [form, setForm] = useState({
         name: '',
         email: '',
@@ -27,18 +26,14 @@ export default function SingUp() {
         setForm(state => ({ ...state, [name]: value }));
     };
 
+    useEffect(() => {
+        console.log('mount');
+        return () => console.log('unmounts');
+    }, [])
+    useEffect(() => {
+        console.log(form);
+    }, [form])
 
-    const onInputBlurHandler = async (e: { target: { name: string; value: string; }; }) => {
-        const { name, value } = e.target;
-
-        if (name === "email") {
-            const isAvailable = await checkEmailAvailability(value);
-            setFree(isAvailable)
-        } else {
-            updateFormValue(name, value);
-        }
-    };
-    console.log(free);
 
     return (
         <>
@@ -65,13 +60,13 @@ export default function SingUp() {
             <ModalLayout>
 
                 {
-                    step === 1 && <FirstModalStep isEmailFree={free} onClickHandler={onNextBtnClickHandler} onBlurHandler={onInputBlurHandler} />
+                    step === 1 && <FirstModalStep onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
                 }
                 {
                     step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
                 }
                 {
-                    step === 3 && <ThirdModalStep onClickHandler={onNextBtnClickHandler} />
+                    step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} />
                 }
                 {
                     step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
