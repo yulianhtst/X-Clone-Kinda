@@ -1,5 +1,6 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import { useEffect, useState } from 'react'
 import ModalLayout from "@/components/layout/ModalLayout";
@@ -11,28 +12,30 @@ import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
 import { checkEmailAvailability } from "@/services/register";
 
-export default function SingUp() {
+export default function SingUp({ handleClose }) {
     const [step, setStep] = useState(1)
     const [form, setForm] = useState({
         name: '',
         email: '',
         password: '',
+        isValid: false,
     })
 
     const onNextBtnClickHandler = () => {
         setStep(step + 1)
     }
-    const updateFormValue = (name: string, value: string) => {
+    const onBackBtnClickHandler = () => {
+        setStep(step - 1)
+    }
+    const onInputFieldFocus = () => {
+        setStep(1)
+    }
+
+    const updateFormValue = (name: string, value: string | boolean) => {
         setForm(state => ({ ...state, [name]: value }));
     };
 
-    useEffect(() => {
-        console.log('mount');
-        return () => console.log('unmounts');
-    }, [])
-    useEffect(() => {
-        console.log(form);
-    }, [form])
+
 
 
     return (
@@ -40,9 +43,11 @@ export default function SingUp() {
             <Box
                 display="flex"
             >
-                <IconButton>
-                    <CloseIcon />
-                </IconButton>
+                {step == 1 ?
+                    <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+                    :
+                    <IconButton onClick={onBackBtnClickHandler}><ArrowBackIosIcon /></IconButton>
+                }
                 <Typography
                     variant="h6"
                     fontWeight="bold"
@@ -60,13 +65,13 @@ export default function SingUp() {
             <ModalLayout>
 
                 {
-                    step === 1 && <FirstModalStep onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
+                    step === 1 && <FirstModalStep formData={form} onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
                 }
                 {
                     step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
                 }
                 {
-                    step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} />
+                    step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} onFocusHandler={onInputFieldFocus} />
                 }
                 {
                     step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />

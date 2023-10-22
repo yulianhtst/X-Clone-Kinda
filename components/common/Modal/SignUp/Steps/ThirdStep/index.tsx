@@ -1,9 +1,11 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import ModalButton from "../../Common/ModalButton"
+import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 import { useState } from 'react'
 
-export default function ThirdModalStep({ onClickHandler, formData }) {
+export default function ThirdModalStep({ onClickHandler, onFocusHandler, formData }: {
+    onClickHandler: () => void, onFocusHandler: () => void, formData: any
+}) {
     const [temporaryForm, setTemporaryForm] = useState({})
 
     // const name;
@@ -51,10 +53,8 @@ export default function ThirdModalStep({ onClickHandler, formData }) {
                 }}
             >
                 <TextField
-                    onChange={(e) => setTemporaryForm(state => ({ ...state, name: e.target.value }))}
+                    onClick={onFocusHandler}
                     value={formData.name}
-                    disabled
-                    onClick={() => console.log('clicked')}
                     label="Name"
                     name="name"
                     sx={{
@@ -62,16 +62,14 @@ export default function ThirdModalStep({ onClickHandler, formData }) {
                     }}
                 />
                 <TextField
-                    onChange={(e) => setTemporaryForm(state => ({ ...state, email: e.target.value }))}
+                    onClick={onFocusHandler}
                     value={formData.email}
-                    disabled
                     label="Email"
                     name="email"
                     sx={{
                         margin: '10px 0'
                     }}
                 />
-                {/* <Button sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
                 <ModalButton onClickHandler={() => {
                     onNextClickFetch()
                     onClickHandler()

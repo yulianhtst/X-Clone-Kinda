@@ -1,11 +1,10 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import ModalButton from "../../Common/ModalButton"
+import ModalButton from "../../../Common/ModalButton"
 import { useRef } from 'react'
 import { API } from "@/Constants"
 
 export default function FourthModalStep({ onClickHandler }) {
     const inputRef = useRef('')
-    console.log(inputRef);
 
     const onNextClickFetch = async () => {
         const token = window.sessionStorage.getItem('SignInSession')

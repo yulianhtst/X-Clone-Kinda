@@ -1,5 +1,5 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import ModalButton from "../../Common/ModalButton"
+import ModalButton from "../../../Common/ModalButton"
 import { useRef } from 'react'
 import { API } from "@/Constants"
 

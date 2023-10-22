@@ -10,6 +10,7 @@ interface IModalProps {
 
 export default function ModalComponent({ isOpen, handleClose }: IModalProps) {
 
+    //Prop Drilling NEED TO BE FIXED
 
     return (
         <Modal
@@ -33,7 +34,7 @@ export default function ModalComponent({ isOpen, handleClose }: IModalProps) {
                     p: '10px'
                 }}>
 
-                <SingUp/>
+                <SingUp handleClose={handleClose} />
 
             </Box>
         </Modal >

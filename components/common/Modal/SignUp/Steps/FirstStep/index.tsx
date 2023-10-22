@@ -3,11 +3,11 @@ import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/mate
 import { useState, useEffect } from 'react'
 import type { ChangeEvent, FocusEvent } from 'react'
 
-export default function FirstModalStep({ onClickHandler, updateFormValue }: { onClickHandler: () => void, updateFormValue: (name: string, value: string) => void, }) {
+export default function FirstModalStep({ formData, onClickHandler, updateFormValue }: { formData: any, onClickHandler: () => void, updateFormValue: (name: string, value: string) => void, }) {
     const [isEmailValid, setIsEmailValid] = useState(false)
     const [isNameValide, setIsNameValid] = useState(false)
     const [isEmailAvailable, setIsEmailAvailable] = useState(false)
-    const [ButtonState, setButtonState] = useState(false)
+    const [buttonState, setbuttonState] = useState(false)
     const [message, setMessage] = useState('')
 
     //Here will be good option to be added Debounceing and be changed to onChange event
@@ -23,6 +23,7 @@ export default function FirstModalStep({ onClickHandler, updateFormValue }: { on
         if (value === "") setMessage("")
 
     }
+
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
 
@@ -34,14 +35,44 @@ export default function FirstModalStep({ onClickHandler, updateFormValue }: { on
         setMessage(isEmailValid ? "" : "Please enter a valid email.")
         if (value === "") setMessage("")
     }
+
+
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         value ? setIsNameValid(true) : setIsNameValid(false)
         updateFormValue(name, value);
     }
     useEffect(() => {
+        // setbuttonState((isNameValide && isEmailAvailable && isEmailValid))
+        const isFormValid = Boolean((isNameValide && isEmailAvailable && isEmailValid))
+        updateFormValue("isValid", isFormValid)
+    }, [isEmailValid, isEmailAvailable, isNameValide])
 
-    }, [isEmailValid, isEmailAvailable])
+    useEffect(() => {
+        const pattern = new RegExp("([a-zA-Z0-9]+)@([a-zA-Z]+)\\.([a-zA-Z]+)")
+        const isEmailValid = pattern.test(formData.email)
+        setIsEmailValid(isEmailValid)
+        setMessage(isEmailValid ? "" : "Please enter a valid email.")
+        if (formData.email === "") setMessage("")
+    }, [formData.email])
+    useEffect(() => {
+        (async () => {
+            const isEmailAvailable = await checkEmailAvailability(formData.email);
+
+            setIsEmailAvailable(isEmailAvailable);
+
+            if (isEmailAvailable) return;
+            setMessage("Email has already been taken.");
+            if (formData.email === "") setMessage("");
+        })();
+    }, [formData.email])
+    useEffect(() => {
+        formData.name ? setIsNameValid(true) : setIsNameValid(false)
+    }, [formData.name])
+
+    console.log({ isEmailAvailable, isEmailValid, isNameValide });
+    console.log(formData.isValid);
+    console.log(formData);
 
 
 
@@ -71,6 +102,7 @@ export default function FirstModalStep({ onClickHandler, updateFormValue }: { on
         >
             <TextField
                 onChange={onChangeNameHandler}
+                value={formData.name}
                 name="name"
                 label="Name"
                 sx={{
@@ -79,7 +111,8 @@ export default function FirstModalStep({ onClickHandler, updateFormValue }: { on
             <TextField
                 onBlur={onBlurEmailHandler}
                 onChange={onChangeEmailHandler}
-                error={!isEmailAvailable}
+                value={formData.email}
+                error={Boolean(message)}
                 helperText={message}
 
                 name="email"
@@ -87,7 +120,8 @@ export default function FirstModalStep({ onClickHandler, updateFormValue }: { on
                 sx={{
                     margin: '10px 0'
                 }} />
-            <Button disabled={ButtonState} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button>
+            {/* <Button disabled={!buttonState} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
+            <Button disabled={!formData.isValid} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button>
         </Box>
     </>
     )

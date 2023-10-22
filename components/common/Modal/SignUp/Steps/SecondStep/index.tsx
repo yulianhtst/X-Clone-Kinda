@@ -1,8 +1,7 @@
 import { Modal, Box, Typography, Button, TextField, IconButton, Checkbox } from "@mui/material"
-import ModalButton from "../../Common/ModalButton"
+import ModalButton from "../../../Common/ModalButton"
 
 export default function SecondModalStep({ onClickHandler }) {
-    console.log(window.sessionStorage.getItem('SignInSession'));
 
     return (
         <>
