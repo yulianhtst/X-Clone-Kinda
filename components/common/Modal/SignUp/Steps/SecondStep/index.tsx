@@ -34,7 +34,7 @@ export default function SecondModalStep({ onClickHandler }) {
 
                 <Typography variant="h6">By signing up, you agree to our Terms, Privacy Policy, and Cookie Use. X may use your contact information, including your email address and phone number for purposes outlined in our Privacy Policy. Learn more</Typography>
             </Box>
-            <ModalButton onClickHandler={onClickHandler} />
+            <ModalButton content={'Next'} onClickHandler={onClickHandler} />
 
         </>
     )

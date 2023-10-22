@@ -121,7 +121,7 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
                     margin: '10px 0'
                 }} />
             {/* <Button disabled={!buttonState} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
-            <Button disabled={!formData.isValid} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button>
+            <Button content={'Next'} disabled={!formData.isValid} sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button>
         </Box>
     </>
     )

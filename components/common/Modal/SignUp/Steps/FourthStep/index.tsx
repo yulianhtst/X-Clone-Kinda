@@ -58,7 +58,7 @@ export default function FourthModalStep({ onClickHandler }) {
                     }}
                 />
                 {/* <Button sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
-                <ModalButton onClickHandler={() => {
+                <ModalButton content={'Next'} onClickHandler={() => {
                     onNextClickFetch()
                     onClickHandler()
                 }} />

@@ -1,10 +1,12 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
 import ModalButton from "../../../Common/ModalButton"
-import { useRef } from 'react'
 import { API } from "@/Constants"
 
-export default function FifthModalStep({ onClickHandler }) {
+export default function FifthModalStep({ formData }: { formData: any }) {
 
+    const onSubmitFormHandler = async () => {
+        const createUser = await fetch(API+"")
+    }
 
     return (
         <>
@@ -39,9 +41,7 @@ export default function FifthModalStep({ onClickHandler }) {
                         margin: '10px 0'
                     }}
                 />
-                <ModalButton onClickHandler={() => {
-                    onClickHandler()
-                }} />
+                <ModalButton content={'submit'} onClickHandler={onSubmitFormHandler} />
             </Box>
         </>
     )

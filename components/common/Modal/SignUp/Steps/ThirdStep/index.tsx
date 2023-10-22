@@ -1,17 +1,15 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import { Modal, Box, Typography, Button, TextField, IconButton, InputAdornment } from "@mui/material"
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
-import { useState } from 'react'
 
 export default function ThirdModalStep({ onClickHandler, onFocusHandler, formData }: {
     onClickHandler: () => void, onFocusHandler: () => void, formData: any
 }) {
-    const [temporaryForm, setTemporaryForm] = useState({})
 
-    // const name;
-    // const email;
-
-
+    //Here maybe i should create {name ,email} and send it instead
+    //I should choose if i would delete the token after this request
+    //Or send it with password and then delete it 
     const onNextClickFetch = async () => {
         const options = {
             method: 'POST',
@@ -19,7 +17,7 @@ export default function ThirdModalStep({ onClickHandler, onFocusHandler, formDat
                 "Content-Type": "application/json",
                 "Action": "Send-Email"
             },
-            body: JSON.stringify(temporaryForm)
+            body: JSON.stringify(formData)
         }
 
         const res = await fetch(API + "mailer", options)
@@ -49,28 +47,51 @@ export default function ThirdModalStep({ onClickHandler, onFocusHandler, formDat
                     height: '100%',
                     ">*": {
                         width: '100%',
+
                     }
                 }}
             >
                 <TextField
                     onClick={onFocusHandler}
                     value={formData.name}
+                    focused
                     label="Name"
                     name="name"
+                    color="success"
                     sx={{
+                        bgcolor: 'rgba(3, 216, 31, 0.1)',
                         margin: '10px 0'
+                    }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CheckCircleOutlineIcon />
+                            </InputAdornment>
+                        ),
                     }}
                 />
                 <TextField
+                    variant="outlined"
                     onClick={onFocusHandler}
                     value={formData.email}
                     label="Email"
                     name="email"
+                    color="success"
+                    focused
                     sx={{
+                        bgcolor: 'rgba(3, 216, 31, 0.1)',
                         margin: '10px 0'
                     }}
+                    InputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">
+                                <CheckCircleOutlineIcon />
+                            </InputAdornment>
+                        ),
+                    }}
+
                 />
-                <ModalButton onClickHandler={() => {
+                <ModalButton content={'Next'} onClickHandler={() => {
                     onNextClickFetch()
                     onClickHandler()
                 }} />
