@@ -7,7 +7,6 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
     const [isEmailValid, setIsEmailValid] = useState(false)
     const [isNameValide, setIsNameValid] = useState(false)
     const [isEmailAvailable, setIsEmailAvailable] = useState(false)
-    const [buttonState, setbuttonState] = useState(false)
     const [message, setMessage] = useState('')
 
     //Here will be good option to be added Debounceing and be changed to onChange event

@@ -1,10 +1,14 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import { Box, Typography, TextField, Snackbar } from "@mui/material"
 import ModalButton from "../../../Common/ModalButton"
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
+import { createPortal } from "react-dom"
 import { API } from "@/Constants"
 
 export default function FourthModalStep({ onClickHandler }) {
     const inputRef = useRef('')
+    const [open, setOpen] = useState(false);
+
+
 
     const onNextClickFetch = async () => {
         const token = window.sessionStorage.getItem('SignInSession')
@@ -19,9 +23,28 @@ export default function FourthModalStep({ onClickHandler }) {
             // body: JSON.stringify({ PIN: 174000 })
         }
 
-        const res = await fetch(API + "verifypin", options)
-        // const resJson = await res.json()
+        const res = await fetch(`${API}/verify/verifypin`, options)
+        const resJSON = await res.json()
+        if (!resJSON.error) {
+            onClickHandler()
+
+        } else {
+            handleClick()
+            console.log('error');
+        }
+
     }
+    const handleClick = () => {
+        setOpen(true);
+    };
+    const handleClose = (event, reason) => {
+        if (reason === 'clickaway') {
+            return;
+        }
+
+        setOpen(false);
+    };
+
 
     return (
         <>
@@ -36,6 +59,16 @@ export default function FourthModalStep({ onClickHandler }) {
                 >
                     Enter your PIN
                 </Typography>
+                {createPortal(
+
+                    <Snackbar
+                        open={open}
+                        onClose={handleClose}
+                        autoHideDuration={3000}
+                        message="Pin dont match"
+                        anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
+                    />, document.body
+                )}
             </Box>
             <Box
                 display="flex"
@@ -58,11 +91,11 @@ export default function FourthModalStep({ onClickHandler }) {
                     }}
                 />
                 {/* <Button sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
-                <ModalButton content={'Next'} onClickHandler={() => {
+                <ModalButton isDisabled={false} content={'Next'} onClickHandler={() => {
                     onNextClickFetch()
-                    onClickHandler()
                 }} />
             </Box>
+
         </>
     )
 }

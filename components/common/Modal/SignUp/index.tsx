@@ -12,7 +12,7 @@ import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
 import { checkEmailAvailability } from "@/services/register";
 
-export default function SingUp({ handleClose }) {
+export default function SingUp({ handleClose }: { handleClose: () => void }) {
     const [step, setStep] = useState(1)
     const [form, setForm] = useState({
         name: '',
@@ -77,7 +77,7 @@ export default function SingUp({ handleClose }) {
                     step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
                 }
                 {
-                    step === 5 && <FifthModalStep formData={form} />
+                    step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} />
                 }
 
 

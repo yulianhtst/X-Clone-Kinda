@@ -1,13 +1,24 @@
 import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import type { ChangeEvent } from 'react'
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 
-export default function FifthModalStep({ formData }: { formData: any }) {
+export default function FifthModalStep({ formData, updateFormValue }: { formData: any, updateFormValue: (name: string, value: string) => void }) {
 
     const onSubmitFormHandler = async () => {
-        const createUser = await fetch(API+"")
+        const createUser = await fetch(`${API}/auth/signup`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        })
     }
 
+    const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        updateFormValue(name, value)
+    }
     return (
         <>
             <Box
@@ -34,6 +45,7 @@ export default function FifthModalStep({ formData }: { formData: any }) {
             >
 
                 <TextField
+                    onChange={onPasswordChangeHandler}
                     label="Password"
                     name="password"
                     type="password"
