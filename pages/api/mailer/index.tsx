@@ -25,6 +25,8 @@ export default async function handler(
         const token = await createSessionDb(email)
         const info = await sendEmails(name, email)
         console.log('Email sent: ', info.response);
+        console.log({ token });
+
 
         res.status(200).json({ message: 'Email sent successfully', sessionToken: token });
     } catch (error) {

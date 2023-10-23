@@ -41,7 +41,7 @@ export const sendEmails = async (name: string, email: string) => {
 };
 
 export const createSessionDb = async (email: string) => {
-  await connect();
+  connect();
   PIN = Math.floor(Math.random() * 1000000);
 
   console.log("db");
@@ -58,7 +58,7 @@ export const createSessionDb = async (email: string) => {
 
 export const checkEmailAvailability = async (email: string) => {
   try {
-    const response = await fetch(API + "verify/verifyemail", {
+    const response = await fetch(`${API}/verify/verifyemail`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

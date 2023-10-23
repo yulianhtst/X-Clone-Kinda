@@ -20,7 +20,7 @@ export default function ThirdModalStep({ onClickHandler, onFocusHandler, formDat
             body: JSON.stringify(formData)
         }
 
-        const res = await fetch(API + "mailer", options)
+        const res = await fetch(`${API}/mailer`, options)
         const { sessionToken } = await res.json()
         window.sessionStorage.setItem('SignInSession', sessionToken)
     }

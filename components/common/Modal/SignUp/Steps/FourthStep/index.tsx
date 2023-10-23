@@ -1,4 +1,5 @@
 import { Box, Typography, TextField, Snackbar } from "@mui/material"
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ModalButton from "../../../Common/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
@@ -37,11 +38,7 @@ export default function FourthModalStep({ onClickHandler }) {
     const handleClick = () => {
         setOpen(true);
     };
-    const handleClose = (event, reason) => {
-        if (reason === 'clickaway') {
-            return;
-        }
-
+    const handleClose = () => {
         setOpen(false);
     };
 
@@ -62,10 +59,14 @@ export default function FourthModalStep({ onClickHandler }) {
                 {createPortal(
 
                     <Snackbar
+                        role="alert"
                         open={open}
                         onClose={handleClose}
-                        autoHideDuration={3000}
-                        message="Pin dont match"
+                        autoHideDuration={5000}
+                        message={
+                            <Typography>Pin don't match</Typography>
+                        }
+                        action={<HighlightOffIcon sx={{ color: 'rgb(247, 84, 62)' }} />}
                         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
                     />, document.body
                 )}
