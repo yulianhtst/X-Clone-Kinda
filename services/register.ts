@@ -57,6 +57,7 @@ export const createSessionDb = async (email: string) => {
 };
 
 export const checkEmailAvailability = async (email: string) => {
+  connect();
   try {
     const response = await fetch(`${API}/verify/verifyemail`, {
       method: "POST",
@@ -71,4 +72,10 @@ export const checkEmailAvailability = async (email: string) => {
   } catch (error) {
     console.error(error);
   }
+};
+export const terminateSignInSession = async (token: any) => {
+  connect();
+  await CreateUserSession.findOneAndDelete({
+    token,
+  });
 };

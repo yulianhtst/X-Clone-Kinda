@@ -8,9 +8,25 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  ///....TO DO
+  //Create User
+  //---Hash password
+  //---Create Authentication
+  //---Will be redirected
+  //Create Context for the form
+  // WIll need to validate the Data  maybe DTO will be good to be added
   connect();
-  const reqBody = req.body;
-  console.log(reqBody);
+  const { name, email, password } = req.body;
 
-  res.end();
+  const hashedPassword = await bcryptjs.hash(password, 10);
+
+  const newUser = new User({
+    name,
+    email,
+    hashedPassword,
+  });
+  const s = await newUser.save();
+  console.log(s);
+
+  res.json({ user: s });
 }

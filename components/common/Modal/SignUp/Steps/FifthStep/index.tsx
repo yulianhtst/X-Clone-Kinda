@@ -1,10 +1,10 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import { Box, Typography, TextField } from "@mui/material"
 import type { ChangeEvent } from 'react'
+import { useState } from 'react'
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
-
-export default function FifthModalStep({ formData, updateFormValue }: { formData: any, updateFormValue: (name: string, value: string) => void }) {
-
+export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: { formData: any, updateFormValue: (name: string, value: string) => void, onClickHandler: () => void }) {
+    const [error, setError] = useState('')
     const onSubmitFormHandler = async () => {
         const createUser = await fetch(`${API}/auth/signup`, {
             method: "POST",
@@ -13,11 +13,17 @@ export default function FifthModalStep({ formData, updateFormValue }: { formData
             },
             body: JSON.stringify(formData)
         })
+
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
-        updateFormValue(name, value)
+        if (value.length < 5) {
+            setError('The password is too short')
+        } else {
+            setError('')
+            updateFormValue(name, value)
+        }
     }
     return (
         <>
@@ -45,6 +51,8 @@ export default function FifthModalStep({ formData, updateFormValue }: { formData
             >
 
                 <TextField
+                    helperText={error}
+                    error={Boolean(error)}
                     onChange={onPasswordChangeHandler}
                     label="Password"
                     name="password"
@@ -53,7 +61,10 @@ export default function FifthModalStep({ formData, updateFormValue }: { formData
                         margin: '10px 0'
                     }}
                 />
-                <ModalButton content={'submit'} onClickHandler={onSubmitFormHandler} />
+                <ModalButton isDisabled={Boolean(error)} content={'submit'} onClickHandler={() => {
+                    onSubmitFormHandler()
+                    onClickHandler()
+                }} />
             </Box>
         </>
     )

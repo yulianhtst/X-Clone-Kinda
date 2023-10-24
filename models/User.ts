@@ -3,10 +3,10 @@ const { ObjectId } = Types;
 
 const UserSchema = new Schema({
   name: { type: String },
-  username: { type: String },
-  // password_hash: { type: String },
+  // username: { type: String },
+  password_hash: { type: String },
   email: { type: String },
-  bio: { type: String },
+  bio: { type: String, default: "" },
   // profile_picture_url: { type: String },
   // activity: { type: ObjectId, ref: "Activity" },
 });

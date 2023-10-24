@@ -77,7 +77,7 @@ export default function SingUp({ handleClose }: { handleClose: () => void }) {
                     step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
                 }
                 {
-                    step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} />
+                    step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} onClickHandler={handleClose} />
                 }
 
 

@@ -1,6 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
+import { terminateSignInSession } from "@/services/register";
 
 export default async function handler(
   req: NextApiRequest,
@@ -14,17 +15,17 @@ export default async function handler(
     PIN,
     token: sessionToken,
   });
-  console.log({
-    sessionToken,
-    PIN,
-    response,
-  });
 
   if (!response) {
     res.json({ error: "PIN dont match" });
   }
+
   if (response) {
-    res.json({ success: "OK" });
+    try {
+      terminateSignInSession(sessionToken);
+      res.json({ success: "OK" });
+    } catch (error) {
+      res.json({ error: "Could not find the session" });
+    }
   }
-  res.end();
 }
