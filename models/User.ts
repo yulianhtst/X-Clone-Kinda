@@ -4,7 +4,7 @@ const { ObjectId } = Types;
 const UserSchema = new Schema({
   name: { type: String },
   // username: { type: String },
-  password_hash: { type: String },
+  password: { type: String, required: true },
   email: { type: String },
   bio: { type: String, default: "" },
   // profile_picture_url: { type: String },

@@ -7,4 +7,5 @@ export const OAUTH_CLIENT_SECRET = "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";
 export const OAUTH_REFRESH_TOKEN =
   "1//04rDkRVnyd8IeCgYIARAAGAQSNwF-L9IrDgPFKwbrl1N708K-kWhjTjBx6jyyLGQ-Fmtwz_q--vbOMMtb6iOIRc7ZD-b0EulYDjo";
 export const API = "http://localhost:3000/api/";
-export const JWT_SECRET="Secret123"
+export const JWT_SESSION_SECRET="Secret123"
+export const JWT_LOGIN_SECRET="Secret321"

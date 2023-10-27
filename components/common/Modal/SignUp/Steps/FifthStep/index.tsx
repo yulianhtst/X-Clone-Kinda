@@ -13,7 +13,6 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
             },
             body: JSON.stringify(formData)
         })
-
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

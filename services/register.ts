@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken";
 
 import {
   API,
-  JWT_SECRET,
+  JWT_SESSION_SECRET,
   NODEMAILER_EMAIL,
   NODEMAILER_PASS,
   OAUTH_CLIENT_ID,
@@ -46,7 +46,7 @@ export const createSessionDb = async (email: string) => {
 
   console.log("db");
 
-  const token = jwt.sign({ email, PIN }, JWT_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, { expiresIn: "1h" });
 
   const userSession = new CreateUserSession({
     token,
