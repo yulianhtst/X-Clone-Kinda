@@ -11,4 +11,7 @@ const UserSchema = new Schema({
   // activity: { type: ObjectId, ref: "Activity" },
 });
 
+//Static fx
+// UserSchema.statics.
+
 export default mongoose.models.User || mongoose.model("User", UserSchema);

@@ -1,10 +1,9 @@
 import { connect } from "@/dbConfig/dbConfig";
-import next, { NextApiRequest, NextApiResponse } from "next";
+import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import bcryptjs, { hash } from "bcryptjs";
 import User from "@/models/User";
-import { NextResponse } from "next/server";
 import { JWT_LOGIN_SECRET } from "@/Constants";
+import { createUser } from "@/services/register";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,41 +19,29 @@ export default async function handler(
   //Create Context for the form
   // WIll need to validate the Data  maybe DTO will be good to be added
   connect();
-  const { name, email, password } = req.body;
+  const formData = req.body;
 
-  const hashedPassword = await bcryptjs.hash(password, 10);
+  const createdUser = await createUser(formData).catch((err) =>
+    console.error(err)
+  );
 
-  const newUser = new User({
-    name,
-    email,
-    password: hashedPassword,
+  const payload = {
+    _id: createdUser._id.toString(),
+    username: createdUser.username,
+    email: createdUser.email,
+  };
+
+  const loginToken = jwt.sign(payload, JWT_LOGIN_SECRET, {
+    expiresIn: "1d",
   });
 
-  try {
-    //This will be removed to service
-    const { _id, username, password } = await newUser.save();
-
-    console.log(_id);
-
-    const payload = {
-      _id: _id.toString(),
-      username,
-      password,
-    };
-
-    const loginToken = jwt.sign(payload, JWT_LOGIN_SECRET, {
-      expiresIn: "1d",
-    });
-
-    console.log(loginToken);
-
-    const nextRes = NextResponse.json({
-      message: "Successfully  created a user",
-      token: loginToken,
-    });
-    // nextRes.cookies.set("loginToken", loginToken, { httpOnly: true });
-    return nextRes;
-  } catch (error) {
-    console.error(error);
-  }
+  res.setHeader(
+    "set-cookie",
+    `loggedUser=${loginToken};Expires=${1000 * 60 * 60 * 24}; HttpOnly;`
+  );
+  res.json({
+    message: "Successfully  created a user",
+    token: loginToken,
+    user: payload,
+  });
 }

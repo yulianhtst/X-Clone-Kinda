@@ -3,16 +3,21 @@ import type { ChangeEvent } from 'react'
 import { useState } from 'react'
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
+import { useRouter } from "next/router"
 export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: { formData: any, updateFormValue: (name: string, value: string) => void, onClickHandler: () => void }) {
     const [error, setError] = useState('')
+    const router = useRouter()
+
     const onSubmitFormHandler = async () => {
-        const createUser = await fetch(`${API}/auth/signup`, {
+        const createdUser = await fetch(`${API}/auth/signup`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
             },
             body: JSON.stringify(formData)
         })
+        if(createdUser)router.push('/about')
+
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

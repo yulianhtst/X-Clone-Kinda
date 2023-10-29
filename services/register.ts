@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 
 import {
   API,
+  JWT_LOGIN_SECRET,
   JWT_SESSION_SECRET,
   NODEMAILER_EMAIL,
   NODEMAILER_PASS,
@@ -12,6 +13,9 @@ import {
 } from "@/Constants";
 import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
+import User from "@/models/User";
+import bcryptjs from "bcryptjs";
+
 let PIN: number;
 
 export const sendEmails = async (name: string, email: string) => {
@@ -46,7 +50,9 @@ export const createSessionDb = async (email: string) => {
 
   console.log("db");
 
-  const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, { expiresIn: "1h" });
+  const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, {
+    expiresIn: "1h",
+  });
 
   const userSession = new CreateUserSession({
     token,
@@ -78,4 +84,17 @@ export const terminateSignInSession = async (token: any) => {
   await CreateUserSession.findOneAndDelete({
     token,
   });
+};
+
+export const createUser = async ({ name, email, password }:any) => {
+  const hashedPassword = await bcryptjs.hash(password, 10);
+
+  const user = new User({
+    name,
+    email,
+    password: hashedPassword,
+  });
+
+  const createdUser = await user.save();
+  return createdUser;
 };

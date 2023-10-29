@@ -10,6 +10,7 @@ export default async function handler(
   connect();
   const { PIN } = req.body;
   const sessionToken = req.headers["authorization"]?.slice(7);
+  // const sessionToken = req.headers["authorization"]?.split(" ")[1];
 
   const response = await CreateUserSession.findOne({
     PIN,
