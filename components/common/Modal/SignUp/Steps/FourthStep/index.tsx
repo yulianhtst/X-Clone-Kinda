@@ -5,9 +5,9 @@ import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
 import { API } from "@/Constants"
 
-export default function FourthModalStep({ onClickHandler }) {
+export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
     const inputRef = useRef('')
-    const [open, setOpen] = useState(false);
+    const [open, setOpen] = useState<boolean>(false);
 
 
 
@@ -18,10 +18,8 @@ export default function FourthModalStep({ onClickHandler }) {
             headers: {
                 'Authorization': `Bearer ${token}`,
                 "Content-Type": "application/json",
-                "Action": "Verify-PIN"
             },
             body: JSON.stringify({ PIN: inputRef.current })
-            // body: JSON.stringify({ PIN: 174000 })
         }
 
         const res = await fetch(`${API}/verify/verifypin`, options)
@@ -92,9 +90,9 @@ export default function FourthModalStep({ onClickHandler }) {
                     }}
                 />
                 {/* <Button sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
-                <ModalButton isDisabled={false} content={'Next'} onClickHandler={() => {
-                    onNextClickFetch()
-                }} />
+                <ModalButton disabled={false} content={'Next'}
+                    handler={onNextClickFetch}
+                />
             </Box>
 
         </>

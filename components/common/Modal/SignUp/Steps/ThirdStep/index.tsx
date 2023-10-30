@@ -3,9 +3,13 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 
-export default function ThirdModalStep({ onClickHandler, onFocusHandler, formData }: {
-    onClickHandler: () => void, onFocusHandler: () => void, formData: any
-}) {
+type ThirdModalStepProps = {
+    formData: any
+    onClickHandler: () => void,
+    onFocusHandler: () => void,
+}
+
+export default function ThirdModalStep({ onClickHandler, onFocusHandler, formData }: ThirdModalStepProps) {
 
     //Here maybe i should create {name ,email} and send it instead
     //I should choose if i would delete the token after this request
@@ -91,10 +95,11 @@ export default function ThirdModalStep({ onClickHandler, onFocusHandler, formDat
                     }}
 
                 />
-                <ModalButton content={'Next'} onClickHandler={() => {
-                    onNextClickFetch()
-                    onClickHandler()
-                }} />
+                <ModalButton content={'Next'}
+                    handler={() => {
+                        onNextClickFetch()
+                        onClickHandler()
+                    }} />
             </Box>
         </>
     )

@@ -10,11 +10,18 @@ import SecondModalStep from "./Steps/SecondStep";
 import ThirdModalStep from "./Steps/ThirdStep";
 import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
-import { checkEmailAvailability } from "@/services/register";
+import { checkEmailAvailability } from "@/services/ServerSide/register";
+
+interface LoginForm {
+    name: string,
+    email: string,
+    password: string,
+    isValid: boolean,
+}
 
 export default function SingUp({ handleClose }: { handleClose: () => void }) {
     const [step, setStep] = useState(1)
-    const [form, setForm] = useState({
+    const [form, setForm] = useState<LoginForm>({
         name: '',
         email: '',
         password: '',

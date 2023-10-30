@@ -4,7 +4,13 @@ import { useState } from 'react'
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 import { useRouter } from "next/router"
-export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: { formData: any, updateFormValue: (name: string, value: string) => void, onClickHandler: () => void }) {
+type FifthModalStepProps = {
+    formData: any,
+    updateFormValue: (name: string, value: string | boolean) => void,
+    onClickHandler: () => void
+}
+
+export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: FifthModalStepProps) {
     const [error, setError] = useState('')
     const router = useRouter()
 
@@ -16,7 +22,7 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
             },
             body: JSON.stringify(formData)
         })
-        if(createdUser)router.push('/about')
+        if (createdUser) router.replace('/about')
 
     }
 
@@ -65,10 +71,11 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                         margin: '10px 0'
                     }}
                 />
-                <ModalButton isDisabled={Boolean(error)} content={'submit'} onClickHandler={() => {
-                    onSubmitFormHandler()
-                    onClickHandler()
-                }} />
+                <ModalButton disabled={Boolean(error)} content={'submit'}
+                    handler={() => {
+                        onSubmitFormHandler()
+                        onClickHandler()
+                    }} />
             </Box>
         </>
     )

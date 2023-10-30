@@ -1,12 +1,17 @@
 import LoginComponent from '@/components/Login';
-import Layout from '@/components/layout/MainLayout';
-import HomePage from '@/components/pages/HomePage';
 import Head from 'next/head'
+import { AuthContext } from '@/context/authContext';
+import { useState } from 'react';
 
 export default function Home() {
-  let stan: number;
 
 
+  const [auth, setAuth] = useState({})
+
+
+  const userAuth = (userAuthData: any) => {
+    setAuth(userAuthData)
+  }
   return (
     <>
       <Head>
@@ -15,13 +20,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+      <AuthContext.Provider value={{ auth, userAuth }}>
 
-      <LoginComponent />
-      {/* <Layout>
+        <LoginComponent />
+        {/* <Layout>
         <HomePage />
       </Layout> */}
 
-      {/* Дали е логнат потребителят*/}
+        {/* Дали е логнат потребителят*/}
+      </AuthContext.Provider>
     </>
   )
 }

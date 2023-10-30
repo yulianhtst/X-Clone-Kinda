@@ -1,9 +1,10 @@
 import { connect } from "@/dbConfig/dbConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import User from "@/models/User";
 import { JWT_LOGIN_SECRET } from "@/Constants";
-import { createUser } from "@/services/register";
+// import { createUser } from "@/services/register";
+import User from "@/models/User";
+import bcryptjs from "bcryptjs";
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,9 +22,16 @@ export default async function handler(
   connect();
   const formData = req.body;
 
-  const createdUser = await createUser(formData).catch((err) =>
-    console.error(err)
-  );
+  // const createdUser = await createUser(formData).catch((err) =>
+  //   console.error(err)
+  // );
+  const hashedPassword = await bcryptjs.hash(formData.password, 10);
+
+  const createdUser = await new User({
+    name: formData.name,
+    email: formData.email,
+    password: hashedPassword,
+  }).save();
 
   const payload = {
     _id: createdUser._id.toString(),
@@ -35,10 +43,12 @@ export default async function handler(
     expiresIn: "1d",
   });
 
-  res.setHeader(
-    "set-cookie",
-    `loggedUser=${loginToken};Expires=${1000 * 60 * 60 * 24}; HttpOnly;`
-  );
+  // res.setHeader(
+  //   "set-cookie",
+  //   `loggedUser=${loginToken};Expires=${
+  //     1000 * 60 * 60 * 24
+  //   }; Path="/" HttpOnly;`
+  // );
   res.json({
     message: "Successfully  created a user",
     token: loginToken,

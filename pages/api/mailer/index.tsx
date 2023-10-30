@@ -1,6 +1,6 @@
 import { NODEMAILER_EMAIL, NODEMAILER_PASS, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_REFRESH_TOKEN } from "@/Constants";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createSessionDb, sendEmails } from "@/services/register";
+import { createSessionDb, sendEmails } from "@/services/ServerSide/register";
 import { connect } from "@/dbConfig/dbConfig";
 
 ///////////////////////////////////////////////////////////

@@ -13,8 +13,8 @@ import {
 } from "@/Constants";
 import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
-import User from "@/models/User";
 import bcryptjs from "bcryptjs";
+import User from "../../models/User";
 
 let PIN: number;
 
@@ -86,15 +86,16 @@ export const terminateSignInSession = async (token: any) => {
   });
 };
 
-export const createUser = async ({ name, email, password }:any) => {
-  const hashedPassword = await bcryptjs.hash(password, 10);
+// export const createUser = async ({ name, email, password }:any) => {
+//   connect()
+//   const hashedPassword = await bcryptjs.hash(password, 10);
 
-  const user = new User({
-    name,
-    email,
-    password: hashedPassword,
-  });
+//   const userSchema = new User({
+//     name,
+//     email,
+//     password: hashedPassword,
+//   });
 
-  const createdUser = await user.save();
-  return createdUser;
-};
+//   const createdUser = await userSchema.save();
+//   return createdUser;
+// };

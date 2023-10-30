@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import CreateUserSession from "@/models/CreateUserSession";
 import { connect } from "@/dbConfig/dbConfig";
-import { terminateSignInSession } from "@/services/register";
+import { terminateSignInSession } from "@/services/ServerSide/register";
 
 export default async function handler(
   req: NextApiRequest,
@@ -9,8 +9,8 @@ export default async function handler(
 ) {
   connect();
   const { PIN } = req.body;
-  const sessionToken = req.headers["authorization"]?.slice(7);
-  // const sessionToken = req.headers["authorization"]?.split(" ")[1];
+  // const sessionToken = req.headers["authorization"]?.slice(7);
+  const sessionToken = req.headers["authorization"]?.split(" ")[1];
 
   const response = await CreateUserSession.findOne({
     PIN,
