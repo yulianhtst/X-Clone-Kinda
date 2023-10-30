@@ -45,20 +45,10 @@ export const sendEmails = async (name: string, email: string) => {
 };
 
 export const createSessionDb = async (email: string) => {
-  connect();
   PIN = Math.floor(Math.random() * 1000000);
-
-  console.log("db");
-
   const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, {
     expiresIn: "1h",
   });
-
-  const userSession = new CreateUserSession({
-    token,
-    PIN,
-  });
-  userSession.save();
   return token;
 };
 

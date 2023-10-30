@@ -8,6 +8,7 @@ import { API } from "@/Constants"
 export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
     const inputRef = useRef('')
     const [open, setOpen] = useState<boolean>(false);
+    const [error, setError] = useState(null)
 
 
 
@@ -26,9 +27,9 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
         const resJSON = await res.json()
         if (!resJSON.error) {
             onClickHandler()
-
         } else {
             handleClick()
+            setError(resJSON.message)
             console.log('error');
         }
 
@@ -62,7 +63,7 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
                         onClose={handleClose}
                         autoHideDuration={5000}
                         message={
-                            <Typography>Pin don't match</Typography>
+                            <Typography>{error}</Typography>
                         }
                         action={<HighlightOffIcon sx={{ color: 'rgb(247, 84, 62)' }} />}
                         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
@@ -81,7 +82,6 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
             >
 
                 <TextField
-                    ref={inputRef}
                     onChange={(e) => inputRef.current = e.target.value}
                     label="PIN"
                     name="pin"
