@@ -10,7 +10,6 @@ import SecondModalStep from "./Steps/SecondStep";
 import ThirdModalStep from "./Steps/ThirdStep";
 import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
-import { checkEmailAvailability } from "@/services/ServerSide/register";
 
 interface LoginForm {
     name: string,

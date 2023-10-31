@@ -1,17 +1,18 @@
 import LoginComponent from '@/components/Login';
 import Head from 'next/head'
-import { AuthContext } from '@/context/authContext';
+import { AuthContext } from '@/context/AuthContext';
 import { useState } from 'react';
 
 export default function Home() {
 
 
-  const [auth, setAuth] = useState({})
+  const [auth, setAuth] = useState()
 
 
   const userAuth = (userAuthData: any) => {
     setAuth(userAuthData)
   }
+  console.log(auth);
   return (
     <>
       <Head>

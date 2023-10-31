@@ -1,4 +1,4 @@
-import { connect } from "@/dbConfig/dbConfig";
+import { connectDb } from "@/dbConfig/dbConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { JWT_LOGIN_SECRET } from "@/Constants";
@@ -19,7 +19,7 @@ export default async function handler(
   //---Will be redirected
   //Create Context for the form
   // WIll need to validate the Data  maybe DTO will be good to be added
-  connect();
+  await connectDb();
   const formData = req.body;
 
   // const createdUser = await createUser(formData).catch((err) =>

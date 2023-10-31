@@ -1,9 +1,10 @@
 import { Box, Typography, TextField } from "@mui/material"
 import type { ChangeEvent } from 'react'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 import { useRouter } from "next/router"
+import { AuthContext } from "@/context/AuthContext"
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
@@ -11,6 +12,7 @@ type FifthModalStepProps = {
 }
 
 export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: FifthModalStepProps) {
+    const { userAuth } = useContext(AuthContext)
     const [error, setError] = useState('')
     const router = useRouter()
 
@@ -22,8 +24,9 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
             },
             body: JSON.stringify(formData)
         })
+        const currentUser = await createdUser.json()
+        userAuth(currentUser)
         if (createdUser) router.replace('/about')
-
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

@@ -1,12 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connect } from "@/dbConfig/dbConfig";
+import { connectDb } from "@/dbConfig/dbConfig";
 import User from "@/models/User";
 
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  connect();
+  await connectDb();
 
   const { email } = req.body;
 

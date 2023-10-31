@@ -3,7 +3,6 @@ import jwt from "jsonwebtoken";
 
 import {
   API,
-  JWT_LOGIN_SECRET,
   JWT_SESSION_SECRET,
   NODEMAILER_EMAIL,
   NODEMAILER_PASS,
@@ -11,8 +10,6 @@ import {
   OAUTH_CLIENT_SECRET,
   OAUTH_REFRESH_TOKEN,
 } from "@/Constants";
-import CreateUserSession from "@/models/CreateUserSession";
-import { connect } from "@/dbConfig/dbConfig";
 import bcryptjs from "bcryptjs";
 import User from "../../models/User";
 
@@ -44,7 +41,7 @@ export const sendEmails = async (name: string, email: string) => {
   return await transporter.sendMail(mailOptions);
 };
 
-export const createSessionDb = async (email: string) => {
+export const createSessionToken = async (email: string) => {
   PIN = Math.floor(Math.random() * 1000000);
   const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, {
     expiresIn: "1h",
@@ -53,7 +50,6 @@ export const createSessionDb = async (email: string) => {
 };
 
 export const checkEmailAvailability = async (email: string) => {
-  connect();
   try {
     const response = await fetch(`${API}/verify/verifyemail`, {
       method: "POST",
@@ -69,12 +65,7 @@ export const checkEmailAvailability = async (email: string) => {
     console.error(error);
   }
 };
-export const terminateSignInSession = async (token: any) => {
-  connect();
-  await CreateUserSession.findOneAndDelete({
-    token,
-  });
-};
+
 
 // export const createUser = async ({ name, email, password }:any) => {
 //   connect()

@@ -1,7 +1,5 @@
-import { NODEMAILER_EMAIL, NODEMAILER_PASS, OAUTH_CLIENT_ID, OAUTH_CLIENT_SECRET, OAUTH_REFRESH_TOKEN } from "@/Constants";
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createSessionDb, sendEmails } from "@/services/ServerSide/register";
-import { connect } from "@/dbConfig/dbConfig";
+import { createSessionToken, sendEmails } from "@/services/ServerSide/register";
 
 ///////////////////////////////////////////////////////////
 //      PROBLEMS THAT NEED TO BE FIXED 
@@ -22,11 +20,9 @@ export default async function handler(
 
 
     try {
-        const token = await createSessionDb(email)
+        const token = await createSessionToken(email)
         const info = await sendEmails(name, email)
         console.log('Email sent: ', info.response);
-        console.log({ token });
-
 
         res.status(200).json({ message: 'Email sent successfully', sessionToken: token });
     } catch (error) {

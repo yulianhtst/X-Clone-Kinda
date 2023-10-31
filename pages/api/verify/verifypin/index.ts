@@ -1,8 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import CreateUserSession from "@/models/CreateUserSession";
-import { connect } from "@/dbConfig/dbConfig";
-import { terminateSignInSession } from "@/services/ServerSide/register";
-import jwt from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 import { JWT_SESSION_SECRET } from "@/Constants";
 
 export default async function handler(
@@ -20,7 +17,7 @@ export default async function handler(
       throw new Error("No session token provided");
     }
 
-    const result = jwt.verify(sessionToken, JWT_SESSION_SECRET);
+    const result: any = jwt.verify(sessionToken, JWT_SESSION_SECRET);
 
     if (result.PIN !== Number(PIN)) {
       throw new Error("PIN does not match");

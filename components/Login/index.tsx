@@ -143,7 +143,7 @@ export default function LoginComponent() {
                                 Sign up
                             </Button>
                             <Typography
-                                color="grey"
+                                color="#808080"
                                 fontSize="0.55rem"
                             >
                                 By signing up, you agree to the
