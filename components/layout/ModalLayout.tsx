@@ -1,6 +1,3 @@
-// components/Layout.js
-import AsideComponent from './Aside';
-import SuggestionsComponent from './Suggestions';
 import { Box } from '@mui/material';
 
 

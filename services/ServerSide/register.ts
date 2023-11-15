@@ -66,7 +66,6 @@ export const checkEmailAvailability = async (email: string) => {
   }
 };
 
-
 // export const createUser = async ({ name, email, password }:any) => {
 //   connect()
 //   const hashedPassword = await bcryptjs.hash(password, 10);

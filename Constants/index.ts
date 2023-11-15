@@ -5,7 +5,7 @@ export const OAUTH_CLIENT_ID =
   "966582551434-c5edo0tj099dmca1ihn4g0uohm1s0882.apps.googleusercontent.com";
 export const OAUTH_CLIENT_SECRET = "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";
 export const OAUTH_REFRESH_TOKEN =
-"1//04KykX88iMbmLCgYIARAAGAQSNwF-L9IrVCl7e6emK5CKd7MoXm0Af3ZtOlgezg0O8-q8AD6P916PRsteFn-MfXuYhERcf-mIGiA";
+  "1//04vxgqmVTbVFyCgYIARAAGAQSNwF-L9IrQsQD4oWv3lEk1GiQWIDFMQtcdaPmrTPjpDhWUA0lZS-5AxK-ucKy2AEtB-Hl85xePns";
 export const API = "http://localhost:3000/api/";
-export const JWT_SESSION_SECRET="Secret123"
-export const JWT_LOGIN_SECRET="Secret321"
+export const JWT_SESSION_SECRET = "Secret123";
+export const JWT_LOGIN_SECRET = "Secret321";

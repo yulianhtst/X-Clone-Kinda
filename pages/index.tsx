@@ -6,13 +6,13 @@ import { useState } from 'react';
 export default function Home() {
 
 
-  const [auth, setAuth] = useState()
+  // const [auth, setAuth] = useState()
 
 
-  const userAuth = (userAuthData: any) => {
-    setAuth(userAuthData)
-  }
-  console.log(auth);
+  // const userAuth = (userAuthData: any) => {
+  //   setAuth(userAuthData)
+  // }
+  // console.log(auth);
   return (
     <>
       <Head>
@@ -21,15 +21,12 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <AuthContext.Provider value={{ auth, userAuth }}>
+      {/* <AuthContext.Provider value={{ auth, userAuth }}> */}
 
         <LoginComponent />
-        {/* <Layout>
-        <HomePage />
-      </Layout> */}
 
-        {/* Дали е логнат потребителят*/}
-      </AuthContext.Provider>
+
+      {/* </AuthContext.Provider> */}
     </>
   )
 }

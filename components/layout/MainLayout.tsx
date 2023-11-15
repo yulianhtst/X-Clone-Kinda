@@ -6,17 +6,18 @@ import { Box } from '@mui/material';
 
 export default function Layout({ children }: { children: JSX.Element }) {
     return (
-        <Box
-            display="flex"
-            sx={{
-                ">*": { flexBasis: '100%' }
 
-            }}>
+            <Box
+                display="flex"
+                sx={{
+                    ">*": { flexBasis: '100%' }
 
-            <AsideComponent />
-            {children}
-            <SuggestionsComponent />
+                }}>
 
-        </Box>
+                <AsideComponent />
+                {children}
+                <SuggestionsComponent />
+
+            </Box>
     );
 }

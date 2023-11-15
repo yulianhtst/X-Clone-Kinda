@@ -5,14 +5,17 @@ import ModalButton from "../../../Common/ModalButton"
 import { API } from "@/Constants"
 import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
+import { connectDb } from "@/dbConfig/dbConfig"
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
     onClickHandler: () => void
 }
 
+
 export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: FifthModalStepProps) {
-    const { userAuth } = useContext(AuthContext)
+
+    const { auth, userAuth } = useContext<any>(AuthContext)
     const [error, setError] = useState('')
     const router = useRouter()
 
@@ -25,6 +28,8 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
             body: JSON.stringify(formData)
         })
         const currentUser = await createdUser.json()
+
+        console.log(currentUser, 'user');
         userAuth(currentUser)
         if (createdUser) router.replace('/about')
     }
