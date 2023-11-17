@@ -5,6 +5,7 @@ import { JWT_LOGIN_SECRET } from "@/Constants";
 // import { createUser } from "@/services/register";
 import User from "@/models/User";
 import bcryptjs from "bcryptjs";
+import { NextResponse } from "next/server";
 
 export default async function handler(
   req: NextApiRequest,
@@ -43,12 +44,15 @@ export default async function handler(
     expiresIn: "1d",
   });
 
-  // res.setHeader(
-  //   "set-cookie",
-  //   `loggedUser=${loginToken};Expires=${
-  //     1000 * 60 * 60 * 24
-  //   }; Path="/" HttpOnly;`
-  // );
+  res.setHeader(
+    "Set-Cookie",
+    `loggedUser=${loginToken};Expires=${new Date(
+      Date.now() + 1000 * 60 * 60*60*24
+    ).toUTCString()};Path=/;`
+  );
+
+  // Path="/";
+
   res.json({
     message: "Successfully  created a user",
     token: loginToken,

@@ -1,10 +1,7 @@
-import { AuthContext } from "@/context/AuthContext";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
-import { useContext } from 'react'
 
 export default function AsideComponent() {
-    const { auth } = useContext(AuthContext)
     const router = useRouter()
 
     const routes = [
@@ -21,9 +18,7 @@ export default function AsideComponent() {
     ];
 
     const onClickHandler = (path: string) => {
-        if(auth){
-            router.push(path)
-        }
+        router.push(path)
     }
 
     return (

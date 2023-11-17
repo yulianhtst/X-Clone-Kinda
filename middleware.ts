@@ -1,21 +1,32 @@
-import { NextResponse } from "next/server";
-import type { NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
 // This function can be marked `async` if using `await` inside
-export function middleware(request: NextRequest) {
-  // console.log("middleware");
-  const cookies = request.cookies.getAll();
-  console.log(cookies);
+export function middleware(req: NextRequest) {
+  const token = req.cookies.get("loggedUser")?.value || "";
 
-  return new Response(
-    JSON.stringify({
-      message: "from middleware",
-    })
-  );
-  return;
+  const path = req.nextUrl.pathname;
+  const isPublicPath = path === "/";
+
+  if (isPublicPath && token) {
+    return NextResponse.redirect(new URL("/explore", req.nextUrl));
+  }
+  if (!isPublicPath && !token) {
+    return NextResponse.redirect(new URL("/", req.nextUrl));
+  }
 }
 
-// See "Matching Paths" below to learn more
 export const config = {
-  matcher: "/about",
+  matcher: [
+    "/",
+    "/explore",
+    "/notifications",
+    "/messages",
+    "/lists",
+    "/bookmarks",
+    "/communities",
+    "/premium",
+    "/profile",
+    "/more",
+    "/about",
+  ],
 };
