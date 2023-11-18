@@ -31,7 +31,7 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
 
         console.log(currentUser, 'user');
         userAuth(currentUser)
-        if (createdUser) router.replace('/about')
+        if (createdUser) router.replace('/explore')
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

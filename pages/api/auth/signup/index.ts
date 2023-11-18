@@ -36,7 +36,7 @@ export default async function handler(
 
   const payload = {
     _id: createdUser._id.toString(),
-    username: createdUser.username,
+    name: createdUser.name,
     email: createdUser.email,
   };
 
@@ -47,7 +47,7 @@ export default async function handler(
   res.setHeader(
     "Set-Cookie",
     `loggedUser=${loginToken};Expires=${new Date(
-      Date.now() + 1000 * 60 * 60*60*24
+      Date.now() + 1000 * 60 * 60 * 60 * 24
     ).toUTCString()};Path=/;`
   );
 
