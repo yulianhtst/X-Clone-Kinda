@@ -1,6 +1,5 @@
 import { connectDb } from "@/dbConfig/dbConfig";
 import { NextApiRequest, NextApiResponse } from "next";
-import Post from "@/models/Post";
 import { createPost } from "@/services/ServerSide/create";
 
 export default async function handler(
