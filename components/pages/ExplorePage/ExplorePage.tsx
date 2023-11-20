@@ -1,7 +1,10 @@
 import { Box } from "@mui/material";
 import CustomizedInputBase from "./CreatePost";
 
+
+
 export default function ExplorePage() {
+
     return (
         <Box
             display="flex"

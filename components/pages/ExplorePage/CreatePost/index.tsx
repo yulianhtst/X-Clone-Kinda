@@ -23,8 +23,7 @@ export default function CustomizedInputBase() {
 
 
         const createdPost = await axios.post(`${API}/posts`, postData)
-        console.log(createdPost);
-        
+
     }
     const onChange = (e) => {
         const value = e.target.value

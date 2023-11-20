@@ -9,6 +9,5 @@ export default async function handler(
   connectDb();
   const token = req.headers["Authorization"];
 
-  console.log({token});
-  
+
 }
