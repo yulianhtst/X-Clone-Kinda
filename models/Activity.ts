@@ -1,7 +1,10 @@
-import mongoose, { Schema, model, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 const { ObjectId } = Types;
 
-const ActivitySchema = new Schema({
+export const ActivitySchema = new Schema({
+  // title: { type: String },//For testing 
+  // user: { type: ObjectId, ref: "User" },
+  
   posts: { type: [ObjectId], ref: "Post" },
   comments: { type: [ObjectId], ref: "Comment" },
   comments_likes: { type: [ObjectId], ref: "CommentLikes" },

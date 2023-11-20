@@ -1,4 +1,5 @@
 import mongoose, { Schema, model, Types } from "mongoose";
+import Activity from "./Activity";
 const { ObjectId } = Types;
 
 const UserSchema = new Schema({
@@ -9,9 +10,7 @@ const UserSchema = new Schema({
   bio: { type: String, default: "" },
   // profile_picture_url: { type: String },
   // activity: { type: ObjectId, ref: "Activity" },
+  activity: Activity.schema,
 });
-
-//Static fx
-// UserSchema.statics.
 
 export default mongoose.models.User || mongoose.model("User", UserSchema);

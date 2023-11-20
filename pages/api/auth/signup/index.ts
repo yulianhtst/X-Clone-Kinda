@@ -6,6 +6,7 @@ import { JWT_LOGIN_SECRET } from "@/Constants";
 import User from "@/models/User";
 import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
+import { createUser } from "@/services/ServerSide/create";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,11 +29,13 @@ export default async function handler(
   // );
   const hashedPassword = await bcryptjs.hash(formData.password, 10);
 
-  const createdUser = await new User({
+  const userData = {
     name: formData.name,
     email: formData.email,
     password: hashedPassword,
-  }).save();
+  };
+
+  const createdUser = await createUser(userData);
 
   const payload = {
     _id: createdUser._id.toString(),

@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/MainLayout";
-import ExplorePage from "@/components/pages/ExplorePage";
+import ExplorePage from "@/components/pages/ExplorePage/ExplorePage";
 
 export default function Explore() {
     return (
