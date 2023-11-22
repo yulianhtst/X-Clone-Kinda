@@ -1,16 +1,16 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import { useState } from "react"
+import { Modal, Box } from "@mui/material"
 import SingUp from "./SignUp"
+import Login from "./Login"
 
 interface IModalProps {
     isOpen: boolean
+    button: string | null
     handleClose: () => void
 }
 
 
-export default function ModalComponent({ isOpen, handleClose }: IModalProps) {
+export default function ModalComponent({ isOpen, handleClose, button }: IModalProps) {
 
-    //Prop Drilling NEED TO BE FIXED
 
     return (
         <Modal
@@ -33,8 +33,12 @@ export default function ModalComponent({ isOpen, handleClose }: IModalProps) {
                     color: 'black',
                     p: '10px'
                 }}>
-
-                <SingUp handleClose={handleClose} />
+                {button === 'Sign up' &&
+                    <Login handleClose={handleClose} />
+                }
+                {button === 'Create account' &&
+                    <SingUp handleClose={handleClose} />
+                }
 
             </Box>
         </Modal >

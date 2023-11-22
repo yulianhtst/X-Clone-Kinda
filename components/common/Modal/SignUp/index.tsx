@@ -1,8 +1,7 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import CloseIcon from '@mui/icons-material/Close';
+import { Box, Typography, IconButton } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import ModalLayout from "@/components/layout/ModalLayout";
 
 import FirstModalStep from "./Steps/FirstStep";
@@ -10,6 +9,7 @@ import SecondModalStep from "./Steps/SecondStep";
 import ThirdModalStep from "./Steps/ThirdStep";
 import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
+import CloseButton from "../Common/CloseButton";
 
 interface LoginForm {
     name: string,
@@ -46,11 +46,9 @@ export default function SingUp({ handleClose }: { handleClose: () => void }) {
 
     return (
         <>
-            <Box
-                display="flex"
-            >
+            <Box display="flex" >
                 {step == 1 ?
-                    <IconButton onClick={handleClose}><CloseIcon /></IconButton>
+                    <CloseButton handleClose={handleClose} />
                     :
                     <IconButton onClick={onBackBtnClickHandler}><ArrowBackIosIcon /></IconButton>
                 }

@@ -7,8 +7,14 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connectDb();
+  const [userId] = req.query.id;
 
+  const user = await User.findById(userId);
+  const userDTO = {
+    name: user.name,
+    email: user.email,
+  };
 
-
-  res.end();
+  res.json(userDTO);
 }
+

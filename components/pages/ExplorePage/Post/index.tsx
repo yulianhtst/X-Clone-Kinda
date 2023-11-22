@@ -4,6 +4,7 @@ import { Box, Typography, Button, Icon } from '@mui/material'
 import Image from 'next/image'
 import img from '@/public/images/DSC_0078.JPG'
 import { useRef, useEffect, useState } from 'react'
+import { PostInfo } from './PostInfo'
 
 type PostProps = {
     _id: string,
@@ -40,14 +41,8 @@ export const Post = ({ content, user_id }: PostProps) => {
                 </Icon>
 
             </Box>
-            <Box
-                display="flex" flexDirection="column"
-                sx={{
-                    p: '10px',
-                    width: '100%',
-                    justifyContent: 'space-between'
-                }}
-            >
+            <Box display="flex" flexDirection="column">
+                <PostInfo id={user_id} />
                 <Box>
                     <Box
                         ref={divRef}
@@ -72,7 +67,7 @@ export const Post = ({ content, user_id }: PostProps) => {
                     }
                     {/* <Box>
                 <Image />
-            </Box> */}
+                </Box> */}
                 </Box>
                 <Box>
                     <Button size='small'>

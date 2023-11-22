@@ -3,6 +3,7 @@ import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/mate
 import { useState, useEffect } from 'react'
 import type { ChangeEvent, FocusEvent } from 'react'
 import ModalButton from "../../../Common/ModalButton";
+import { useValidateFields } from "@/hooks/useValidateFields";
 // import * as validate from '@/validation/ClientSide/validateCl'
 
 
@@ -12,51 +13,26 @@ type FirstModalStepProps = {
     updateFormValue: (name: string, value: string | boolean) => void;
 };
 export default function FirstModalStep({ formData, onClickHandler, updateFormValue }: FirstModalStepProps) {
-    const [isEmailValid, setIsEmailValid] = useState<boolean>(false)
-    const [isNameValid, setIsNameValid] = useState<boolean>(false)
-    const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(false)
-    const [message, setMessage] = useState<string>('')
+    const {
+        isEmailValid,
+        isNameValid,
+        isEmailAvailable,
+        message,
+    } = useValidateFields(formData)
 
-
-    //onChange updates form email field
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         updateFormValue(name, value);
     }
-    //onChange updates form name field
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         updateFormValue(name, value);
     }
-    //useEffect enable/disable button
     useEffect(() => {
         const isFormValid = Boolean((isNameValid && isEmailAvailable && isEmailValid))
         updateFormValue("isValid", isFormValid)
     }, [isEmailValid, isEmailAvailable, isNameValid])
-    //useEffect checks if email is valid ormat
-    useEffect(() => {
-        const pattern = new RegExp("([a-zA-Z0-9]+)@([a-zA-Z]+)\\.([a-zA-Z]+)")
-        const isEmailValid = pattern.test(formData.email)
-        setIsEmailValid(isEmailValid)
-        setMessage(isEmailValid ? "" : "Please enter a valid email.")
-        if (formData.email === "") setMessage("")
-    }, [formData.email])
-    //useEffect checks if email already in use
-    useEffect(() => {
-        (async () => {
-            const isEmailAvailable = await checkEmailAvailability(formData.email);
 
-            setIsEmailAvailable(isEmailAvailable);
-
-            if (isEmailAvailable) return;
-            setMessage("Email has already been taken.");
-            if (formData.email === "") setMessage("");
-        })();
-    }, [formData.email])
-    //useEffect checks if name is empty
-    useEffect(() => {
-        formData.name ? setIsNameValid(true) : setIsNameValid(false)
-    }, [formData.name])
 
     return (
         <>

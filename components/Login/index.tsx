@@ -6,15 +6,20 @@ import ModalComponent from "../common/Modal";
 import logo from "@/public/images/WhiteLogo.svg"
 import Image from "next/image";
 
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 export default function LoginComponent() {
     const [isOpen, setIsOpen] = useState(false)
+    const [button, setButton] = useState(null)
 
     const matches900 = useMediaQuery('(min-width:900px)')
     const matches500 = useMediaQuery('(max-width:500px)')
 
-    const onModalOpen = () => {
+    const onModalOpen = (e: any) => {
+        const clicked = e.currentTarget.textContent
+        console.log(clicked);
+        
+        setButton(clicked)
         setIsOpen(true);
     };
 
@@ -24,7 +29,7 @@ export default function LoginComponent() {
     return (
         <>
             {isOpen &&
-                <ModalComponent isOpen={isOpen} handleClose={onModalClose} />
+                <ModalComponent isOpen={isOpen} handleClose={onModalClose} button={button} />
             }
 
 
@@ -135,6 +140,7 @@ export default function LoginComponent() {
                                 </Box>
                             </Box>
                             <Button
+                                onClick={onModalOpen}
                                 sx={{
                                     bgcolor: 'white',
                                     borderRadius: '20px'

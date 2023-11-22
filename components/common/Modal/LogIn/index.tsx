@@ -1,22 +1,68 @@
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
+import { Box, Typography, TextField } from "@mui/material"
+import CloseButton from "../Common/CloseButton"
+import ModalLayout from "@/components/layout/ModalLayout"
 
-export default function SingUp() {
+export default function Login({ handleClose }) {
     return (
-        <Box
-            position="absolute"
-            display="flex"
+        <>
+            <Box display="flex">
+                <CloseButton handleClose={handleClose} />
+                <Typography
+                    variant="h6"
+                    fontWeight="bold"
+                    alignSelf="center"
+                    sx={{
+                        ml: '15px'
+                    }}
+                ></Typography>
+            </Box>
+            <ModalLayout>
 
-            sx={{
-                width: '400px',
-                bgcolor: 'white',
-                border: '2px solid #000',
-                top: '50%',
-                left: '50%',
-                transform: 'translate(-50%,-50%)',
-                color: 'black'
-            }}
-        >
-            <TextField />
-        </Box>
+                <Box
+                    sx={{
+                        mb: '20px'
+                    }}
+                >
+                    <Typography
+                        variant="h4"
+                        fontWeight="bold"
+                    >
+                        Sign In
+                    </Typography>
+                </Box>
+                <Box
+                    display="flex"
+                    flexDirection="column"
+                    sx={{
+                        height: '100%',
+                        ">*": {
+                            width: '100%',
+                        }
+                    }}
+                >
+                    <TextField
+                        // onChange={onChangeNameHandler}
+                        // value={formData.name}
+                        name="name"
+                        label="Name"
+                        sx={{
+                            margin: '10px 0'
+                        }} />
+                    <TextField
+                        // onChange={onChangeEmailHandler}
+                        // value={formData.email}
+                        // error={Boolean(message)}
+                        // helperText={message}
+
+                        name="email"
+                        label="Email"
+                        sx={{
+                            margin: '10px 0'
+                        }} />
+                    {/* <ModalButton content={'Next'} disabled={!formData.isValid} handler={onClickHandler} /> */}
+                </Box>
+            </ModalLayout>
+
+        </>
     )
 }
