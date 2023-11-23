@@ -6,6 +6,7 @@ import { API } from "@/Constants"
 import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
 import { connectDb } from "@/dbConfig/dbConfig"
+import { useValidateFields } from "@/hooks/useValidateFields"
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
@@ -16,8 +17,12 @@ type FifthModalStepProps = {
 export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: FifthModalStepProps) {
 
     const { auth, userAuth } = useContext<any>(AuthContext)
-    const [error, setError] = useState('')
     const router = useRouter()
+    const { error, validatePassword } = useValidateFields()
+
+    const { password } = formData
+    validatePassword(password)
+
 
     const onSubmitFormHandler = async () => {
         const createdUser = await fetch(`${API}/auth/signup`, {
@@ -35,14 +40,20 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+
         const { name, value } = e.target
-        if (value.length < 5) {
-            setError('The password is too short')
-        } else {
-            setError('')
-            updateFormValue(name, value)
-        }
+
+        updateFormValue(name, value)
     }
+    // const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     const { name, value } = e.target
+    //     if (value.length < 5) {
+    //         setError('The password is too short')
+    //     } else {
+    //         setError('')
+    //         updateFormValue(name, value)
+    //     }
+    // }
     return (
         <>
             <Box
@@ -69,8 +80,8 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
             >
 
                 <TextField
-                    helperText={error}
-                    error={Boolean(error)}
+                    helperText={error.passwordError}
+                    error={Boolean(error.passwordError)}
                     onChange={onPasswordChangeHandler}
                     label="Password"
                     name="password"
@@ -79,7 +90,7 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                         margin: '10px 0'
                     }}
                 />
-                <ModalButton disabled={Boolean(error)} content={'submit'}
+                <ModalButton disabled={Boolean(error.passwordError)} content={'submit'}
                     handler={() => {
                         onSubmitFormHandler()
                         onClickHandler()

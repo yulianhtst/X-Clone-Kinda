@@ -1,7 +1,6 @@
-import { checkEmailAvailability } from "@/services/ServerSide/register"
-import { Modal, Box, Typography, Button, TextField, IconButton } from "@mui/material"
-import { useState, useEffect } from 'react'
-import type { ChangeEvent, FocusEvent } from 'react'
+import { Box, Typography, TextField } from "@mui/material"
+import { useEffect } from 'react'
+import type { ChangeEvent } from 'react'
 import ModalButton from "../../../Common/ModalButton";
 import { useValidateFields } from "@/hooks/useValidateFields";
 // import * as validate from '@/validation/ClientSide/validateCl'
@@ -13,12 +12,13 @@ type FirstModalStepProps = {
     updateFormValue: (name: string, value: string | boolean) => void;
 };
 export default function FirstModalStep({ formData, onClickHandler, updateFormValue }: FirstModalStepProps) {
-    const {
-        isEmailValid,
-        isNameValid,
-        isEmailAvailable,
-        message,
-    } = useValidateFields(formData)
+    const { checkEmailDbExistance, validateEmail, validateName, error } = useValidateFields()
+
+    const { name, email } = formData
+
+    const isNameValid = validateName(name)
+    const isEmailAvailable = checkEmailDbExistance(email)
+    const isEmailValid = validateEmail(email)
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -69,8 +69,8 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
                 <TextField
                     onChange={onChangeEmailHandler}
                     value={formData.email}
-                    error={Boolean(message)}
-                    helperText={message}
+                    error={Boolean(error.emailError)}
+                    helperText={error.emailError}
 
                     name="email"
                     label="Email"

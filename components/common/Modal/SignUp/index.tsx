@@ -11,7 +11,7 @@ import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
 import CloseButton from "../Common/CloseButton";
 
-interface LoginForm {
+interface SignUp {
     name: string,
     email: string,
     password: string,
@@ -20,7 +20,7 @@ interface LoginForm {
 
 export default function SingUp({ handleClose }: { handleClose: () => void }) {
     const [step, setStep] = useState(1)
-    const [form, setForm] = useState<LoginForm>({
+    const [form, setForm] = useState<SignUp>({
         name: '',
         email: '',
         password: '',
