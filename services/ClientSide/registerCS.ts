@@ -28,12 +28,15 @@ export const verifySessionTokenCS = async (
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ PIN }),
+      // body: JSON.stringify({ PIN }),
     };
+    const data = JSON.stringify({ PIN });
 
-    const response = await axios.post(`${API}/verify/verifypin`, options);
+    const response = await axios.post(`${API}/verify/verifypin`,data, options);
     return response;
-  } catch (error) {}
+  } catch (error) {
+    console.log(error);
+  }
 };
 export const sendEmailCS = async (formData: any) => {
   const options = {

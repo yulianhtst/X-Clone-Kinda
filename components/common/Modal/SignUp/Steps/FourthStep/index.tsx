@@ -3,7 +3,6 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ModalButton from "../../../Common/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
-import { API } from "@/Constants"
 import { verifySessionTokenCS } from "@/services/ClientSide/registerCS";
 
 export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {

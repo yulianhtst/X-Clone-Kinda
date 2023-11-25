@@ -4,6 +4,7 @@ import User from "@/models/User";
 import bcryptjs from "bcryptjs";
 
 export const findUserByIdSS = async (id: string | string[] | undefined) => {
+  connectDb();
   const data = await User.findById(id);
   const user = JSON.parse(JSON.stringify(data));
   return user;
@@ -18,7 +19,6 @@ export const createUserSS = async (formData: any) => {
     email: formData.email,
     password: hashedPassword,
   };
-
 
   const activity = await new Activity({}).save();
 

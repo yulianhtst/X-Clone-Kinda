@@ -3,11 +3,13 @@ import Post from "@/models/Post";
 import User from "@/models/User";
 
 export const getAllPostsSS = async () => {
+  connectDb();
   const data = await Post.find({});
   const posts = JSON.parse(JSON.stringify(data));
 
   return posts;
 };
+
 export const createPost = async (postData: any) => {
   connectDb();
   const { user_id } = postData;
