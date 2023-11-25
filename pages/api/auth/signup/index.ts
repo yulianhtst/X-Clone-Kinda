@@ -2,11 +2,9 @@ import { connectDb } from "@/dbConfig/dbConfig";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { JWT_LOGIN_SECRET } from "@/Constants";
-// import { createUser } from "@/services/register";
 import User from "@/models/User";
-import bcryptjs from "bcryptjs";
 import { NextResponse } from "next/server";
-import { createUser } from "@/services/ServerSide/create";
+import { createUserSS } from "@/services/ServerSide/userSS";
 
 export default async function handler(
   req: NextApiRequest,
@@ -24,18 +22,7 @@ export default async function handler(
   await connectDb();
   const formData = req.body;
 
-  // const createdUser = await createUser(formData).catch((err) =>
-  //   console.error(err)
-  // );
-  const hashedPassword = await bcryptjs.hash(formData.password, 10);
-
-  const userData = {
-    name: formData.name,
-    email: formData.email,
-    password: hashedPassword,
-  };
-
-  const createdUser = await createUser(userData);
+  const createdUser = await createUserSS(formData);
 
   const payload = {
     _id: createdUser._id.toString(),
@@ -53,8 +40,6 @@ export default async function handler(
       Date.now() + 1000 * 60 * 60 * 60 * 24
     ).toUTCString()};Path=/;`
   );
-
-  // Path="/";
 
   res.json({
     message: "Successfully  created a user",

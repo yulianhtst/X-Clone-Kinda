@@ -2,8 +2,8 @@ import Layout from "@/components/layout/MainLayout";
 import ProfilePage from "@/components/pages/ProfilePage";
 import { JWT_LOGIN_SECRET } from "@/Constants";
 import jwt from 'jsonwebtoken'
-import User from "@/models/User";
 import { connectDb } from "@/dbConfig/dbConfig";
+import { findUserByIdSS } from "@/services/ServerSide/userSS";
 
 type UserProfileProps = {
     _id: string;
@@ -22,19 +22,19 @@ export async function getServerSideProps(context: any) {
             throw new Error('Session expired');
         }
 
-        const userId = jwt.verify(token, JWT_LOGIN_SECRET)?._id;
+        const userId= jwt.verify(token, JWT_LOGIN_SECRET)._id;
 
         if (!userId) {
             throw new Error('Invalid user ID');
         }
 
-        const foundUser = await User.findById(userId);
-        const serializedUser = JSON.parse(JSON.stringify(foundUser));
+        const user = await findUserByIdSS(userId)
+
         const userDTO = {
-            _id: serializedUser._id,
-            name: serializedUser.name,
-            email: serializedUser.email,
-            bio: serializedUser.bio,
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            bio: user.bio,
         };
 
         return {

@@ -14,11 +14,11 @@ export default function Login({ handleClose }) {
         email: '',
         password: '',
     })
-    const { email, password } = form
     const { validateEmail, validatePassword, error } = useValidateFields()
-
-    const emailValid = validateEmail(email)
-    const passwordValid = validatePassword(password)
+    
+    const { email, password } = form
+    validateEmail(email)
+    // validatePassword(password)
 
     const updateFormValue = (name: string, value: string | boolean) => {
         setForm(state => ({ ...state, [name]: value }));
@@ -34,6 +34,8 @@ export default function Login({ handleClose }) {
         const { name, value } = e.target;
         updateFormValue(name, value);
     }
+
+    
     return (
         <>
             <Box display="flex">

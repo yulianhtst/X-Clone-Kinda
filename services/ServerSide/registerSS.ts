@@ -10,8 +10,6 @@ import {
   OAUTH_CLIENT_SECRET,
   OAUTH_REFRESH_TOKEN,
 } from "@/Constants";
-import bcryptjs from "bcryptjs";
-import User from "../../models/User";
 
 let PIN: number;
 
@@ -41,7 +39,7 @@ export const sendEmails = async (name: string, email: string) => {
   return await transporter.sendMail(mailOptions);
 };
 
-export const createSessionToken = async (email: string) => {
+export const createSessionTokenSS = (email: string) => {
   PIN = Math.floor(Math.random() * 1000000);
   const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, {
     expiresIn: "1h",
@@ -49,22 +47,17 @@ export const createSessionToken = async (email: string) => {
   return token;
 };
 
-export const checkEmailAvailability = async (email: string) => {
-  try {
-    const response = await fetch(`${API}/verify/verifyemail`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ email }),
-    });
-    const { isEmailFree } = await response.json();
-    return isEmailFree;
-    // setFree(isEmailFree);
-  } catch (error) {
-    console.error(error);
-  }
-};
+
+
+// export const createUser = async (userData: any) => {
+//   connectDb();
+//   const activity = await new Activity({}).save();
+
+//   return await new User({
+//     ...userData,
+//     activity,
+//   }).save();
+// };
 
 // export const createUser = async ({ name, email, password }:any) => {
 //   connect()

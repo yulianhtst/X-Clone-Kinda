@@ -9,6 +9,6 @@ import { NextRequest, NextResponse } from "next/server";
 export default async function handler(req: NextRequest, res: NextApiResponse) {
   connectDb();
 
-  const token = await getDataFromToken(req);
+  const token =  getDataFromToken(req);
   console.log(token);
 }

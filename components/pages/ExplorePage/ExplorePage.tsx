@@ -13,6 +13,7 @@ type Post = {
 }
 
 export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
+    console.log(allPosts);
 
     return (
         <Box
@@ -20,11 +21,11 @@ export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
             flexDirection="column"
             sx={{
                 border: 'solid red',
-                maxWidth:'700px',
+                maxWidth: '700px',
             }}
         >
             <CustomizedInputBase />
-            {allPosts.map(post => <Post {...post} />)}
+            {allPosts?.map(post => <Post {...post} />)}
         </Box>
     )
 }

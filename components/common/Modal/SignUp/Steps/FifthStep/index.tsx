@@ -7,6 +7,7 @@ import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
 import { connectDb } from "@/dbConfig/dbConfig"
 import { useValidateFields } from "@/hooks/useValidateFields"
+import { createUserCS } from "@/services/ClientSide/registerCS"
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
@@ -25,17 +26,10 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
 
 
     const onSubmitFormHandler = async () => {
-        const createdUser = await fetch(`${API}/auth/signup`, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        })
-        const currentUser = await createdUser.json()
+        const createdUser = await createUserCS(formData)
 
-        console.log(currentUser, 'user');
-        userAuth(currentUser)
+        // console.log(createdUser, 'user');
+        userAuth(createdUser)
         if (createdUser) router.replace('/explore')
     }
 

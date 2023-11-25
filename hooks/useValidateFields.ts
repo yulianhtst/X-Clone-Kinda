@@ -1,4 +1,4 @@
-import { checkEmailAvailability } from "@/services/ServerSide/register";
+import { checkEmailAvailabilityCS } from "@/services/ClientSide/registerCS";
 import { useEffect, useState } from "react";
 
 export const useValidateFields = () => {
@@ -42,7 +42,7 @@ export const useValidateFields = () => {
     const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(false);
     useEffect(() => {
       (async () => {
-        const emailAvailable = await checkEmailAvailability(email);
+        const emailAvailable = await checkEmailAvailabilityCS(email);
 
         setIsEmailAvailable(emailAvailable);
 

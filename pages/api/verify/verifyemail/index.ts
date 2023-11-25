@@ -7,7 +7,6 @@ export default async function handler(
   res: NextApiResponse
 ) {
   await connectDb();
-
   const { email } = req.body;
 
   const response = await User.findOne({ email });

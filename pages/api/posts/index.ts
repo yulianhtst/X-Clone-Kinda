@@ -1,6 +1,6 @@
 import { connectDb } from "@/dbConfig/dbConfig";
+import { createPost } from "@/services/ServerSide/postSS";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createPost } from "@/services/ServerSide/create";
 
 export default async function handler(
   req: NextApiRequest,

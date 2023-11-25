@@ -4,6 +4,7 @@ import ModalButton from "../../../Common/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
 import { API } from "@/Constants"
+import { verifySessionTokenCS } from "@/services/ClientSide/registerCS";
 
 export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
     const inputRef = useRef('')
@@ -14,22 +15,13 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
 
     const onNextClickFetch = async () => {
         const token = window.sessionStorage.getItem('SignInSession')
-        const options = {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ PIN: inputRef.current })
-        }
-
-        const res = await fetch(`${API}/verify/verifypin`, options)
-        const resJSON = await res.json()
-        if (!resJSON.error) {
+        const PIN = inputRef.current
+        const res = await verifySessionTokenCS(token, PIN)
+        if (!res.error) {
             onClickHandler()
         } else {
             handleClick()
-            setError(resJSON.message)
+            setError(res.message)
             console.log('error');
         }
 

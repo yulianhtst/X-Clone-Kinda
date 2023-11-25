@@ -1,8 +1,13 @@
 import { connectDb } from "@/dbConfig/dbConfig";
-import User from "@/models/User";
-import Activity from "@/models/Activity";
 import Post from "@/models/Post";
+import User from "@/models/User";
 
+export const getAllPostsSS = async () => {
+  const data = await Post.find({});
+  const posts = JSON.parse(JSON.stringify(data));
+
+  return posts;
+};
 export const createPost = async (postData: any) => {
   connectDb();
   const { user_id } = postData;
@@ -14,14 +19,4 @@ export const createPost = async (postData: any) => {
   });
 
   return savedPost;
-};
-
-export const createUser = async (userData: any) => {
-  connectDb();
-  const activity = await new Activity({}).save();
-
-  return await new User({
-    ...userData,
-    activity,
-  }).save();
 };

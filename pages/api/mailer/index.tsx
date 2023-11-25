@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createSessionToken, sendEmails } from "@/services/ServerSide/register";
+import { createSessionTokenSS, sendEmails } from "@/services/ServerSide/registerSS";
 
 ///////////////////////////////////////////////////////////
 //      PROBLEMS THAT NEED TO BE FIXED 
@@ -20,7 +20,7 @@ export default async function handler(
 
 
     try {
-        const token = await createSessionToken(email)
+        const token =  createSessionTokenSS(email)
         const info = await sendEmails(name, email)
         console.log('Email sent: ', info.response);
 

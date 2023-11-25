@@ -1,5 +1,6 @@
 import { connectDb } from "@/dbConfig/dbConfig";
 import User from "@/models/User";
+import { findUserByIdSS } from "@/services/ServerSide/userSS";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -7,14 +8,16 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connectDb();
-  const [userId] = req.query.id;
+  const { id: userId } = req.query;
+  console.log(userId, "idddddddddddddddddddddddddddd");
 
-  const user = await User.findById(userId);
+  const user = await findUserByIdSS(userId);
+  console.log(user, "userrrrrrrrrrrrr");
+
   const userDTO = {
-    name: user.name,
-    email: user.email,
+    name: user?.name,
+    email: user?.email,
   };
 
   res.json(userDTO);
 }
-
