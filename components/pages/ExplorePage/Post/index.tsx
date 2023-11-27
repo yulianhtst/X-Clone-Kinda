@@ -17,8 +17,8 @@ type PostProps = {
 }
 
 export const Post = ({ content, user_id }: PostProps) => {
-    const [postTextCut, setPostTextCut] = useState(false)
-    const divRef = useRef(null)
+    const [postTextCut, setPostTextCut] = useState<boolean>(false)
+    const divRef = useRef<string | null>(null)
 
     useEffect(() => {
         const divHeight = divRef.current?.clientHeight || 0;

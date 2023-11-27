@@ -6,13 +6,7 @@ import { useState } from 'react';
 export default function Home() {
 
 
-  // const [auth, setAuth] = useState()
 
-
-  // const userAuth = (userAuthData: any) => {
-  //   setAuth(userAuthData)
-  // }
-  // console.log(auth);
   return (
     <>
       <Head>
@@ -23,7 +17,7 @@ export default function Home() {
       </Head>
       {/* <AuthContext.Provider value={{ auth, userAuth }}> */}
 
-        <LoginComponent />
+      <LoginComponent />
 
 
       {/* </AuthContext.Provider> */}

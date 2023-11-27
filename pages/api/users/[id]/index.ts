@@ -1,5 +1,4 @@
 import { connectDb } from "@/dbConfig/dbConfig";
-import User from "@/models/User";
 import { findUserByIdSS } from "@/services/ServerSide/userSS";
 import { NextApiRequest, NextApiResponse } from "next";
 

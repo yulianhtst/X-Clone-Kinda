@@ -8,7 +8,7 @@ import { verifySessionTokenCS } from "@/services/ClientSide/registerCS";
 export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
     const inputRef = useRef('')
     const [open, setOpen] = useState<boolean>(false);
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
 
 
 
@@ -73,7 +73,7 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
             >
 
                 <TextField
-                    onChange={(e) => inputRef.current = e.target.value}
+                    onChange={(e) => inputRef.current = e.currentTarget.value}
                     label="PIN"
                     name="pin"
                     sx={{

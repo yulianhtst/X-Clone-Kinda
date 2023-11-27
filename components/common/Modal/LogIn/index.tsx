@@ -1,21 +1,27 @@
 import { Box, Typography, TextField } from "@mui/material"
 import CloseButton from "../Common/CloseButton"
 import ModalLayout from "@/components/layout/ModalLayout"
-import { ChangeEvent, useState } from "react"
+import { ChangeEvent, useContext, useState } from "react"
 import ModalButton from "../Common/ModalButton"
 import { useValidateFields } from "@/hooks/useValidateFields"
+import { loginCS } from "@/services/ClientSide/authServiceCS"
+import { useRouter } from "next/router"
+import { AuthContext } from "@/context/AuthContext"
 
 interface LoginForm {
     email: string,
     password: string,
 }
 export default function Login({ handleClose }) {
+    const { auth, userAuth } = useContext<any>(AuthContext)
+    const router = useRouter()
+
     const [form, setForm] = useState<LoginForm>({
         email: '',
         password: '',
     })
     const { validateEmail, validatePassword, error } = useValidateFields()
-    
+
     const { email, password } = form
     validateEmail(email)
     // validatePassword(password)
@@ -23,19 +29,23 @@ export default function Login({ handleClose }) {
     const updateFormValue = (name: string, value: string | boolean) => {
         setForm(state => ({ ...state, [name]: value }));
     };
-    const onClickHandler = () => {
-        console.log('click');
+    const onClickHandler = async () => {
+        const user = await loginCS(email, password)
+
+
+        userAuth(user)
+        if (user) router.replace('/explore')
     }
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.currentTarget;
         updateFormValue(name, value);
     }
     const onChangePasswordHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.currentTarget;
         updateFormValue(name, value);
     }
 
-    
+
     return (
         <>
             <Box display="flex">

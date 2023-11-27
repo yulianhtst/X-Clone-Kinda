@@ -14,9 +14,10 @@ import {
 let PIN: number;
 
 export const sendEmails = async (name: string, email: string) => {
-  console.log("email");
+  console.log({name,email});
+  
 
-  let transporter = nodemailer.createTransport({
+  const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
       type: "OAuth2",
@@ -36,7 +37,13 @@ export const sendEmails = async (name: string, email: string) => {
     html: `<p>This is a test email sent with <b>${PIN}</b>!</p>`,
   };
 
-  return await transporter.sendMail(mailOptions);
+  return transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Error sending email:", error);
+    } else {
+      console.log("Email sent:", info.response);
+    }
+  });
 };
 
 export const createSessionTokenSS = (email: string) => {
@@ -46,8 +53,6 @@ export const createSessionTokenSS = (email: string) => {
   });
   return token;
 };
-
-
 
 // export const createUser = async (userData: any) => {
 //   connectDb();

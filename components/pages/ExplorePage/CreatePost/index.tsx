@@ -7,26 +7,25 @@ import SendIcon from '@mui/icons-material/Send';
 import Image from 'next/image';
 import img from '@/public/images/DSC_0078.JPG'
 import { useState, useContext } from 'react'
-import axios from 'axios';
 import { AuthContext } from '@/context/AuthContext';
-import { API } from '@/Constants';
+import { createPost } from '@/services/ClientSide/postCS';
+import type { ChangeEvent } from 'react';
 
 export default function CustomizedInputBase() {
-    const [postText, setPostText] = useState()
+    const [postText, setPostText] = useState<string | undefined>(undefined)
     const { auth } = useContext(AuthContext)
+
     const onClick = async () => {
-        const user = auth.user
-        const postData = {
-            user_id: user._id,
-            content: postText,
-        }
+
+        const userId = auth.user._id;
+        console.log(auth, 'auth');
 
 
-        const createdPost = await axios.post(`${API}/posts`, postData)
-
+        const createdPost = await createPost(userId, postText)
     }
-    const onChange = (e) => {
-        const value = e.target.value
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value
         setPostText(value)
     }
     return (

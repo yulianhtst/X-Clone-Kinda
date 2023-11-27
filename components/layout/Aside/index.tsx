@@ -1,5 +1,4 @@
 import { AuthContext } from "@/context/AuthContext";
-import { logoutUser } from "@/services/logout/logoutUser";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useContext } from 'react'
@@ -7,7 +6,7 @@ import { useContext } from 'react'
 export default function AsideComponent() {
     const router = useRouter()
     const { auth } = useContext(AuthContext)
-    const username = auth?.user.name
+    const username = auth?.user?.name
 
     const routes = [
         { path: '/', label: 'Home' },
@@ -62,7 +61,6 @@ export default function AsideComponent() {
 
                 <Box
                     component="button"
-                    onClick={logoutUser}
                 >
                     <Typography>Logout</Typography>
                 </Box>

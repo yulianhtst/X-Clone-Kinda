@@ -21,11 +21,11 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
     const isEmailValid = validateEmail(email)
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.currentTarget;
         updateFormValue(name, value);
     }
     const onChangeNameHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
+        const { name, value } = e.currentTarget;
         updateFormValue(name, value);
     }
     useEffect(() => {

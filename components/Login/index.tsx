@@ -6,19 +6,19 @@ import ModalComponent from "../common/Modal";
 import logo from "@/public/images/WhiteLogo.svg"
 import Image from "next/image";
 
-import { useRef, useState } from 'react'
+import {  useState } from 'react'
+import type { MouseEvent } from 'react'
 
 export default function LoginComponent() {
-    const [isOpen, setIsOpen] = useState(false)
-    const [button, setButton] = useState(null)
+    const [isOpen, setIsOpen] = useState<boolean>(false)
+    const [button, setButton] = useState<string | null>(null)
 
     const matches900 = useMediaQuery('(min-width:900px)')
     const matches500 = useMediaQuery('(max-width:500px)')
 
-    const onModalOpen = (e: any) => {
+    const onModalOpen = (e: MouseEvent<HTMLButtonElement>) => {
         const clicked = e.currentTarget.textContent
-        console.log(clicked);
-        
+
         setButton(clicked)
         setIsOpen(true);
     };

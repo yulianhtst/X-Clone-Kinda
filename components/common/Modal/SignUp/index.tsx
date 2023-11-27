@@ -19,7 +19,7 @@ interface SignUp {
 }
 
 export default function SingUp({ handleClose }: { handleClose: () => void }) {
-    const [step, setStep] = useState(1)
+    const [step, setStep] = useState<number>(1)
     const [form, setForm] = useState<SignUp>({
         name: '',
         email: '',
