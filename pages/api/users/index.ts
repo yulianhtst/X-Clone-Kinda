@@ -6,7 +6,5 @@ export default async function handler(
   res: NextApiResponse
 ) {
   connectDb();
-  const token = req.headers["Authorization"];
-
-
+  const token = req.headers.authorization?.split(" ")[1];
 }

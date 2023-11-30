@@ -2,7 +2,6 @@ import { connectDb } from "@/dbConfig/dbConfig";
 import User from "@/models/User";
 import bcrypt from "bcryptjs";
 
-
 export const loginSS = async (email: string, password: string) => {
   connectDb();
   const user = await User.findOne({ email });
@@ -15,3 +14,12 @@ export const loginSS = async (email: string, password: string) => {
 
   return user;
 };
+
+
+
+
+
+
+
+// export const logoutSS = (token: string) => {
+// };

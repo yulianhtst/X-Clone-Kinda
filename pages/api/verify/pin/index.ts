@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import jwt, { JwtPayload } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import { JWT_SESSION_SECRET } from "@/Constants";
 
 export default async function handler(
@@ -28,13 +28,13 @@ export default async function handler(
     });
   } catch (error: any) {
     if (error.name === "JsonWebTokenError") {
-      res.json({
+      res.status(401).json({
         error: "JsonWebTokenError",
         message: "Session Expired",
       });
     } else {
-      res.json({
-        error: error.name,
+      res.status(400).json({
+        error: "BadRequest",
         message: error.message,
       });
     }

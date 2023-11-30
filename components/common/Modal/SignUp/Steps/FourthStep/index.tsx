@@ -14,6 +14,7 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
 
     const onNextClickFetch = async () => {
         const token = window.sessionStorage.getItem('SignInSession')
+        
         const PIN = inputRef.current
         const res = await verifySessionTokenCS(token, PIN)
         if (!res.error) {

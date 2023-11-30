@@ -2,7 +2,6 @@ import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
 import {
-  API,
   JWT_SESSION_SECRET,
   NODEMAILER_EMAIL,
   NODEMAILER_PASS,

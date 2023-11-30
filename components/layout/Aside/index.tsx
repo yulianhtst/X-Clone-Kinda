@@ -1,5 +1,8 @@
+import { API } from "@/Constants";
 import { AuthContext } from "@/context/AuthContext";
+import { logoutCS } from "@/services/ClientSide/authServiceCS";
 import { Box, Typography } from "@mui/material";
+import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext } from 'react'
 
@@ -23,7 +26,10 @@ export default function AsideComponent() {
 
     const onClickHandler = (path: string) => {
         router.push(path)
-        console.log(auth);
+    }
+    const onlogout = () => {
+        logoutCS()
+        router.push('/')
     }
     return (
         <Box
@@ -61,6 +67,8 @@ export default function AsideComponent() {
 
                 <Box
                     component="button"
+                    onClick={onlogout}
+
                 >
                     <Typography>Logout</Typography>
                 </Box>

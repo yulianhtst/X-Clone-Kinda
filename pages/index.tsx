@@ -1,7 +1,6 @@
 import LoginComponent from '@/components/Login';
 import Head from 'next/head'
-import { AuthContext } from '@/context/AuthContext';
-import { useState } from 'react';
+
 
 export default function Home() {
 

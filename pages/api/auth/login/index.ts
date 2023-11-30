@@ -1,7 +1,7 @@
-import { loginSS } from "@/services/ServerSide/authServiceSS";
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
 import { JWT_LOGIN_SECRET } from "@/Constants";
+import { loginSS } from "@/services/ServerSide/authServiceSS";
 
 export default async function handler(
   req: NextApiRequest,
@@ -20,11 +20,12 @@ export default async function handler(
       email: loggedUser.email,
     };
 
-    const token = jwt.sign(payload, JWT_LOGIN_SECRET, {
-      expiresIn: "1d",
-    });
+    const day = new Date();
+    day.setDate(day.getDate() + 1);
 
-    const day = new Date(Date.now() + 1000 * 60 * 60 * 60 * 24).toUTCString();
+    const token = jwt.sign(payload, JWT_LOGIN_SECRET, {
+      expiresIn: "1h",
+    });
     res.setHeader("Set-Cookie", `loggedUser=${token};Expires=${day};Path=/;`);
 
     res.json({

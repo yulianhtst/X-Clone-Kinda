@@ -19,11 +19,13 @@ export default async function handler(
     email: createdUser.email,
   };
 
+  const day = new Date();
+  day.setDate(day.getDate() + 1);
+
   const token = jwt.sign(payload, JWT_LOGIN_SECRET, {
-    expiresIn: "1d",
+    expiresIn: "1h",
   });
 
-  const day = new Date(Date.now() + 1000 * 60 * 60 * 60 * 24).toUTCString();
   res.setHeader("Set-Cookie", `loggedUser=${token};Expires=${day};Path=/;`);
 
   res.json({

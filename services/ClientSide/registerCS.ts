@@ -13,20 +13,25 @@ export const createUserCS = async (form: any) => {
 
 export const verifySessionTokenCS = async (
   token: string | null,
-  PIN: number
+  PIN: string
 ) => {
   try {
     const options = {
       headers: {
         Authorization: `Bearer ${token}`,
+        "Content-Type":'application/json'
       },
+      
     };
     const data = JSON.stringify({ PIN });
 
+    
     const response = await axios.post(`${API}/verify/pin`, data, options);
     return response.data;
   } catch (error) {
-    console.log(error);
+    if (error instanceof Error) {
+      return error;
+    }
   }
 };
 

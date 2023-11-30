@@ -13,7 +13,7 @@ interface LoginForm {
     password: string,
 }
 export default function Login({ handleClose }) {
-    const { auth, userAuth } = useContext<any>(AuthContext)
+    const { auth, userAuth } = useContext(AuthContext)
     const router = useRouter()
 
     const [form, setForm] = useState<LoginForm>({
@@ -98,6 +98,7 @@ export default function Login({ handleClose }) {
                         helperText={error.passwordError}
                         name="password"
                         label="Password"
+                        type="password"
                         sx={{
                             margin: '10px 0'
                         }} />
