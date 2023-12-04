@@ -1,7 +1,8 @@
 import { Box } from "@mui/material";
 import CustomizedInputBase from "./CreatePost";
 import { Post } from "./Post";
-
+import { AuthContext } from "@/context/AuthContext";
+import { useContext } from 'react'
 type Post = {
     _id: string,
     user_id: string,
@@ -13,7 +14,9 @@ type Post = {
 }
 
 export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
-    console.log(allPosts);
+    const { auth } = useContext(AuthContext)
+
+    console.log(auth);
 
     return (
         <Box

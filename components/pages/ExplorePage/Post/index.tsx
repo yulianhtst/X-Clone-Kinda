@@ -3,8 +3,11 @@ import User from '@/models/User'
 import { Box, Typography, Button, Icon } from '@mui/material'
 import Image from 'next/image'
 import img from '@/public/images/DSC_0078.JPG'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, ReactNode, useContext } from 'react'
 import { PostInfo } from './PostInfo'
+import { AuthContext } from '@/context/AuthContext'
+import { setLikeCS } from '@/services/ClientSide/likesCS'
+import { PostLayout } from './PostLayout'
 
 type PostProps = {
     _id: string,
@@ -16,9 +19,9 @@ type PostProps = {
     updatedAt: string,
 }
 
-export const Post = ({ content, user_id }: PostProps) => {
+export const Post = ({ content, user_id, _id }: PostProps) => {
     const [postTextCut, setPostTextCut] = useState<boolean>(false)
-    const divRef = useRef<string | null>(null)
+    const divRef = useRef<ReactNode | null>(null)
 
     useEffect(() => {
         const divHeight = divRef.current?.clientHeight || 0;
@@ -32,6 +35,8 @@ export const Post = ({ content, user_id }: PostProps) => {
         }
     }, [content]);
 
+    //Can be inside layout
+
 
     return (
         <Box display="flex" sx={{ p: '16px  16px 0 16px', }}>
@@ -42,36 +47,44 @@ export const Post = ({ content, user_id }: PostProps) => {
 
             </Box>
             <Box display="flex" flexDirection="column">
-                <PostInfo id={user_id} />
-                <Box>
-                    <Box
-                        ref={divRef}
-                        sx={{
-                            height: 'auto',
-                            overflow: 'hidden',
-                            ...(postTextCut && { maxHeight: '120px' })
-                        }}
-                    >
-                        <Typography
+                {/* <PostInfo id={user_id} /> */}
+                <PostLayout
+                    postId={_id}
+                    userId={user_id}
+                >
+                    <Box>
+                        <Box
+                            ref={divRef}
                             sx={{
-                                wordWrap: 'break-word',
-                                lineHeight: '20px',
-                                ...(postTextCut ? { overflow: 'true' } : { overflow: 'false' })
+                                height: 'auto',
+                                overflow: 'hidden',
+                                ...(postTextCut && { maxHeight: '120px' })
                             }}
                         >
-                            {content}
-                        </Typography>
-                    </Box>
-                    {postTextCut &&
-                        <Typography onClick={() => setPostTextCut(false)}> Show More</Typography>
-                    }
-                    {/* <Box>
+                            <Typography
+                                sx={{
+                                    wordWrap: 'break-word',
+                                    lineHeight: '20px',
+                                    ...(postTextCut ? { overflow: 'true' } : { overflow: 'false' })
+                                }}
+                            >
+                                {content}
+                            </Typography>
+                        </Box>
+                        {postTextCut &&
+                            <Typography onClick={() => setPostTextCut(false)}> Show More</Typography>
+                        }
+                        {/* <Box>
                 <Image />
                 </Box> */}
-                </Box>
-                <Box>
+                    </Box>
+                    {/* <Box>
+
                     <Button size='small'>
-                        <Typography fontSize='10px'>
+                        <Typography
+                            onClick={likeHandler}
+                            fontSize='10px'
+                        >
                             Like
                         </Typography>
                     </Button>
@@ -80,7 +93,8 @@ export const Post = ({ content, user_id }: PostProps) => {
                             Comment
                         </Typography>
                     </Button>
-                </Box>
+                </Box> */}
+                </PostLayout>
             </Box>
         </Box >
 

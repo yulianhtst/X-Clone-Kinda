@@ -18,7 +18,6 @@ export default function CustomizedInputBase() {
     const onClick = async () => {
 
         const userId = auth.user._id;
-        console.log(auth, 'auth');
 
 
         const createdPost = await createPost(userId, postText)

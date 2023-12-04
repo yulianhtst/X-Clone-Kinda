@@ -1,10 +1,11 @@
-import { API } from "@/Constants";
 import { AuthContext } from "@/context/AuthContext";
 import { logoutCS } from "@/services/ClientSide/authServiceCS";
 import { Box, Typography } from "@mui/material";
-import axios from "axios";
 import { useRouter } from "next/router";
 import { useContext } from 'react'
+import { headers } from 'next/headers'
+import axios from "axios";
+import { API } from "@/Constants";
 
 export default function AsideComponent() {
     const router = useRouter()
@@ -24,6 +25,7 @@ export default function AsideComponent() {
         // { path: '/more', label: 'More' },
     ];
 
+
     const onClickHandler = (path: string) => {
         router.push(path)
     }
@@ -31,6 +33,8 @@ export default function AsideComponent() {
         logoutCS()
         router.push('/')
     }
+
+
     return (
         <Box
             sx={{ maxWidth: '33vw', }}

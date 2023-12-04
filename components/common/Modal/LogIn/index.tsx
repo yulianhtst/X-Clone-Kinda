@@ -31,8 +31,6 @@ export default function Login({ handleClose }) {
     };
     const onClickHandler = async () => {
         const user = await loginCS(email, password)
-
-
         userAuth(user)
         if (user) router.replace('/explore')
     }

@@ -19,13 +19,11 @@ export const verifySessionTokenCS = async (
     const options = {
       headers: {
         Authorization: `Bearer ${token}`,
-        "Content-Type":'application/json'
+        "Content-Type": "application/json",
       },
-      
     };
     const data = JSON.stringify({ PIN });
 
-    
     const response = await axios.post(`${API}/verify/pin`, data, options);
     return response.data;
   } catch (error) {

@@ -1,7 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
-
+import jwt from "jsonwebtoken";
+import { createSessionTokenSS } from "./services/ServerSide/registerSS";
 // This function can be marked `async` if using `await` inside
-export function middleware(req: NextRequest) {
+export async function middleware(req: NextRequest) {
+  const auth = req.headers?.auth || "";
+  console.log(auth, "headers");
+
   const token = req.cookies.get("loggedUser")?.value || "";
 
   const path = req.nextUrl.pathname;

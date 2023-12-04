@@ -1,6 +1,6 @@
 import { connectDb } from "@/dbConfig/dbConfig";
-import Activity from "@/models/Activity";
 import User from "@/models/User";
+
 import bcryptjs from "bcryptjs";
 
 export const findUserByIdSS = async (id: string | string[] | undefined) => {
@@ -20,10 +20,14 @@ export const createUserSS = async (formData: any) => {
     password: hashedPassword,
   };
 
-  const activity = await new Activity({}).save();
-
+  // const activity =
   return await new User({
     ...userData,
-    activity,
+    activity: {
+      posts: [],
+      comments: [],
+      comments_likes: [],
+      posts_likes: [],
+    },
   }).save();
 };
