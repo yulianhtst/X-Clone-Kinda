@@ -6,18 +6,21 @@ import User from "@/models/User";
 export const setLikeSS = async (postId: string, userId: string) => {
   connectDb();
   const like = await new PostLikes({ user_id: userId, post_id: postId }).save();
-  const likeId = like._id.toString() || "";
+  // const likeId = like._id.toString() || "";
 
   const user = await User.findById(userId);
   user.activity.posts_likes.push(like._id);
   await user.save();
 
-  const likedPost = await Post.findByIdAndUpdate(
+  await Post.findByIdAndUpdate(
     postId,
     { $push: { likes: like } },
     { new: true }
   );
-  return likedPost;
+  return {
+    user: userId,
+    post: postId,
+  };
 };
 
 export const setDislikeSS = async (postId: string, userId: string) => {
@@ -31,6 +34,11 @@ export const setDislikeSS = async (postId: string, userId: string) => {
     $pull: { "activity.posts_likes": dislike._id },
   });
   console.log(dislike);
+
+  return {
+    user: userId,
+    post: postId,
+  };
 };
 
 export const getAllLieksSS = async (postId: string) => {

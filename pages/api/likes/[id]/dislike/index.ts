@@ -9,6 +9,7 @@ export default async function handler(
     const userId = req.body.userId;
     const postId = req.query.id || "";
 
-    await setDislikeSS(postId, userId);
+    const dislike = await setDislikeSS(postId, userId);
+    res.json(dislike);
   }
 }
