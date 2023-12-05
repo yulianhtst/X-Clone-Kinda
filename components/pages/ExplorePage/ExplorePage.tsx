@@ -16,7 +16,6 @@ type Post = {
 export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
     const { auth } = useContext(AuthContext)
 
-    console.log(auth);
 
     return (
         <Box
@@ -28,7 +27,7 @@ export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
             }}
         >
             <CustomizedInputBase />
-            {allPosts?.map(post => <Post {...post} />)}
+            {allPosts?.map(post => <Post publisherId={post.user_id} {...post} />)}
         </Box>
     )
 }

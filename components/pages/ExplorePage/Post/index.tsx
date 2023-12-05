@@ -11,7 +11,7 @@ import { PostLayout } from './PostLayout'
 
 type PostProps = {
     _id: string,
-    user_id: string,
+    publisherId: string,
     content: string,
     comments?: Array<any>,
     likes?: Array<any>,
@@ -19,7 +19,7 @@ type PostProps = {
     updatedAt: string,
 }
 
-export const Post = ({ content, user_id, _id }: PostProps) => {
+export const Post = ({ content, publisherId, _id }: PostProps) => {
     const [postTextCut, setPostTextCut] = useState<boolean>(false)
     const divRef = useRef<ReactNode | null>(null)
 
@@ -47,10 +47,10 @@ export const Post = ({ content, user_id, _id }: PostProps) => {
 
             </Box>
             <Box display="flex" flexDirection="column">
-                {/* <PostInfo id={user_id} /> */}
+                {/* <PostInfo id={publisherId} /> */}
                 <PostLayout
                     postId={_id}
-                    userId={user_id}
+                    publisherId={publisherId}
                 >
                     <Box>
                         <Box
