@@ -7,17 +7,25 @@ import { setDislikeCS, setLikeCS } from '@/services/ClientSide/likesCS'
 import { useState, useEffect, useContext } from 'react'
 import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { AuthContext } from '@/context/AuthContext'
+import { createCommentCS } from '@/services/ClientSide/commentsCS'
+import { useRouter } from 'next/router'
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 
 export const PostLayout = ({ postId, publisherId, children }: any) => {
+
+
     const { auth } = useContext(AuthContext)
     const [isLiked, setIsLiked] = useState<boolean>(false)
     const [likes, setLikes] = useState<number>(0)
-    
+
+    const router = useRouter()
+
     const { data: user, error, isLoading } = useSWR(`${API}/users/${publisherId}`, fetcher)
-    const { data: likesData } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 11000 })
+    //Този интервал може да направи грешка ако лайка се таймне с заявката за всички лайкове
+    const { data: likesData } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
+    // const { data: likesData } = useSWR(`${API}/likes/${postId}`, fetcher)
 
     const loggedUser = auth?.user._id
 
@@ -28,29 +36,36 @@ export const PostLayout = ({ postId, publisherId, children }: any) => {
             return loggedUser === postPublisher
         })
 
-        console.log(alreadyLiked, 'likedd');
 
         setLikes(likesData?.likes?.length || 0)
         alreadyLiked ? setIsLiked(true) : setIsLiked(false)
     }, [likesData])
 
 
-    const likeHandler = async () => {
+    const likeClickHandler = async () => {
         const liked = await setLikeCS(postId, loggedUser)
         if (liked) {
             setIsLiked(true)
             setLikes((s: number) => s + 1)
         }
     }
-    const dislikeHandler = async () => {
+    const dislikeClickHandler = async () => {
         const disliked = await setDislikeCS(postId, loggedUser)
         if (disliked) {
             setIsLiked(false)
             setLikes((s: number) => s - 1)
         }
     }
+    const commentClickHandler = async () => {
+        // await createCommentCS(postId, loggedUser,content)
+    }
+    const postClickHandler = async () => {
+        router.push(`${user.name}/${postId}`)
+    }
     return (
-        <Box>
+        <Box
+            onClick={postClickHandler}
+            sx={{ border: 'solid red' }}>
             <Box display="flex">
                 <Typography>
                     {
@@ -59,23 +74,32 @@ export const PostLayout = ({ postId, publisherId, children }: any) => {
                 </Typography>
             </Box>
             {children}
-            <Button
-                size='small'
-                variant={isLiked && 'contained'}
-            >
-                <Typography
-                    onClick={isLiked ? dislikeHandler : likeHandler}
-                    // onClick={likeHandler
-                    fontSize='10px'
+
+            <Box display="flex" justifyContent="space-around">
+
+                <Button
+                    size='small'
+                    variant={isLiked && 'contained'}
                 >
-                    Like :{likes}
-                </Typography>
-            </Button>
-            <Button size='small'>
-                <Typography fontSize='10px'>
-                    Comment
-                </Typography>
-            </Button>
+                    <Typography
+                        onClick={isLiked ? dislikeClickHandler : likeClickHandler}
+                        // onClick={likeClickHandler
+                        fontSize='10px'
+                    >
+                        Like :{likes}
+                    </Typography>
+                </Button>
+                <Button
+                    size='small'
+                >
+                    <Typography
+                        onClick={commentClickHandler}
+                        fontSize='10px'
+                    >
+                        Comment
+                    </Typography>
+                </Button>
+            </Box>
         </Box>
     )
 }

@@ -2,7 +2,13 @@ import { Box } from "@mui/material";
 import CustomizedInputBase from "./CreatePost";
 import { Post } from "./Post";
 import { AuthContext } from "@/context/AuthContext";
-import { useContext } from 'react'
+import { ChangeEvent, useContext, useState } from 'react'
+import { createPost } from "@/services/ClientSide/postCS";
+import { createDecipheriv } from "crypto";
+import useSWR from "swr";
+import { API } from "@/Constants";
+import axios from "axios";
+
 type Post = {
     _id: string,
     user_id: string,
@@ -13,9 +19,28 @@ type Post = {
     updatedAt: string,
 }
 
-export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
-    const { auth } = useContext(AuthContext)
+const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
+export default function ExplorePage() {
+    const { auth } = useContext(AuthContext)
+    const [postText, setPostText] = useState<string | undefined>(undefined)
+
+    const { data: allPostsData } = useSWR(`${API}/posts`, fetcher)
+
+    const onClick = async () => {
+        try {
+            const userId = auth.user._id;
+
+            const createdPost = await createPost(userId, postText)
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const value = e.currentTarget.value
+        setPostText(value)
+    }
 
     return (
         <Box
@@ -26,8 +51,8 @@ export default function ExplorePage({ allPosts }: { allPosts: Array<Post> }) {
                 maxWidth: '700px',
             }}
         >
-            <CustomizedInputBase />
-            {allPosts?.map(post => <Post publisherId={post.user_id} {...post} />)}
+            <CustomizedInputBase onClick={onClick} onChange={onChange} />
+            {allPostsData?.map(post => <Post publisherId={post.user_id} {...post} />)}
         </Box>
     )
 }

@@ -11,7 +11,6 @@ export default async function handler(
   console.log(userId, "idddddddddddddddddddddddddddd");
 
   const user = await findUserByIdSS(userId);
-  console.log(user, "userrrrrrrrrrrrr");
 
   const userDTO = {
     name: user?.name,

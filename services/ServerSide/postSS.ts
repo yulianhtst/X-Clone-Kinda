@@ -36,3 +36,11 @@ export const createPost = async (postData: any) => {
 
   return savedPost;
 };
+
+export const getPostByID = async (postId: string) => {
+  connectDb();
+
+  const post = await Post.findById( postId );
+
+  return post;
+};

@@ -20,6 +20,8 @@ type PostProps = {
 }
 
 export const Post = ({ content, publisherId, _id }: PostProps) => {
+    console.log({ content, publisherId, _id });
+
     const [postTextCut, setPostTextCut] = useState<boolean>(false)
     const divRef = useRef<ReactNode | null>(null)
 
@@ -39,19 +41,25 @@ export const Post = ({ content, publisherId, _id }: PostProps) => {
 
 
     return (
-        <Box display="flex" sx={{ p: '16px  16px 0 16px', }}>
-            <Box sx={{ mr: '12px' }}>
-                <Icon sx={{ borderRadius: '50%', }}>
-                    <Image width={24} height={24} alt="smth" src={img} />
-                </Icon>
+        <PostLayout
+            postId={_id}
+            publisherId={publisherId}
+        >
+            <Box
+                display="flex"
+                sx={{
+                    p: '16px  16px 0 16px',
+                }}
+            >
 
-            </Box>
-            <Box display="flex" flexDirection="column">
-                {/* <PostInfo id={publisherId} /> */}
-                <PostLayout
-                    postId={_id}
-                    publisherId={publisherId}
-                >
+                <Box sx={{ mr: '12px' }}>
+                    <Icon sx={{ borderRadius: '50%', }}>
+                        <Image width={24} height={24} alt="smth" src={img} />
+                    </Icon>
+
+                </Box>
+                <Box display="flex" flexDirection="column">
+                    {/* <PostInfo id={publisherId} /> */}
                     <Box>
                         <Box
                             ref={divRef}
@@ -74,29 +82,10 @@ export const Post = ({ content, publisherId, _id }: PostProps) => {
                         {postTextCut &&
                             <Typography onClick={() => setPostTextCut(false)}> Show More</Typography>
                         }
-                        {/* <Box>
-                <Image />
-                </Box> */}
                     </Box>
-                    {/* <Box>
-
-                    <Button size='small'>
-                        <Typography
-                            onClick={likeHandler}
-                            fontSize='10px'
-                        >
-                            Like
-                        </Typography>
-                    </Button>
-                    <Button size='small'>
-                        <Typography fontSize='10px'>
-                            Comment
-                        </Typography>
-                    </Button>
-                </Box> */}
-                </PostLayout>
-            </Box>
-        </Box >
+                </Box>
+            </Box >
+        </PostLayout >
 
     )
 }

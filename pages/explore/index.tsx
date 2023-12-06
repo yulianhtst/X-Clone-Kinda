@@ -6,26 +6,26 @@ import { getAllPostsSS } from "@/services/ServerSide/postSS";
 import { GetServerSidePropsContext } from "next";
 import useSWR from "swr";
 
-export default function Explore({ posts }) {
+export default function Explore() {
 
     return (
         <Layout>
-            <ExplorePage allPosts={posts} />
+            <ExplorePage  />
         </Layout>
     )
 }
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-    const posts = await getAllPostsSS()
+// export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+//     const posts = await getAllPostsSS()
 
-    // const hed = context.res.getHeader('auth')
-    // console.log(context.req.headers);
-    // console.log(context.req.url);
+//     // const hed = context.res.getHeader('auth')
+//     // console.log(context.req.headers);
+//     // console.log(context.req.url);
 
 
 
-    return {
-        props: {
-            posts,
-        }
-    }
-}
+//     return {
+//         props: {
+//             posts,
+//         }
+//     }
+// }

@@ -6,29 +6,11 @@ import { Icon } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Image from 'next/image';
 import img from '@/public/images/DSC_0078.JPG'
-import { useState, useContext } from 'react'
-import { AuthContext } from '@/context/AuthContext';
-import { createPost } from '@/services/ClientSide/postCS';
-import type { ChangeEvent } from 'react';
-
-export default function CustomizedInputBase() {
-    const [postText, setPostText] = useState<string | undefined>(undefined)
-    const { auth } = useContext(AuthContext)
-
-    const onClick = async () => {
-
-        const userId = auth.user._id;
 
 
-        const createdPost = await createPost(userId, postText)
-    }
-
-    const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const value = e.currentTarget.value
-        setPostText(value)
-    }
+export default function CustomizedInputBase({ onClick, onChange }) {
+    
     return (
-
         <Paper
             component="form"
             sx={{
