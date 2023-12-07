@@ -27,6 +27,7 @@ export default function PostID({
         content={content}
         createdAt={createdAt}
         updatedAt={updatedAt}
+        navigation={false}
       />
     </Layout>
   );

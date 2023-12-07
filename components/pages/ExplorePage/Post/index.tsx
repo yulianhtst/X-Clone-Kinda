@@ -19,8 +19,7 @@ type PostProps = {
     updatedAt: string,
 }
 
-export const Post = ({ content, publisherId, _id }: PostProps) => {
-    console.log({ content, publisherId, _id });
+export const Post = ({ content, publisherId, _id, navigation }: PostProps) => {
 
     const [postTextCut, setPostTextCut] = useState<boolean>(false)
     const divRef = useRef<ReactNode | null>(null)
@@ -37,13 +36,12 @@ export const Post = ({ content, publisherId, _id }: PostProps) => {
         }
     }, [content]);
 
-    //Can be inside layout
-
 
     return (
         <PostLayout
             postId={_id}
             publisherId={publisherId}
+            navigation={navigation}
         >
             <Box
                 display="flex"

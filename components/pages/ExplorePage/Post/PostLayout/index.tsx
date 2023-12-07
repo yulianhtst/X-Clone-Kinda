@@ -13,7 +13,7 @@ import { useRouter } from 'next/router'
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 
-export const PostLayout = ({ postId, publisherId, children }: any) => {
+export const PostLayout = ({ postId, publisherId, children ,navigation}: any) => {
 
 
     const { auth } = useContext(AuthContext)
@@ -59,47 +59,50 @@ export const PostLayout = ({ postId, publisherId, children }: any) => {
     const commentClickHandler = async () => {
         // await createCommentCS(postId, loggedUser,content)
     }
-    const postClickHandler = async () => {
-        router.push(`${user.name}/${postId}`)
-    }
-    return (
+    const postClickHandler = (e) => {
+        // Get the clicked element
+        const clickedElement = e.target;
+      
+        // Check if the clicked element is not one of the inner elements
+        if (!clickedElement.closest('.inner-elements')) {
+          // Your logic for handling the outer Box click
+          if (navigation) {
+            router.push(`${user.name}/${postId}`);
+          }
+        }
+      };
+      
+      return (
         <Box
-            onClick={postClickHandler}
-            sx={{ border: 'solid red' }}>
-            <Box display="flex">
-                <Typography>
-                    {
-                        isLoading ? 'Loading' : (!user ? 'Error' : `@${user.name}`)
-                    }
-                </Typography>
-            </Box>
-            {children}
-
-            <Box display="flex" justifyContent="space-around">
-
-                <Button
-                    size='small'
-                    variant={isLiked && 'contained'}
-                >
-                    <Typography
-                        onClick={isLiked ? dislikeClickHandler : likeClickHandler}
-                        // onClick={likeClickHandler
-                        fontSize='10px'
-                    >
-                        Like :{likes}
-                    </Typography>
-                </Button>
-                <Button
-                    size='small'
-                >
-                    <Typography
-                        onClick={commentClickHandler}
-                        fontSize='10px'
-                    >
-                        Comment
-                    </Typography>
-                </Button>
-            </Box>
+          onClick={postClickHandler}
+          sx={{ border: 'solid red' }}
+        >
+          <Box display="flex" className="inner-elements">
+            <Typography>
+              {isLoading ? 'Loading' : (!user ? 'Error' : `@${user.name}`)}
+            </Typography>
+          </Box>
+          {children}
+      
+          <Box display="flex" justifyContent="space-around" className="inner-elements">
+            <Button size='small' variant={isLiked && 'contained'}>
+              <Typography
+                onClick={isLiked ? dislikeClickHandler : likeClickHandler}
+                fontSize='10px'
+              >
+                Like :{likes}
+              </Typography>
+            </Button>
+            <Button size='small' className="inner-elements">
+              <Typography
+                onClick={commentClickHandler}
+                fontSize='10px'
+              >
+                Comment
+              </Typography>
+            </Button>
+          </Box>
         </Box>
-    )
+      );
+      
 }

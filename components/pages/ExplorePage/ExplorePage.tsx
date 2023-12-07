@@ -5,7 +5,7 @@ import { AuthContext } from "@/context/AuthContext";
 import { ChangeEvent, useContext, useState } from 'react'
 import { createPost } from "@/services/ClientSide/postCS";
 import { createDecipheriv } from "crypto";
-import useSWR from "swr";
+import useSWR, { mutate } from "swr";
 import { API } from "@/Constants";
 import axios from "axios";
 
@@ -25,13 +25,15 @@ export default function ExplorePage() {
     const { auth } = useContext(AuthContext)
     const [postText, setPostText] = useState<string | undefined>(undefined)
 
-    const { data: allPostsData } = useSWR(`${API}/posts`, fetcher)
+    const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`${API}/posts`, fetcher)
 
     const onClick = async () => {
         try {
             const userId = auth.user._id;
 
-            const createdPost = await createPost(userId, postText)
+            const createdPost = await createPost(userId, postText);
+
+            mutateAllPosts([...allPostsData, createdPost], false);
         } catch (error) {
             console.log(error);
         }
@@ -52,7 +54,7 @@ export default function ExplorePage() {
             }}
         >
             <CustomizedInputBase onClick={onClick} onChange={onChange} />
-            {allPostsData?.map(post => <Post publisherId={post.user_id} {...post} />)}
+            {allPostsData?.map(post => <Post navigation={true} publisherId={post.user_id} {...post} />)}
         </Box>
     )
 }

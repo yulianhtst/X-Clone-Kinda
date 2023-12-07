@@ -19,28 +19,18 @@ export const createPost = async (postData: any) => {
   const createdPost = await new Post({ ...postData });
   const savedPost = await createdPost.save();
 
-  // const activityId = user.activity._id;
-
-  // await Activity.findByIdAndUpdate(activityId, {
-  //   $push: { posts: savedPost._id },
-  // });
-  console.log(user, "user1");
+  console.log(savedPost);
 
   user.activity.posts.push(createdPost);
 
   await user.save();
-
-  // await User.findByIdAndUpdate(user_id, {
-  //   $push: { "activity.posts": savedPost._id },
-  // });
-
   return savedPost;
 };
 
 export const getPostByID = async (postId: string) => {
   connectDb();
 
-  const post = await Post.findById( postId );
+  const post = await Post.findById(postId);
 
   return post;
 };
