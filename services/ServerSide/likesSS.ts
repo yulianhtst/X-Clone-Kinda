@@ -8,15 +8,14 @@ export const setLikeSS = async (postId: string, userId: string) => {
   const like = await new PostLikes({ user_id: userId, post_id: postId }).save();
   // const likeId = like._id.toString() || "";
 
-  const user = await User.findById(userId);
-  user.activity.posts_likes.push(like._id);
-  await user.save();
+  const user = await User.findByIdAndUpdate(userId, {
+    $push: { "activity.post_likes": like._id },
+  });
+  // user.activity.posts_likes.push(like._id);
+  // await user.save();
 
-  await Post.findByIdAndUpdate(
-    postId,
-    { $push: { likes: like } },
-    { new: true }
-  );
+  await Post.findByIdAndUpdate(postId, { $push: { likes: like } });
+
   return {
     user: userId,
     post: postId,
@@ -27,13 +26,14 @@ export const setDislikeSS = async (postId: string, userId: string) => {
   connectDb();
   const dislike = await PostLikes.findOneAndDelete({ user_id: userId });
 
-  // const user = await User.findByIdAndUpdate(userId, {
-  //   $pull: { "activity.$[posts_likes]": {} },
-  // });
-  const user = await User.findByIdAndUpdate(userId, {
+  
+
+  await User.findByIdAndUpdate(userId, {
     $pull: { "activity.posts_likes": dislike._id },
   });
-  console.log(dislike);
+  await Post.findByIdAndUpdate(postId, {
+    $pull: { likes: dislike._id },
+  });
 
   return {
     user: userId,
@@ -46,4 +46,3 @@ export const getAllLieksSS = async (postId: string) => {
   const allLikes = await PostLikes.find({ post_id: postId });
   return allLikes;
 };
-8;
