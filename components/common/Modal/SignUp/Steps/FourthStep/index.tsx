@@ -4,6 +4,7 @@ import ModalButton from "../../../Common/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
 import { verifySessionTokenCS } from "@/services/ClientSide/registerCS";
+import axios from "axios";
 
 export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
     const inputRef = useRef('')
@@ -14,10 +15,12 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
 
     const onNextClickFetch = async () => {
         const token = window.sessionStorage.getItem('SignInSession')
-        
+
         const PIN = inputRef.current
         const res = await verifySessionTokenCS(token, PIN)
-        if (!res.error) {
+        console.log(axios.isAxiosError(res));
+
+        if (!axios.isAxiosError(res)) {
             onClickHandler()
         } else {
             handleClick()

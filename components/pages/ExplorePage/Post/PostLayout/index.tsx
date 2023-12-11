@@ -20,10 +20,18 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
   const [isLiked, setIsLiked] = useState<boolean>(false)
   const router = useRouter()
 
-  const { data: user, error, isLoading } = useSWR(`${API}/users/${publisherId}`, fetcher)
-  //Този интервал може да направи грешка ако лайка се таймне с заявката за всички лайкове
-  const { data: likesData, mutate: mutateAllLikesData } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
-  // const { data: likesData } = useSWR(`${API}/likes/${postId}`, fetcher)
+  const {
+    data: user,
+    error: userError,
+    isLoading: userLoading
+  } = useSWR(`${API}/users/${publisherId}`, fetcher)
+
+  const {
+    data: likesData,
+    error: likeError,
+    isLoading: likeLoading,
+    mutate: mutateAllLikesData
+  } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
 
   const loggedUser = auth?.user._id
 
@@ -55,15 +63,15 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
     // await createCommentCS(postId, loggedUser,content)
   }
   const postClickHandler = (e) => {
-    // Get the clicked element
     const clickedElement = e.target;
 
     if (!clickedElement.closest('.inner-elements')) {
       if (navigation) {
-        router.push(`${user.name}/${postId}`);
+        router.push(`${user?.name}/${postId}`);
       }
     }
   };
+
 
   return (
     <Box
@@ -72,15 +80,22 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
     >
       <Box display="flex" className="inner-elements">
         <Typography>
-          {isLoading ? 'Loading' : (!user ? 'Error' : `@${user.name}`)}
+          {userLoading ? 'Loading' : (userError ? 'Error' : `@${user?.name}`)}
         </Typography>
       </Box>
-      {children}
-
+      {
+        userError
+          ? <h1>404</h1>
+          : children
+      }
       <Box display="flex" justifyContent="space-around" className="inner-elements">
         <Button size='small'
           // variant={isLiked && 'contained'}
-          onClick={isLiked ? dislikeClickHandler : likeClickHandler}
+          onClick={
+            isLiked
+              ? dislikeClickHandler
+              : likeClickHandler
+          }
         >
           <Typography
             fontSize='10px'

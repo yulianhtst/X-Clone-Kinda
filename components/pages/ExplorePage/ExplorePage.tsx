@@ -4,7 +4,6 @@ import { Post } from "./Post";
 import { AuthContext } from "@/context/AuthContext";
 import { ChangeEvent, useContext, useState } from 'react'
 import { createPost } from "@/services/ClientSide/postCS";
-import { createDecipheriv } from "crypto";
 import useSWR, { mutate } from "swr";
 import { API } from "@/Constants";
 import axios from "axios";
@@ -22,10 +21,12 @@ type Post = {
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 export default function ExplorePage() {
+
     const { auth } = useContext(AuthContext)
     const [postText, setPostText] = useState<string | undefined>(undefined)
 
     const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`${API}/posts`, fetcher)
+
 
     const onClick = async () => {
         try {
@@ -54,7 +55,14 @@ export default function ExplorePage() {
             }}
         >
             <CustomizedInputBase onClick={onClick} onChange={onChange} />
-            {allPostsData?.map(post => <Post navigation={true} publisherId={post.user_id} {...post} />)}
+            {Array.isArray(allPostsData) &&
+                [...allPostsData]
+                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    .map((post) => (
+                        <Post navigation={true} publisherId={post.user_id} {...post} />
+                    ))
+            }
         </Box>
     )
 }
+

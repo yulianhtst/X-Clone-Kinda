@@ -13,8 +13,7 @@ import {
 let PIN: number;
 
 export const sendEmails = async (name: string, email: string) => {
-  console.log({name,email});
-  
+  console.log({ name, email });
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -36,13 +35,7 @@ export const sendEmails = async (name: string, email: string) => {
     html: `<p>This is a test email sent with <b>${PIN}</b>!</p>`,
   };
 
-  return transporter.sendMail(mailOptions, (error, info) => {
-    if (error) {
-      console.error("Error sending email:", error);
-    } else {
-      console.log("Email sent:", info.response);
-    }
-  });
+  return await transporter.sendMail(mailOptions);
 };
 
 export const createSessionTokenSS = (email: string) => {

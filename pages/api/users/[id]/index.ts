@@ -17,5 +17,9 @@ export default async function handler(
     email: user?.email,
   };
 
-  res.json(userDTO);
+  if (user) {
+    res.json(userDTO);
+  } else {
+    res.status(404).end();
+  }
 }

@@ -1,7 +1,6 @@
 import { Modal, Box, Typography, Button, TextField, IconButton, InputAdornment } from "@mui/material"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ModalButton from "../../../Common/ModalButton"
-import { API } from "@/Constants"
 import { sendEmailCS } from "@/services/ClientSide/registerCS";
 
 type ThirdModalStepProps = {
@@ -12,14 +11,10 @@ type ThirdModalStepProps = {
 
 export default function ThirdModalStep({ onClickHandler, onFocusHandler, formData }: ThirdModalStepProps) {
 
-    //Here maybe i should create {name ,email} and send it instead
-    //I should choose if i would delete the token after this request
-    //Or send it with password and then delete it 
     const onNextClickFetch = async () => {
         const { sessionToken } = await sendEmailCS(formData)
         window.sessionStorage.setItem('SignInSession', sessionToken)
     }
-
 
     return (
         <>

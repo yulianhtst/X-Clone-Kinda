@@ -17,12 +17,12 @@ export default async function handler(
 ) {
 
     const { name, email } = req.body;
-    
+
     try {
         const token = createSessionTokenSS(email)
         const info = await sendEmails(name, email)
 
-        res.status(200).json({ message: 'Email sent successfully', sessionToken: token });
+        res.status(200).json({ message: info, sessionToken: token });
     } catch (error) {
         console.error('Error sending email: ', error);
         res.status(500).json({ error: 'Email could not be sent' });

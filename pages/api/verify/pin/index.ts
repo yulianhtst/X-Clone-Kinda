@@ -18,6 +18,7 @@ export default async function handler(
     }
 
     const result: any = jwt.verify(sessionToken, JWT_SESSION_SECRET);
+    console.log(result.PIN, Number(PIN));
 
     if (result.PIN !== Number(PIN)) {
       throw new Error("PIN does not match");
@@ -27,6 +28,8 @@ export default async function handler(
       message: "PIN match",
     });
   } catch (error: any) {
+    console.log(error);
+
     if (error.name === "JsonWebTokenError") {
       res.status(401).json({
         error: "JsonWebTokenError",

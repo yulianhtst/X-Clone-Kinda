@@ -4,9 +4,6 @@ import { Box, Typography, Button, Icon } from '@mui/material'
 import Image from 'next/image'
 import img from '@/public/images/DSC_0078.JPG'
 import { useRef, useEffect, useState, ReactNode, useContext } from 'react'
-import { PostInfo } from './PostInfo'
-import { AuthContext } from '@/context/AuthContext'
-import { setLikeCS } from '@/services/ClientSide/likesCS'
 import { PostLayout } from './PostLayout'
 
 type PostProps = {
