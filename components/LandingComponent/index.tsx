@@ -6,34 +6,30 @@ import ModalComponent from "../common/Modal";
 import logo from "@/public/images/WhiteLogo.svg"
 import Image from "next/image";
 
-import {  useState } from 'react'
+import { useState } from 'react'
 import type { MouseEvent } from 'react'
+import { useRouter } from "next/router";
 
-export default function LoginComponent() {
-    const [isOpen, setIsOpen] = useState<boolean>(false)
-    const [button, setButton] = useState<string | null>(null)
+export default function LandingComponent() {
+    const router = useRouter()
 
     const matches900 = useMediaQuery('(min-width:900px)')
     const matches500 = useMediaQuery('(max-width:500px)')
 
-    const onModalOpen = (e: MouseEvent<HTMLButtonElement>) => {
+    const onSignUpClick = (e: MouseEvent<HTMLButtonElement>) => {
         const clicked = e.currentTarget.textContent
-
-        setButton(clicked)
-        setIsOpen(true);
+        router.push('/auth/signup')
+    };
+    const onSignInClick = (e: MouseEvent<HTMLButtonElement>) => {
+        const clicked = e.currentTarget.textContent
+        router.push('/auth/signin')
     };
 
-    const onModalClose = () => {
-        setIsOpen(false);
-    };
+
     return (
         <>
-            {isOpen &&
-                <ModalComponent isOpen={isOpen} handleClose={onModalClose} button={button} />
-            }
-
-
             <Box
+                position="absolute"
                 display="flex"
                 {...(matches900 ? { flexDirection: 'row' } : { flexDirection: 'column' })}
                 {...(matches900 ? { justifyContent: 'start' } : { justifyContent: 'center' })}
@@ -109,7 +105,7 @@ export default function LoginComponent() {
                             }}
                         >
                             <Button
-                                onClick={onModalOpen}
+                                onClick={onSignUpClick}
                                 sx={{
                                     bgcolor: 'white',
                                     borderRadius: '20px'
@@ -140,13 +136,13 @@ export default function LoginComponent() {
                                 </Box>
                             </Box>
                             <Button
-                                onClick={onModalOpen}
+                                onClick={onSignInClick}
                                 sx={{
                                     bgcolor: 'white',
                                     borderRadius: '20px'
                                 }}
                             >
-                                Sign up
+                                Login to account
                             </Button>
                             <Typography
                                 color="#808080"

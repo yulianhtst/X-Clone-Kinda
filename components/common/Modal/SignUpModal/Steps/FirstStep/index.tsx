@@ -1,8 +1,9 @@
 import { Box, Typography, TextField } from "@mui/material"
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import ModalButton from "../../../Common/ModalButton";
 import { useValidateFields } from "@/hooks/useValidateFields";
+import { useErrorManager } from "@/hooks/useErrorManager";
 // import * as validate from '@/validation/ClientSide/validateCl'
 
 
@@ -11,14 +12,19 @@ type FirstModalStepProps = {
     onClickHandler: () => void;
     updateFormValue: (name: string, value: string | boolean) => void;
 };
+
 export default function FirstModalStep({ formData, onClickHandler, updateFormValue }: FirstModalStepProps) {
-    const { checkEmailDbExistance, validateEmail, validateName, error } = useValidateFields()
+
+    const { error, setCustomError } = useErrorManager()
+    const { checkEmailDbExistance, validateEmail, validateName } = useValidateFields(setCustomError)
 
     const { name, email } = formData
+
 
     const isNameValid = validateName(name)
     const isEmailAvailable = checkEmailDbExistance(email)
     const isEmailValid = validateEmail(email)
+
 
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.currentTarget;
@@ -33,7 +39,7 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
         updateFormValue("isValid", isFormValid)
     }, [isEmailValid, isEmailAvailable, isNameValid])
 
-
+    console.log(error, 'firstStepModal');
     return (
         <>
             <Box

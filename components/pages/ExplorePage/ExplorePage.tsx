@@ -18,6 +18,7 @@ type Post = {
     updatedAt: string,
 }
 
+
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
 export default function ExplorePage() {
@@ -54,12 +55,20 @@ export default function ExplorePage() {
                 maxWidth: '700px',
             }}
         >
-            <CustomizedInputBase onClick={onClick} onChange={onChange} />
+            <CustomizedInputBase
+                onClick={onClick}
+                onChange={onChange}
+            />
             {Array.isArray(allPostsData) &&
                 [...allPostsData]
-                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    //@ts-expect-error
+                    .sort((a: Post, b: Post) => new Date(b.createdAt) - new Date(a.createdAt))
                     .map((post) => (
-                        <Post navigation={true} publisherId={post.user_id} {...post} />
+                        <Post
+                            navigation={true}
+                            publisherId={post.user_id}
+                            {...post}
+                        />
                     ))
             }
         </Box>

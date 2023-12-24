@@ -18,7 +18,8 @@ interface SignUp {
     isValid: boolean,
 }
 
-export default function SingUp({ handleClose }: { handleClose: () => void }) {
+
+export default function SignUpModal({ handleClose }: { handleClose: () => void }) {
     const [step, setStep] = useState<number>(1)
     const [form, setForm] = useState<SignUp>({
         name: '',
@@ -46,7 +47,9 @@ export default function SingUp({ handleClose }: { handleClose: () => void }) {
 
     return (
         <>
-            <Box display="flex" >
+            <Box
+                display="flex"
+            >
                 {step == 1 ?
                     <CloseButton handleClose={handleClose} />
                     :
@@ -66,26 +69,23 @@ export default function SingUp({ handleClose }: { handleClose: () => void }) {
 
 
             {/* ////////////////////////////////////////////////////////////////// */}
-            <ModalLayout>
 
-                {
-                    step === 1 && <FirstModalStep formData={form} onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
-                }
-                {
-                    step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
-                }
-                {
-                    step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} onFocusHandler={onInputFieldFocus} />
-                }
-                {
-                    step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
-                }
-                {
-                    step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} onClickHandler={handleClose} />
-                }
+            {
+                step === 1 && <FirstModalStep formData={form} onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
+            }
+            {
+                step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
+            }
+            {
+                step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} onFocusHandler={onInputFieldFocus} />
+            }
+            {
+                step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
+            }
+            {
+                step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} onClickHandler={handleClose} />
+            }
 
-
-            </ModalLayout >
         </>
     )
 }

@@ -1,4 +1,4 @@
-import LoginComponent from '@/components/Login';
+import LandingComponent from '@/components/LandingComponent';
 import Head from 'next/head'
 
 
@@ -16,7 +16,7 @@ export default function Home() {
       </Head>
       {/* <AuthContext.Provider value={{ auth, userAuth }}> */}
 
-      <LoginComponent />
+      <LandingComponent />
 
 
       {/* </AuthContext.Provider> */}

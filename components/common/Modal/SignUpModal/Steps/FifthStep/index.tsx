@@ -8,6 +8,7 @@ import { AuthContext } from "@/context/AuthContext"
 import { connectDb } from "@/dbConfig/dbConfig"
 import { useValidateFields } from "@/hooks/useValidateFields"
 import { createUserCS } from "@/services/ClientSide/registerCS"
+import { useErrorManager } from "@/hooks/useErrorManager"
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
@@ -19,7 +20,8 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
 
     const { auth, userAuth } = useContext<any>(AuthContext)
     const router = useRouter()
-    const { error, validatePassword } = useValidateFields()
+    const { error, setCustomError } = useErrorManager()
+    const { validatePassword } = useValidateFields(setCustomError)
 
     const { password } = formData
     validatePassword(password)
@@ -87,7 +89,8 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                     handler={() => {
                         onSubmitFormHandler()
                         onClickHandler()
-                    }} />
+                    }}
+                />
             </Box>
         </>
     )

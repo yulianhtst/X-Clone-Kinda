@@ -1,38 +1,46 @@
 import { Box, Typography, TextField } from "@mui/material"
 import CloseButton from "../Common/CloseButton"
 import ModalLayout from "@/components/layout/ModalLayout"
-import { ChangeEvent, useContext, useState } from "react"
+import { ChangeEvent, useContext, useEffect, useState } from "react"
 import ModalButton from "../Common/ModalButton"
 import { useValidateFields } from "@/hooks/useValidateFields"
 import { loginCS } from "@/services/ClientSide/authServiceCS"
 import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
+import { useErrorManager } from "@/hooks/useErrorManager"
 
 interface LoginForm {
     email: string,
     password: string,
 }
-export default function Login({ handleClose }) {
+export default function SignInModal({ handleClose }) {
     const { auth, userAuth } = useContext(AuthContext)
     const router = useRouter()
+
 
     const [form, setForm] = useState<LoginForm>({
         email: '',
         password: '',
     })
-    const { validateEmail, validatePassword, error } = useValidateFields()
+    
+    const { error, setCustomError } = useErrorManager()
+    const { validateEmail } = useValidateFields(setCustomError)
 
-    const { email, password } = form
+    const { email } = form
+
     validateEmail(email)
-    // validatePassword(password)
 
     const updateFormValue = (name: string, value: string | boolean) => {
         setForm(state => ({ ...state, [name]: value }));
     };
     const onClickHandler = async () => {
-        const user = await loginCS(email, password)
-        userAuth(user)
-        if (user) router.replace('/explore')
+        try {
+            const user = await loginCS(form)
+            userAuth(user)
+            if (user) router.replace('/explore')
+        } catch (e) {
+            // // setCustomError('loginError', 'Please enter valid credentials', e)
+        }
     }
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.currentTarget;
@@ -46,18 +54,18 @@ export default function Login({ handleClose }) {
 
     return (
         <>
-            <Box display="flex">
-                <CloseButton handleClose={handleClose} />
-                <Typography
-                    variant="h6"
-                    fontWeight="bold"
-                    alignSelf="center"
-                    sx={{
-                        ml: '15px'
-                    }}
-                ></Typography>
-            </Box>
             <ModalLayout>
+                <Box display="flex">
+                    <CloseButton handleClose={handleClose} />
+                    <Typography
+                        variant="h6"
+                        fontWeight="bold"
+                        alignSelf="center"
+                        sx={{
+                            ml: '15px'
+                        }}
+                    ></Typography>
+                </Box>
 
                 <Box
                     sx={{
@@ -100,9 +108,14 @@ export default function Login({ handleClose }) {
                         sx={{
                             margin: '10px 0'
                         }} />
-                    <ModalButton content={'Sign Up'} handler={onClickHandler} />
+                    {error.customErrors &&
+                        <Typography>
+                            {error.loginError}
+                        </Typography>
+                    }
+                    <ModalButton content={'Sign In'} handler={onClickHandler} />
                 </Box>
-            </ModalLayout>
+            </ModalLayout >
 
         </>
     )

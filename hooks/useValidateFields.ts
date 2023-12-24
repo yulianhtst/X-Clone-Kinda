@@ -1,41 +1,45 @@
 import { checkEmailAvailabilityCS } from "@/services/ClientSide/registerCS";
 import { useEffect, useState } from "react";
+import { useErrorManager } from "./useErrorManager";
 
-export const useValidateFields = () => {
-  const [error, setError] = useState<any>({
-    emailError: "",
-    passwordError: "",
-    nameError: "",
-  });
+type ErrorTypes = {
+  emailError: string;
+  passwordError: string;
+  nameError: string;
+  loginError: string;
+};
+
+export const useValidateFields = (setCustomError:any) => {
+  // const { setCustomError, error } = useErrorManager();
+  // console.log(error.emailError, "error");
 
   const validateEmail = (email: string) => {
     const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
+
     useEffect(() => {
       const pattern = new RegExp("([a-zA-Z0-9]+)@([a-zA-Z]+)\\.([a-zA-Z]+)");
       const emailValid = pattern.test(email);
       setIsEmailValid(emailValid);
-      // setError(emailValid ? "" : "Please enter a valid email.");
 
-      if (emailValid) {
-        setError((prevState: any) => ({
-          ...prevState,
-          emailError: "",
-        }));
+      if (!emailValid) {
+        setCustomError(
+          "emailError",
+          "Please enter a valid email.",
+          new Error("Invalid email")
+        );
       } else {
-        setError((prevState: any) => ({
-          ...prevState,
-          emailError: "Please enter a valid email.",
-        }));
+        setCustomError("emailError", "");
       }
 
       if (email === "") {
-        setError((prevState: any) => ({
-          ...prevState,
-          emailError: "",
-        }));
+        setCustomError("emailError", "");
       }
     }, [email]);
+
     return isEmailValid;
+  };
+  validateEmail.da = function () {
+    console.log("mooo");
   };
 
   const checkEmailDbExistance = (email: string) => {
@@ -46,47 +50,39 @@ export const useValidateFields = () => {
 
         setIsEmailAvailable(emailAvailable);
 
-        if (emailAvailable) {
-          return;
-        } else {
-          setError((prevState:any) => ({
-            ...prevState,
-            emailError: "Email has already been taken.",
-          }));
-        }
-        if (email === "") {
-          setError((prevState:any) => ({
-            ...prevState,
-            emailError: "",
-          }));
+        if (!emailAvailable) {
+          setCustomError(
+            "emailError",
+            "Email has already been taken.",
+            new Error("Invalid email")
+          );
         }
       })();
     }, [email]);
-    return isEmailAvailable;
-  };
 
-  const validateName = (name: string) => {
-    const [isNameValid, setIsNameValid] = useState<boolean>(false);
-    useEffect(() => {
-      name ? setIsNameValid(true) : setIsNameValid(false);
-    }, [name]);
-    return isNameValid;
+    return isEmailAvailable;
   };
 
   const validatePassword = (password: string) => {
     useEffect(() => {
       if (password?.length < 5 && password?.length !== 0) {
-        setError((prevState:any) => ({
-          ...prevState,
-          passwordError: "The password is too short",
-        }));
+        setCustomError(
+          "passwordError",
+          "The password is too short",
+          new Error("Invalid password")
+        );
       } else {
-        setError((prevState:any) => ({
-          ...prevState,
-          passwordError: "",
-        }));
+        setCustomError("passwordError", "");
       }
     }, [password]);
+  };
+
+  const validateName = (name: string) => {
+    const [isNameValid, setIsNameValid] = useState<boolean>(false);
+    useEffect(() => {
+      setIsNameValid(!!name);
+    }, [name]);
+    return isNameValid;
   };
 
   return {
@@ -94,6 +90,5 @@ export const useValidateFields = () => {
     checkEmailDbExistance,
     validateName,
     validatePassword,
-    error,
   };
 };

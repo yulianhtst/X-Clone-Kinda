@@ -9,17 +9,14 @@ export const loginSS = async (email: string, password: string) => {
   const hashedPassowrd = user.password;
   const isMatched = await bcrypt.compare(password, hashedPassowrd);
 
-  // if (!isMatched) throw { error: "Wrong credentials" };
-  // if (!user) throw { error: "Can't find user" };
-
-  return user;
+  if (!isMatched) {
+    throw { error: "Wrong credentials" };
+  } else if (!user) {
+    throw { error: "Can't find user" };
+  } else {
+    return user;
+  }
 };
-
-
-
-
-
-
 
 // export const logoutSS = (token: string) => {
 // };

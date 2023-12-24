@@ -68,14 +68,20 @@ export const Post = ({ content, publisherId, _id, navigation }: PostProps) => {
                                 sx={{
                                     wordWrap: 'break-word',
                                     lineHeight: '20px',
-                                    ...(postTextCut ? { overflow: 'true' } : { overflow: 'false' })
+                                    ...(postTextCut
+                                        ? { overflow: 'true' }
+                                        : { overflow: 'false' })
                                 }}
                             >
                                 {content}
                             </Typography>
                         </Box>
                         {postTextCut &&
-                            <Typography onClick={() => setPostTextCut(false)}> Show More</Typography>
+                            <Typography
+                                onClick={() => setPostTextCut(false)}
+                            >
+                                Show More
+                            </Typography>
                         }
                     </Box>
                 </Box>
