@@ -17,17 +17,17 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
         const token = window.sessionStorage.getItem('SignInSession')
 
         const PIN = inputRef.current
-        const res = await verifySessionTokenCS(token, PIN)
-        console.log(axios.isAxiosError(res));
+        try {
+            await verifySessionTokenCS(token, PIN)
+        } catch (error) {
+            if (!axios.isAxiosError(error)) {
+                onClickHandler()
+            } else {
+                handleClick()
+                setError(error.message)
+            }
 
-        if (!axios.isAxiosError(res)) {
-            onClickHandler()
-        } else {
-            handleClick()
-            setError(res.message)
-            console.log('error');
         }
-
     }
     const handleClick = () => {
         setOpen(true);

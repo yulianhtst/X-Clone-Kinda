@@ -2,17 +2,13 @@ import { checkEmailAvailabilityCS } from "@/services/ClientSide/registerCS";
 import { useEffect, useState } from "react";
 import { useErrorManager } from "./useErrorManager";
 
-type ErrorTypes = {
-  emailError: string;
-  passwordError: string;
-  nameError: string;
-  loginError: string;
-};
-
-export const useValidateFields = (setCustomError:any) => {
-  // const { setCustomError, error } = useErrorManager();
-  // console.log(error.emailError, "error");
-
+export const useValidateFields = (
+  setCustomError: (
+    errorKey: string,
+    message: string,
+    err?: Error | null
+  ) => void
+) => {
   const validateEmail = (email: string) => {
     const [isEmailValid, setIsEmailValid] = useState<boolean>(false);
 

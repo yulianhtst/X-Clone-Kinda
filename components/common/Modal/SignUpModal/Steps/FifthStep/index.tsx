@@ -28,10 +28,14 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
 
 
     const onSubmitFormHandler = async () => {
-        const createdUser = await createUserCS(formData)
+        try {
+            const createdUser = await createUserCS(formData)
 
-        userAuth(createdUser)
-        if (createdUser) router.replace('/explore')
+            userAuth(createdUser)
+            if (createdUser) router.replace('/explore')
+        } catch (error: any) {
+            setCustomError("createUserError", error.message, error)
+        }
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {

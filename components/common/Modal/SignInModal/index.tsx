@@ -39,7 +39,7 @@ export default function SignInModal({ handleClose }) {
             userAuth(user)
             if (user) router.replace('/explore')
         } catch (e) {
-            // // setCustomError('loginError', 'Please enter valid credentials', e)
+            setCustomError('loginError', 'Please enter valid credentials', e)
         }
     }
     const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {

@@ -34,8 +34,14 @@ export const verifySessionTokenCS = async (
 };
 
 export const sendEmailCS = async (formData: any) => {
-  const response = await axios.post(`${API}/mailer`, formData);
-  return response.data;
+  try {
+    const response = await axios.post(`${API}/mailer`, formData);
+    return response.data;
+  } catch (error) {
+    if(error instanceof Error){
+      return error
+    }
+  }
 };
 
 export const checkEmailAvailabilityCS = async (email: string) => {

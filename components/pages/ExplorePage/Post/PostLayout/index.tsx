@@ -9,6 +9,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { AuthContext } from '@/context/AuthContext'
 import { createCommentCS } from '@/services/ClientSide/commentsCS'
 import { useRouter } from 'next/router'
+import { useErrorManager } from '@/hooks/useErrorManager'
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 
@@ -17,6 +18,8 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
       const { auth } = useContext(AuthContext)
       const [isLiked, setIsLiked] = useState<boolean>(false)
       const router = useRouter()
+
+      const { setCustomError } = useErrorManager()
 
       const {
             data: user,
@@ -46,21 +49,30 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
 
 
       const likeClickHandler = async (e) => {
-            const liked = await setLikeCS(postId, loggedUser)
-            if (liked) {
-                  setIsLiked(true)
-                  mutateAllLikesData({ ...likesData, liked })
+            try {
+                  const liked = await setLikeCS(postId, loggedUser)
+                  if (liked) {
+                        setIsLiked(true)
+                        mutateAllLikesData({ ...likesData, liked })
+                  }
+            } catch (error: any) {
+                  setCustomError("likeError", error.message, error)
             }
       }
       const dislikeClickHandler = async () => {
-            const disliked = await setDislikeCS(postId, loggedUser)
-            if (disliked) {
-                  setIsLiked(false)
-                  mutateAllLikesData({ disliked, ...likesData })
+            try {
+                  const disliked = await setDislikeCS(postId, loggedUser)
+                  if (disliked) {
+                        setIsLiked(false)
+                        mutateAllLikesData({ disliked, ...likesData })
+                  }
+            } catch (error: any) {
+                  setCustomError("dislikeError", error.message, error)
             }
+
       }
       const commentClickHandler = async () => {
-            router.push()
+            // router.push()
             // await createCommentCS(postId, loggedUser,content)
       }
       const postClickHandler = (e) => {

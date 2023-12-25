@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+
+
 export const useErrorManager = () => {
   const [error, setError] = useState<any>({});
 
@@ -18,10 +20,8 @@ export const useErrorManager = () => {
     });
   };
 
-
-  ///Тука Error е празна 
-  console.log(error,'inside hook');
-  
+  ///Тука Error е празна
+  console.log(error, "inside hook");
 
   return {
     error,
