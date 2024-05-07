@@ -6,6 +6,6 @@ export const getDataFromToken = (req: NextRequest) => {
   const token = req.cookies.get("loggedUser")?.value || "";
   // const token = req.cookies?.loggedUser;
 
-  const decodedToken = jwt.verify(token, JWT_LOGIN_SECRET);
+  const decodedToken = jwt.verify(token, process.env.JWT_LOGIN_SECRET);
   return decodedToken;
 };

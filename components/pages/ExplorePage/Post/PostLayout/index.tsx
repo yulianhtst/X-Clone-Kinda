@@ -29,7 +29,7 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
 
       const {
             data: likesData,
-            error: likeError,
+            error: likeError,a 
             isLoading: likeLoading,
             mutate: mutateAllLikesData
       } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })

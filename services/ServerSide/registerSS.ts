@@ -1,15 +1,6 @@
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
 
-import {
-  JWT_SESSION_SECRET,
-  NODEMAILER_EMAIL,
-  NODEMAILER_PASS,
-  OAUTH_CLIENT_ID,
-  OAUTH_CLIENT_SECRET,
-  OAUTH_REFRESH_TOKEN,
-} from "@/Constants";
-
 let PIN: number;
 
 export const sendEmails = async (name: string, email: string) => {
@@ -19,16 +10,16 @@ export const sendEmails = async (name: string, email: string) => {
     service: "gmail",
     auth: {
       type: "OAuth2",
-      user: NODEMAILER_EMAIL,
-      pass: NODEMAILER_PASS,
-      clientId: OAUTH_CLIENT_ID,
-      clientSecret: OAUTH_CLIENT_SECRET,
-      refreshToken: OAUTH_REFRESH_TOKEN,
+      user: process.env.NODEMAILER_USER,
+      pass: process.env.NODEMAILER_PASSWORD,
+      clientId: process.env.OAUTH_CLIENT_ID,
+      clientSecret: process.env.OAUTH_CLIENT_SECRET,
+      refreshToken: process.env.OAUTH_REFRESH_TOKEN,
     },
   });
 
   const mailOptions = {
-    from: NODEMAILER_EMAIL,
+    from: process.env.NODEMAILER_USER,
     to: `${email}`,
     subject: `Hello ${name}`,
     text: "This is a test email sent with Nodemailer!",
@@ -40,8 +31,8 @@ export const sendEmails = async (name: string, email: string) => {
 
 export const createSessionTokenSS = (email: string) => {
   PIN = Math.floor(Math.random() * 1000000);
-  const token = jwt.sign({ email, PIN }, JWT_SESSION_SECRET, {
-    expiresIn: "1h",
+  const token = jwt.sign({ email, PIN }, process.env.JWT_SESSION_SECRET, {
+    expiresIn: process.env.JWT_SESSION_EXPIRATION_TIME,
   });
   return token;
 };

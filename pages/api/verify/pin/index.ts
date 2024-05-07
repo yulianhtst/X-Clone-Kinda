@@ -17,7 +17,10 @@ export default async function handler(
       throw new Error("No session token provided");
     }
 
-    const result: any = jwt.verify(sessionToken, JWT_SESSION_SECRET);
+    const result: any = jwt.verify(
+      sessionToken,
+      process.env.JWT_SESSION_SECRET
+    );
     console.log(result.PIN, Number(PIN));
 
     if (result.PIN !== Number(PIN)) {
