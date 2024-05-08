@@ -1,162 +1,105 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
-import useMediaQuery from '@mui/material/useMediaQuery';
+import { Box, Button, Typography, styled } from "@mui/material";
 
-import ModalComponent from "../common/Modal";
 
-import logo from "@/public/images/WhiteLogo.svg"
+import logo from "@/public/svgs/WhiteLogo.svg"
 import Image from "next/image";
 
-import { useState } from 'react'
-import type { MouseEvent } from 'react'
 import { useRouter } from "next/router";
 
 export default function LandingComponent() {
     const router = useRouter()
 
-    const matches900 = useMediaQuery('(min-width:900px)')
-    const matches500 = useMediaQuery('(max-width:500px)')
-
-    const onSignUpClick = (e: MouseEvent<HTMLButtonElement>) => {
-        const clicked = e.currentTarget.textContent
+    const onSignUpClick = () => {
         router.push('/auth/signup')
     };
-    const onSignInClick = (e: MouseEvent<HTMLButtonElement>) => {
-        const clicked = e.currentTarget.textContent
+    const onSignInClick = () => {
         router.push('/auth/signin')
     };
 
 
     return (
-        <>
-            <Box
-                position="absolute"
-                display="flex"
-                {...(matches900 ? { flexDirection: 'row' } : { flexDirection: 'column' })}
-                {...(matches900 ? { justifyContent: 'start' } : { justifyContent: 'center' })}
-                sx={{
-                    minHeight: "100vh",
-                    minWidth: "100vw",
-                    p: matches500 ? "3rem" : '4rem'
-                }}
-            >
-                {/* {matches900 && */}
-                <Box
-                    {...(matches900 ? { flex: "1" } : null)}
-                    display="flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    flexDirection="column"
-                >
-
-                    <Box
-                        sx={{
-                            maxWidth: matches900 ? '100%' : '60px '
-                        }}>
-                        <Image
-                            src={logo}
-                            alt={"logo"}
-                            style={{
-                                width: '100%',
-                                height: '100%'
-                            }} />
+        <Box display={"flex"} width={'100vw'} height={'100vh'}>
+            <ContentWrapper sx={{ minWidth: '45vw' }}>
+                <Image src={logo} alt={"logo"} />
+            </ContentWrapper>
+            <ContentWrapper flex={1}>
+                <Box>
+                    <Box>
+                        <Typography variant="h2">
+                            Everything start from here
+                        </Typography>
                     </Box>
-                </Box>
-                <Box
-                    {...(matches900 ? { flex: "1" } : null)}
-                    {...(matches900 ? { alignItems: 'start' } : { alignItems: 'center' })}
-                    display="flex"
-                    justifyContent="center"
-                    flexDirection="column"
-                >
-
-                    <Box
-                        {...(matches900 ? { alignItems: 'start' } : { alignItems: 'center' })}
-                        display="flex"
-                        flexDirection="column"
-                    >
-                        <Box
-                            sx={{
-                                m: matches900 ? "48px 0" : '0px'
-                            }}
-                        >
-
-                            <Typography
-                                fontFamily="-apple-system"
-                                variant="h2"
-                            >
-                                Happening now
-                            </Typography>
-                        </Box>
-                        <Box
-                            sx={{
-                                m: "0 0 32px"
-                            }}>
-                            <Typography>
-                                Join today
-                            </Typography>
-                        </Box>
-                        <Box
-                            display="flex"
-                            gap="8px"
-                            flexDirection="column"
-                            sx={{
-                                width: "260px",
-                                maxWidth: '360px'
-                            }}
-                        >
-                            <Button
-                                onClick={onSignUpClick}
-                                sx={{
-                                    bgcolor: 'white',
-                                    borderRadius: '20px'
-                                }}
-                            >
-                                Create account
-                            </Button>
-
-                            <Box display="flex" >
-                                <Box
-                                    flex="1"
-                                    position="relative"
-                                    sx={{
-                                        top: '50%'
-                                    }}
-                                >
-                                    <hr />
-                                </Box>
-                                <Typography>&nbsp;or&nbsp;</Typography>
-                                <Box
-                                    flex="1"
-                                    position="relative"
-                                    sx={{
-                                        top: '50%'
-                                    }}
-                                >
-                                    <hr />
-                                </Box>
-                            </Box>
-                            <Button
-                                onClick={onSignInClick}
-                                sx={{
-                                    bgcolor: 'white',
-                                    borderRadius: '20px'
-                                }}
-                            >
-                                Login to account
-                            </Button>
-                            <Typography
-                                color="#808080"
-                                fontSize="0.55rem"
-                            >
-                                By signing up, you agree to the
-                                <span style={{ color: 'lightblue' }}>Terms of Service</span>
-                                and Privacy Policy, including
-                                <span style={{ color: 'lightblue' }}>Cookie Use</span>.
-                            </Typography>
-                        </Box>
+                    <Box>
+                        <Typography>
+                            Join today
+                        </Typography>
                     </Box>
+                    <AuthBox >
+                        <AuthButton onClick={onSignUpClick}>
+                            Create account
+                        </AuthButton>
+
+                        <Box display="flex" >
+                            <Line />
+                            <Typography>&nbsp;or&nbsp;</Typography>
+                            <Line />
+                        </Box>
+
+                        <AuthButton onClick={onSignInClick} >
+                            Login to account
+                        </AuthButton>
+                        <TermsAndConditions />
+                    </AuthBox>
                 </Box>
-            </Box >
-        </>
-    );
+            </ContentWrapper>
+        </Box >
+    )
 }
+
+
+
+const TermsAndConditions = () => (
+    <Typography
+        color="#808080"
+        fontSize="0.55rem"
+    >
+        By signing up, you agree to the
+        <span style={{ color: 'lightblue' }}>Terms of Service</span>
+        and Privacy Policy, including
+        <span style={{ color: 'lightblue' }}>Cookie Use</span>.
+    </Typography>
+)
+const Line = () => (
+    <Box
+        display="flex"
+        flex={1}
+        alignItems='center'
+    >
+        <Box display="flex"
+            sx={{
+                height: "1px",
+                backgroundColor: 'white',
+                width: '100%'
+            }}
+        ></Box>
+    </Box >
+)
+
+
+const AuthButton = styled(Button)({
+    backgroundColor: 'white',
+    borderRadius: '20px',
+})
+const ContentWrapper = styled(Box)({
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+})
+
+const AuthBox = styled(Box)({
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    maxWidth: '300px'
+})

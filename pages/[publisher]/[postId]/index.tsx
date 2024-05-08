@@ -1,4 +1,3 @@
-import { API } from "@/Constants";
 import Layout from "@/components/layout/MainLayout";
 import { Post } from "@/components/pages/ExplorePage/Post";
 import axios from "axios";
@@ -38,7 +37,7 @@ export const getServerSideProps = async (
 ) => {
   const postId = context.query.postId;
   try {
-    const post = (await axios.get(`${API}/posts/${postId}`)).data;
+    const post = (await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts/${postId}`)).data;
 
     return {
       props: {

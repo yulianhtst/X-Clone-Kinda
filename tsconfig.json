@@ -17,6 +17,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "HOC/Notes.tx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "HOC/Notes.tx", "tailwind.config.ts"],
   "exclude": ["node_modules"]
 }

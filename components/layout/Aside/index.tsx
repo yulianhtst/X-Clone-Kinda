@@ -4,8 +4,6 @@ import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useContext } from 'react'
 import { headers } from 'next/headers'
-import axios from "axios";
-import { API } from "@/Constants";
 
 export default function AsideComponent() {
     const router = useRouter()

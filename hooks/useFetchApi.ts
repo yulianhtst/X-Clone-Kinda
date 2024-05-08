@@ -1,10 +1,9 @@
-import { API } from "@/Constants";
 import { useEffect } from "react";
 
 const useFetchApi = (path: string) => {
   useEffect(() => {
     (async () => {
-      fetch(`${API}/${path}/`);
+      fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/${path}/`);
     })();
   }, [path]);
 };

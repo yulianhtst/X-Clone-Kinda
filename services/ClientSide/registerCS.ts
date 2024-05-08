@@ -1,9 +1,8 @@
-import { API } from "@/Constants";
 import axios from "axios";
 
 export const createUserCS = async (form: any) => {
   try {
-    const createdUser = await axios.post(`${API}/auth/signup`, form);
+    const createdUser = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/auth/signup`, form);
 
     return createdUser.data;
   } catch (error) {
@@ -24,7 +23,7 @@ export const verifySessionTokenCS = async (
     };
     const data = JSON.stringify({ PIN });
 
-    const response = await axios.post(`${API}/verify/pin`, data, options);
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/verify/pin`, data, options);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
@@ -35,7 +34,7 @@ export const verifySessionTokenCS = async (
 
 export const sendEmailCS = async (formData: any) => {
   try {
-    const response = await axios.post(`${API}/mailer`, formData);
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/mailer`, formData);
     return response.data;
   } catch (error) {
     if(error instanceof Error){
@@ -46,7 +45,7 @@ export const sendEmailCS = async (formData: any) => {
 
 export const checkEmailAvailabilityCS = async (email: string) => {
   try {
-    const response = await fetch(`${API}/verify/email`, {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/verify/email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

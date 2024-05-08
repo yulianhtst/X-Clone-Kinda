@@ -5,7 +5,6 @@ import { AuthContext } from "@/context/AuthContext";
 import { ChangeEvent, useContext, useState } from 'react'
 import { createPost } from "@/services/ClientSide/postCS";
 import useSWR, { mutate } from "swr";
-import { API } from "@/Constants";
 import axios from "axios";
 
 type Post = {
@@ -26,7 +25,7 @@ export default function ExplorePage() {
     const { auth } = useContext(AuthContext)
     const [postText, setPostText] = useState<string | undefined>(undefined)
 
-    const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`${API}/posts`, fetcher)
+    const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`, fetcher)
 
 
     const onClick = async () => {

@@ -1,4 +1,4 @@
-import { API } from "@/Constants";
+
 import axios from "axios";
 
 type LoginArgs = {
@@ -10,7 +10,7 @@ export const loginCS = async (userCredentials: LoginArgs) => {
   console.log(userCredentials);
   
 
-  const user = await axios.post(`${API}/auth/login`, userCredentials);
+  const user = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/auth/login`, userCredentials);
   return user.data;
 };
 export const logoutCS = () => {
@@ -24,6 +24,6 @@ export const logoutCS = () => {
   //     "Content-Type": "application/json",
   //   },
   // };
-  // const res = await axios.delete(`${API}/auth/logout`, options);
+  // const res = await axios.delete(`${process.env.NEXT_PUBLIC_API_ROUTE}/auth/logout`, options);
   // return res.data;
 };

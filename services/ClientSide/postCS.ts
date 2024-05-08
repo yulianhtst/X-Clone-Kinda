@@ -1,4 +1,3 @@
-import { API } from "@/Constants";
 import axios from "axios";
 
 export const createPost = async (
@@ -10,11 +9,11 @@ export const createPost = async (
     content,
   };
 
-  const createdPost = await axios.post(`${API}/posts`, postData);
+  const createdPost = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`, postData);
   return createdPost.data;
 };
 
 export const getAllPostsCS = async () => {
-  const response = await axios.get(`${API}/posts`);
+  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`);
   return response.data;
 };
