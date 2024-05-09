@@ -1,7 +1,7 @@
 import { Box, Typography, TextField } from "@mui/material"
 import type { ChangeEvent } from 'react'
 import { useContext, useState } from 'react'
-import ModalButton from "../../../Common/ModalButton"
+import ModalButton from "../../../../Buttons/ModalButton/ModalButton"
 import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
 import { useValidateFields } from "@/hooks/useValidateFields"

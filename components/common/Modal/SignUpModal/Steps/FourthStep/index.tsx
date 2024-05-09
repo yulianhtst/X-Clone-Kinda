@@ -1,6 +1,6 @@
 import { Box, Typography, TextField, Snackbar, styled } from "@mui/material"
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import ModalButton from "../../../Common/ModalButton"
+import ModalButton from "../../../../Buttons/ModalButton/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
 import { verifySessionTokenCS } from "@/services/clientSide/registerCS";

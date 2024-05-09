@@ -1,7 +1,7 @@
 import { Box, Typography, TextField } from "@mui/material"
 import { useEffect, useState } from 'react'
 import type { ChangeEvent } from 'react'
-import ModalButton from "../../../Common/ModalButton";
+import ModalButton from "../../../../Buttons/ModalButton/ModalButton";
 import { useValidateFields } from "@/hooks/useValidateFields";
 import { useErrorManager } from "@/hooks/useErrorManager";
 import { styled } from "@mui/system";

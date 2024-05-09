@@ -22,7 +22,6 @@ export default function CustomizedInputBase({ onClick, onChange }) {
             }}
         >
             <Icon sx={{ borderRadius: '50%', }}>
-                {/* Image of current user */}
                 <Image width={24} height={24} alt="smth" src={img} />
             </Icon>
 
@@ -39,7 +38,6 @@ export default function CustomizedInputBase({ onClick, onChange }) {
                 aria-label="search"
             >
                 <SendIcon />
-                {/* This icon will be changed */}
             </IconButton>
         </Paper>
     );

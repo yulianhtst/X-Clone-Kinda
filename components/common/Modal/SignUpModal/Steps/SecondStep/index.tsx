@@ -1,5 +1,5 @@
 import { Modal, Box, Typography, Button, TextField, IconButton, Checkbox } from "@mui/material"
-import ModalButton from "../../../Common/ModalButton"
+import ModalButton from "../../../../Buttons/ModalButton/ModalButton"
 
 export default function SecondModalStep({ onNextBtnClickHandler }: { onNextBtnClickHandler: () => void }) {
 

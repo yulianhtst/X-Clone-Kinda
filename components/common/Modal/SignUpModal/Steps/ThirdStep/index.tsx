@@ -1,6 +1,6 @@
 import { Modal, Box, Typography, Button, TextField, IconButton, InputAdornment, styled } from "@mui/material"
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import ModalButton from "../../../Common/ModalButton"
+import ModalButton from "../../../../Buttons/ModalButton/ModalButton"
 import { sendEmailCS } from "@/services/clientSide/registerCS";
 import { useErrorManager } from "@/hooks/useErrorManager";
 

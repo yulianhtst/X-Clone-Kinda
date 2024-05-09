@@ -9,7 +9,7 @@ import SecondModalStep from "./Steps/SecondStep";
 import ThirdModalStep from "./Steps/ThirdStep";
 import FourthModalStep from "./Steps/FourthStep";
 import FifthModalStep from "./Steps/FifthStep";
-import CloseButton from "../Common/CloseButton";
+import CloseButton from "../../Buttons/CloseButton/CloseButton";
 
 interface SignUp {
     name: string,
