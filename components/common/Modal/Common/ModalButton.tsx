@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, styled } from "@mui/material";
 
 type ModalButtonProps = {
     disabled?: boolean,
@@ -8,18 +8,18 @@ type ModalButtonProps = {
 
 export default function ModalButton({ disabled = false, handler, content }: ModalButtonProps) {
     return (
-        <Button
-            sx={{
-                bgcolor: 'lightblue',
-                borderRadius: '20px',
-                m: "auto 0 50px 0",
-                height: '50px',
-
-            }}
+        <StyledButton
             disabled={disabled}
             onClick={handler}
         >
             {content}
-        </Button>
+        </StyledButton>
     )
 }
+
+const StyledButton = styled(Button)({
+    backgroundColor: 'lightblue',
+    borderRadius: '20px',
+    margin: "auto 0 50px 0",
+    height: '50px',
+})

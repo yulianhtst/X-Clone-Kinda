@@ -1,9 +1,9 @@
 import { Box } from "@mui/material";
-import CustomizedInputBase from "./CreatePost";
+import CustomizedInputBase from "./createPostCS";
 import { Post } from "./Post";
 import { AuthContext } from "@/context/AuthContext";
 import { ChangeEvent, useContext, useState } from 'react'
-import { createPost } from "@/services/ClientSide/postCS";
+import { createPostCS } from "@/services/clientSide/postCS";
 import useSWR, { mutate } from "swr";
 import axios from "axios";
 
@@ -32,7 +32,7 @@ export default function ExplorePage() {
         try {
             const userId = auth.user._id;
 
-            const createdPost = await createPost(userId, postText);
+            const createdPost = await createPostCS(userId, postText);
 
             mutateAllPosts([...allPostsData, createdPost], false);
         } catch (error) {

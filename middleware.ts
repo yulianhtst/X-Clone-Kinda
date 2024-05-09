@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
-import { createSessionTokenSS } from "./services/ServerSide/registerSS";
+import { createSessionTokenSS } from "./services/serverSide/registerSS";
 // This function can be marked `async` if using `await` inside
 export async function middleware(req: NextRequest) {
   const auth = req.headers?.auth || "";

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { createSessionTokenSS, sendEmails } from "@/services/ServerSide/registerSS";
+import { createSessionTokenSS, sendEmails } from "@/services/serverSide/registerSS";
 
 ///////////////////////////////////////////////////////////
 //      PROBLEMS THAT NEED TO BE FIXED 

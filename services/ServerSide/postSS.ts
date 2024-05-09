@@ -10,7 +10,7 @@ export const getAllPostsSS = async () => {
   return posts;
 };
 
-export const createPost = async (postData: any) => {
+export const createPostCS = async (postData: any) => {
   connectDb();
   const { user_id } = postData;
 

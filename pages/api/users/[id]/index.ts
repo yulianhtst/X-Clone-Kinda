@@ -1,5 +1,5 @@
 import { connectDb } from "@/dbConfig/dbConfig";
-import { findUserByIdSS } from "@/services/ServerSide/userSS";
+import { findUserByIdSS } from "@/services/serverSide/userSS";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

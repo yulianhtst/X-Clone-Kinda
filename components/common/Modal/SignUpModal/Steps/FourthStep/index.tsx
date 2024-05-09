@@ -1,12 +1,12 @@
-import { Box, Typography, TextField, Snackbar } from "@mui/material"
+import { Box, Typography, TextField, Snackbar, styled } from "@mui/material"
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import ModalButton from "../../../Common/ModalButton"
 import { useRef, useState } from 'react'
 import { createPortal } from "react-dom"
-import { verifySessionTokenCS } from "@/services/ClientSide/registerCS";
+import { verifySessionTokenCS } from "@/services/clientSide/registerCS";
 import axios from "axios";
 
-export default function FourthModalStep({ onClickHandler }: { onClickHandler: () => void }) {
+export default function FourthModalStep({ onNextBtnClickHandler }: { onNextBtnClickHandler: () => void }) {
     const inputRef = useRef('')
     const [open, setOpen] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null)
@@ -21,7 +21,7 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
             await verifySessionTokenCS(token, PIN)
         } catch (error) {
             if (!axios.isAxiosError(error)) {
-                onClickHandler()
+                onNextBtnClickHandler()
             } else {
                 handleClick()
                 setError(error.message)
@@ -39,11 +39,7 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
 
     return (
         <>
-            <Box
-                sx={{
-                    mb: '20px'
-                }}
-            >
+            <Box marginBottom={"20px"}  >
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -51,7 +47,6 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
                     Enter your PIN
                 </Typography>
                 {createPortal(
-
                     <Snackbar
                         role="alert"
                         open={open}
@@ -62,34 +57,27 @@ export default function FourthModalStep({ onClickHandler }: { onClickHandler: ()
                         }
                         action={<HighlightOffIcon sx={{ color: 'rgb(247, 84, 62)' }} />}
                         anchorOrigin={{ horizontal: 'center', vertical: 'bottom' }}
-                    />, document.body
+                    />,
+                    document.body
                 )}
             </Box>
-            <Box
-                display="flex"
-                flexDirection="column"
-                sx={{
-                    height: '100%',
-                    ">*": {
-                        width: '100%',
-                    }
-                }}
-            >
-
+            <InputContainer>
                 <TextField
                     onChange={(e) => inputRef.current = e.currentTarget.value}
                     label="PIN"
                     name="pin"
-                    sx={{
-                        margin: '10px 0'
-                    }}
                 />
-                {/* <Button sx={{ bgcolor: 'lightblue', borderRadius: '20px', m: "auto 0 50px 0", height: '50px' }} onClick={onClickHandler}>Next </Button> */}
-                <ModalButton disabled={false} content={'Next'}
-                    handler={onNextClickFetch}
-                />
-            </Box>
-
+                <ModalButton disabled={false} content={'Next'} handler={onNextClickFetch} />
+            </InputContainer>
         </>
     )
 }
+const InputContainer = styled(Box)({
+    display: "flex",
+    flexDirection: "column",
+    height: '100%',
+    ">*": {
+        width: '100%',
+
+    }
+})

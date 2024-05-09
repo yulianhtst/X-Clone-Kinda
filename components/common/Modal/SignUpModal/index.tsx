@@ -71,16 +71,16 @@ export default function SignUpModal({ handleClose }: { handleClose: () => void }
             {/* ////////////////////////////////////////////////////////////////// */}
 
             {
-                step === 1 && <FirstModalStep formData={form} onClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
+                step === 1 && <FirstModalStep formData={form} onNextBtnClickHandler={onNextBtnClickHandler} updateFormValue={updateFormValue} />
             }
             {
-                step === 2 && <SecondModalStep onClickHandler={onNextBtnClickHandler} />
+                step === 2 && <SecondModalStep onNextBtnClickHandler={onNextBtnClickHandler} />
             }
             {
-                step === 3 && <ThirdModalStep formData={form} onClickHandler={onNextBtnClickHandler} onFocusHandler={onInputFieldFocus} />
+                step === 3 && <ThirdModalStep formData={form} onNextBtnClickHandler={onNextBtnClickHandler} onFocusHandler={onInputFieldFocus} />
             }
             {
-                step === 4 && <FourthModalStep onClickHandler={onNextBtnClickHandler} />
+                step === 4 && <FourthModalStep onNextBtnClickHandler={onNextBtnClickHandler} />
             }
             {
                 step === 5 && <FifthModalStep formData={form} updateFormValue={updateFormValue} onClickHandler={handleClose} />

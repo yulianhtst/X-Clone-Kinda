@@ -1,5 +1,5 @@
 import { connectDb } from "@/dbConfig/dbConfig";
-import { createPost, getAllPostsSS } from "@/services/ServerSide/postSS";
+import { createPostCS, getAllPostsSS } from "@/services/serverSide/postSS";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
@@ -11,7 +11,7 @@ export default async function handler(
     //I need to validate the body
     if (req.method === "POST") {
       const body = req.body;
-      const createdPost = await createPost(body);
+      const createdPost = await createPostCS(body);
 
       res.json(createdPost);
     } else if (req.method === "GET") {

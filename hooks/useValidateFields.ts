@@ -1,4 +1,4 @@
-import { checkEmailAvailabilityCS } from "@/services/ClientSide/registerCS";
+import { checkEmailAvailabilityCS } from "@/services/clientSide/registerCS";
 import { useEffect, useState } from "react";
 import { useErrorManager } from "./useErrorManager";
 

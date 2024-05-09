@@ -1,6 +1,6 @@
 import { connectDb } from "@/dbConfig/dbConfig";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createUserSS } from "@/services/ServerSide/userSS";
+import { createUserSS } from "@/services/serverSide/userSS";
 import jwt from "jsonwebtoken";
 
 export default async function handler(

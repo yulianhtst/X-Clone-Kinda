@@ -1,5 +1,5 @@
 import { AuthContext } from "@/context/AuthContext";
-import { logoutCS } from "@/services/ClientSide/authServiceCS";
+import { logoutCS } from "@/services/clientSide/authServiceCS";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useContext } from 'react'

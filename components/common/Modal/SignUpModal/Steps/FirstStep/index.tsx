@@ -4,16 +4,17 @@ import type { ChangeEvent } from 'react'
 import ModalButton from "../../../Common/ModalButton";
 import { useValidateFields } from "@/hooks/useValidateFields";
 import { useErrorManager } from "@/hooks/useErrorManager";
+import { styled } from "@mui/system";
 // import * as validate from '@/validation/ClientSide/validateCl'
 
 
 type FirstModalStepProps = {
     formData: any;
-    onClickHandler: () => void;
+    onNextBtnClickHandler: () => void;
     updateFormValue: (name: string, value: string | boolean) => void;
 };
 
-export default function FirstModalStep({ formData, onClickHandler, updateFormValue }: FirstModalStepProps) {
+export default function FirstModalStep({ formData, onNextBtnClickHandler, updateFormValue }: FirstModalStepProps) {
 
     const { error, setCustomError } = useErrorManager()
     const { checkEmailDbExistance, validateEmail, validateName } = useValidateFields(setCustomError)
@@ -42,11 +43,7 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
     console.log(error, 'firstStepModal');
     return (
         <>
-            <Box
-                sx={{
-                    mb: '20px'
-                }}
-            >
+            <Box marginBottom={"20px"}>
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -54,16 +51,7 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
                     Create your account
                 </Typography>
             </Box>
-            <Box
-                display="flex"
-                flexDirection="column"
-                sx={{
-                    height: '100%',
-                    ">*": {
-                        width: '100%',
-                    }
-                }}
-            >
+            <InputContainer>
                 <TextField
                     onChange={onChangeNameHandler}
                     value={formData.name}
@@ -83,8 +71,17 @@ export default function FirstModalStep({ formData, onClickHandler, updateFormVal
                     sx={{
                         margin: '10px 0'
                     }} />
-                <ModalButton content={'Next'} disabled={!formData.isValid} handler={onClickHandler} />
-            </Box>
+                <ModalButton content={'Next'} disabled={!formData.isValid} handler={onNextBtnClickHandler} />
+            </InputContainer>
         </>
     )
 }
+
+const InputContainer = styled(Box)({
+    height: '100%',
+    display: "flex",
+    flexDirection: "column",
+    ">*": {
+        width: '100%',
+    }
+})

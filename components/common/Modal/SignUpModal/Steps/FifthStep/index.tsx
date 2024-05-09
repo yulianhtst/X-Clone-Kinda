@@ -2,13 +2,14 @@ import { Box, Typography, TextField } from "@mui/material"
 import type { ChangeEvent } from 'react'
 import { useContext, useState } from 'react'
 import ModalButton from "../../../Common/ModalButton"
-import { API } from "@/Constants"
 import { useRouter } from "next/router"
 import { AuthContext } from "@/context/AuthContext"
-import { connectDb } from "@/dbConfig/dbConfig"
 import { useValidateFields } from "@/hooks/useValidateFields"
-import { createUserCS } from "@/services/ClientSide/registerCS"
+import { createUserCS } from "@/services/clientSide/registerCS"
 import { useErrorManager } from "@/hooks/useErrorManager"
+import { styled } from "@mui/system"
+
+
 type FifthModalStepProps = {
     formData: any,
     updateFormValue: (name: string, value: string | boolean) => void,
@@ -18,8 +19,9 @@ type FifthModalStepProps = {
 
 export default function FifthModalStep({ formData, updateFormValue, onClickHandler }: FifthModalStepProps) {
 
-    const { auth, userAuth } = useContext<any>(AuthContext)
     const router = useRouter()
+
+    const { userAuth } = useContext<any>(AuthContext)
     const { error, setCustomError } = useErrorManager()
     const { validatePassword } = useValidateFields(setCustomError)
 
@@ -39,27 +41,14 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
     }
 
     const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-
         const { name, value } = e.currentTarget
 
         updateFormValue(name, value)
     }
-    // const onPasswordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     const { name, value } = e.target
-    //     if (value.length < 5) {
-    //         setError('The password is too short')
-    //     } else {
-    //         setError('')
-    //         updateFormValue(name, value)
-    //     }
-    // }
+
     return (
         <>
-            <Box
-                sx={{
-                    mb: '20px'
-                }}
-            >
+            <Box marginBottom={"20px"} >
                 <Typography
                     variant="h4"
                     fontWeight="bold"
@@ -67,16 +56,7 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                     Choose password
                 </Typography>
             </Box>
-            <Box
-                display="flex"
-                flexDirection="column"
-                sx={{
-                    height: '100%',
-                    ">*": {
-                        width: '100%',
-                    }
-                }}
-            >
+            <InputContainer>
 
                 <TextField
                     helperText={error.passwordError}
@@ -85,9 +65,7 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                     label="Password"
                     name="password"
                     type="password"
-                    sx={{
-                        margin: '10px 0'
-                    }}
+                    sx={{ margin: '10px 0' }}
                 />
                 <ModalButton disabled={Boolean(error.passwordError)} content={'submit'}
                     handler={() => {
@@ -95,7 +73,17 @@ export default function FifthModalStep({ formData, updateFormValue, onClickHandl
                         onClickHandler()
                     }}
                 />
-            </Box>
+            </InputContainer>
         </>
     )
 }
+
+const InputContainer = styled(Box)({
+    display: "flex",
+    flexDirection: "column",
+    height: '100%',
+    ">*": {
+        width: '100%',
+
+    }
+})

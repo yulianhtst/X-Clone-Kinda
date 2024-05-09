@@ -1,4 +1,4 @@
-import { setDislikeSS } from "@/services/ServerSide/likesSS";
+import { setDislikeSS } from "@/services/serverSide/likesSS";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(

@@ -1,4 +1,4 @@
-import { getPostByID } from "@/services/ServerSide/postSS";
+import { getPostByID } from "@/services/serverSide/postSS";
 import { NextApiRequest, NextApiResponse } from "next";
 
 export default async function handler(
