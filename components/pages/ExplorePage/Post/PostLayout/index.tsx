@@ -1,4 +1,3 @@
-import { API } from '@/Constants'
 import { Box, Button, Typography } from '@mui/material'
 import useSWR from 'swr'
 import axios from 'axios'
@@ -25,14 +24,14 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
             data: user,
             error: userError,
             isLoading: userLoading
-      } = useSWR(`${API}/users/${publisherId}`, fetcher)
+      } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/users/${publisherId}`, fetcher)
 
       const {
             data: likesData,
-            error: likeError,a 
+            error: likeError,
             isLoading: likeLoading,
             mutate: mutateAllLikesData
-      } = useSWR(`${API}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
+      } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
 
 
       const loggedUser = auth?.user._id

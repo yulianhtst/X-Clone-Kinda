@@ -5,7 +5,6 @@ import IconButton from '@mui/material/IconButton';
 import { Icon } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
 import Image from 'next/image';
-import img from '@/public/images/DSC_0078.JPG'
 
 
 export default function CustomizedInputBase({ onClick, onChange }) {
@@ -22,7 +21,7 @@ export default function CustomizedInputBase({ onClick, onChange }) {
             }}
         >
             <Icon sx={{ borderRadius: '50%', }}>
-                <Image width={24} height={24} alt="smth" src={img} />
+                {/* <Image width={24} height={24} alt="smth" src={img} /> */}
             </Icon>
 
             <InputBase

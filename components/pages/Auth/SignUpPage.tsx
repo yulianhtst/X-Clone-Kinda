@@ -3,12 +3,5 @@ import SignUpModal from "@/components/common/Modal/SignUpModal";
 import ModalLayout from "@/components/layout/ModalLayout";
 
 export default function SignUpPage() {
-    return (
-        <>
-            <LandingComponent />
-            <ModalLayout >
-                <SignUpModal />
-            </ModalLayout>
-        </>
-    )
+    return <SignUpModal />
 }

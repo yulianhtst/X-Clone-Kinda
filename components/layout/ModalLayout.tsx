@@ -1,28 +1,28 @@
+import { ModalContext } from '@/context/ModalContext';
+import { useModalState } from '@/hooks/useModalState';
 import { Box, Modal, styled } from '@mui/material';
 import { useRouter } from 'next/router';
-import {  useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+
 
 
 
 
 export default function ModalLayout({ children }: { children: any }) {
-    const [isOpen, setIsOpen] = useState<boolean>(true)
-
+    const { state: modalState, setModalState } = useContext(ModalContext)
     const router = useRouter()
-
-    const onModalClose = () => {
-        router.back()
-        setIsOpen(false);
-    };
-
+    
     return (
         <Modal
-            open={isOpen}
-            onClose={onModalClose}
+            open={modalState}
+            onClose={() => {
+                router.push('/')
+                setModalState(false)
+            }}
         >
-                <ModalBody>
-                    {children}
-                </ModalBody>
+            <ModalBody>
+                {children}
+            </ModalBody>
         </Modal >
     );
 }

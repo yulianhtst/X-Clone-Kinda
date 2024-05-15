@@ -5,16 +5,26 @@ import logo from "@/public/svgs/WhiteLogo.svg"
 import Image from "next/image";
 
 import { useRouter } from "next/router";
+import ModalLayout from "../layout/ModalLayout";
+import Link from "next/link";
+import { useContext, useState } from "react";
+import SignInModal from "../common/Modal/SignInModal";
+import SignInPage from "../pages/Auth/SignInPage";
+import { ModalContext } from "@/context/ModalContext";
+
 
 export default function LandingComponent() {
-    const router = useRouter()
+    const { setModalState } = useContext(ModalContext)
 
     const onSignUpClick = () => {
-        router.push('/auth/signup')
+        setModalState(true)
     };
+
     const onSignInClick = () => {
-        router.push('/auth/signin')
+        setModalState(true)
     };
+
+
 
 
     return (
@@ -22,6 +32,11 @@ export default function LandingComponent() {
             <ContentWrapper sx={{ minWidth: '45vw' }}>
                 <Image src={logo} alt={"logo"} />
             </ContentWrapper>
+
+            <ModalLayout >
+                <SignInModal handleClose={undefined} />
+            </ModalLayout>
+
             <ContentWrapper flex={1}>
                 <Box>
                     <Box>
@@ -35,9 +50,12 @@ export default function LandingComponent() {
                         </Typography>
                     </Box>
                     <AuthBox >
-                        <AuthButton onClick={onSignUpClick}>
-                            Create account
-                        </AuthButton>
+
+                        <Link href="/" as="/auth/flow/signup">
+                            <AuthButton onClick={onSignUpClick}>
+                                Create account
+                            </AuthButton>
+                        </Link>
 
                         <Box display="flex" >
                             <Line />
@@ -45,9 +63,11 @@ export default function LandingComponent() {
                             <Line />
                         </Box>
 
-                        <AuthButton onClick={onSignInClick} >
-                            Login to account
-                        </AuthButton>
+                        <Link href="/" as="/auth/flow/signin">
+                            <AuthButton onClick={onSignInClick}>
+                                Login to account
+                            </AuthButton>
+                        </Link>
                         <TermsAndConditions />
                     </AuthBox>
                 </Box>
@@ -70,18 +90,14 @@ const TermsAndConditions = () => (
     </Typography>
 )
 const Line = () => (
-    <Box
-        display="flex"
-        flex={1}
-        alignItems='center'
-    >
+    <Box display="flex" flex={1} alignItems='center' >
         <Box display="flex"
             sx={{
                 height: "1px",
                 backgroundColor: 'white',
                 width: '100%'
-            }}
-        ></Box>
+            }}>
+        </Box>
     </Box >
 )
 
@@ -89,6 +105,7 @@ const Line = () => (
 const AuthButton = styled(Button)({
     backgroundColor: 'white',
     borderRadius: '20px',
+    width: '100%',
 })
 const ContentWrapper = styled(Box)({
     display: "flex",

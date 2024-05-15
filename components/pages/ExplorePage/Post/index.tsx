@@ -1,8 +1,5 @@
-import { connectDb } from '@/dbConfig/dbConfig'
-import User from '@/models/User'
 import { Box, Typography, Button, Icon } from '@mui/material'
-import Image from 'next/image'
-import img from '@/public/images/DSC_0078.JPG'
+
 import { useRef, useEffect, useState, ReactNode, useContext } from 'react'
 import { PostLayout } from './PostLayout'
 
@@ -49,7 +46,7 @@ export const Post = ({ content, publisherId, _id, navigation }: PostProps) => {
 
                 <Box sx={{ mr: '12px' }}>
                     <Icon sx={{ borderRadius: '50%', }}>
-                        <Image width={24} height={24} alt="smth" src={img} />
+                        {/* <Image width={24} height={24} alt="smth" src={img} /> */}
                     </Icon>
 
                 </Box>

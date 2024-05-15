@@ -1,6 +1,5 @@
 import { Box, Typography, TextField, styled } from "@mui/material"
 import CloseButton from "../../Buttons/CloseButton/CloseButton"
-import ModalLayout from "@/components/layout/ModalLayout"
 import { ChangeEvent, useContext, useState } from "react"
 import ModalButton from "../../Buttons/ModalButton/ModalButton"
 import { useValidateFields } from "@/hooks/useValidateFields"
@@ -56,7 +55,7 @@ export default function SignInModal({ handleClose }) {
     }
 
     return (
-        <ModalLayout>
+        <>
             <Box display="flex">
                 <CloseButton handleClose={handleClose} />
             </Box>
@@ -90,7 +89,7 @@ export default function SignInModal({ handleClose }) {
                 }
                 <ModalButton content={'Sign In'} handler={onSignInClickHandler} />
             </InputsWrapper>
-        </ModalLayout >
+        </ >
 
     )
 

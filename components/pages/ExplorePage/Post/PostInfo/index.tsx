@@ -1,11 +1,10 @@
-import { API } from '@/Constants'
 import { Box, Typography } from '@mui/material'
 import useSWR from 'swr'
 import axios from 'axios'
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 export const PostInfo = ({ id }: any) => {
-    const { data, error, isLoading } = useSWR(`${API}/users/${id}`, fetcher)
+    const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/users/${id}`, fetcher)
 
     return (
         <Box display="flex">
