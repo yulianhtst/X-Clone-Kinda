@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 // This function can be marked `async` if using `await` inside
-console.log(1);
 
 export async function middleware(req: NextRequest) {
   const auth = req.headers?.auth || "";
