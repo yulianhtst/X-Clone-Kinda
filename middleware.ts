@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 // This function can be marked `async` if using `await` inside
 
-console.log(1);
+console.log("Before revert");
 
 
 export async function middleware(req: NextRequest) {
