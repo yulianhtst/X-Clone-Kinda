@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 console.log(1);
 console.log(1);
 
+console.log("New Branch");
 
 export async function middleware(req: NextRequest) {
   const auth = req.headers?.auth || "";
