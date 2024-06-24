@@ -47,9 +47,7 @@ export default function SignUpModal({ handleClose }: { handleClose: () => void }
 
     return (
         <>
-            <Box
-                display="flex"
-            >
+            <Box display="flex" >
                 {step == 1 ?
                     <CloseButton handleClose={handleClose} />
                     :
