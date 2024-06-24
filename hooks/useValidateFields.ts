@@ -33,9 +33,6 @@ export const useValidateFields = (
 
     return isEmailValid;
   };
-  validateEmail.da = function () {
-    console.log("mooo");
-  };
 
   const checkEmailDbExistance = (email: string) => {
     const [isEmailAvailable, setIsEmailAvailable] = useState<boolean>(false);
