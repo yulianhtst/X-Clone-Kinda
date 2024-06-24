@@ -23,7 +23,7 @@ export const verifySessionTokenCS = async (
     };
     const data = JSON.stringify({ PIN });
 
-    const response = await axios.post(`http://localhost:3000/verify/pin`, data, options);
+    const response = await axios.post(`http://localhost:3000/api/verify/pin`, data, options);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
@@ -34,7 +34,7 @@ export const verifySessionTokenCS = async (
 
 export const sendEmailCS = async (formData: any) => {
   try {
-    const response = await axios.post(`http://localhost:3000/mailer`, formData);
+    const response = await axios.post(`http://localhost:3000/api/mailer`, formData);
     return response.data;
   } catch (error) {
     if(error instanceof Error){
@@ -45,7 +45,7 @@ export const sendEmailCS = async (formData: any) => {
 
 export const checkEmailAvailabilityCS = async (email: string) => {
   try {
-    const response = await fetch(`http://localhost:3000/verify/email`, {
+    const response = await fetch(`http://localhost:3000/api/verify/email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
