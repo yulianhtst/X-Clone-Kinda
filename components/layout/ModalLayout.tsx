@@ -9,12 +9,12 @@ import { useContext, useEffect, useState } from 'react';
 
 
 export default function ModalLayout({ children }: { children: any }) {
-    const { state: modalState, setModalState } = useContext(ModalContext)
+    const { state, setModalState } = useContext(ModalContext)
     const router = useRouter()
     
     return (
         <Modal
-            open={modalState}
+            open={state.modalState}
             onClose={() => {
                 router.push('/')
                 setModalState(false)
