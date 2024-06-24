@@ -2,7 +2,7 @@ import axios from "axios";
 
 export const createUserCS = async (form: any) => {
   try {
-    const createdUser = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/auth/signup`, form);
+    const createdUser = await axios.post(`http://localhost:3000/auth/signup`, form);
 
     return createdUser.data;
   } catch (error) {
@@ -23,7 +23,7 @@ export const verifySessionTokenCS = async (
     };
     const data = JSON.stringify({ PIN });
 
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/verify/pin`, data, options);
+    const response = await axios.post(`http://localhost:3000/verify/pin`, data, options);
     return response.data;
   } catch (error) {
     if (error instanceof Error) {
@@ -34,7 +34,7 @@ export const verifySessionTokenCS = async (
 
 export const sendEmailCS = async (formData: any) => {
   try {
-    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/mailer`, formData);
+    const response = await axios.post(`http://localhost:3000/mailer`, formData);
     return response.data;
   } catch (error) {
     if(error instanceof Error){
@@ -45,7 +45,7 @@ export const sendEmailCS = async (formData: any) => {
 
 export const checkEmailAvailabilityCS = async (email: string) => {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_ROUTE}/verify/email`, {
+    const response = await fetch(`http://localhost:3000/verify/email`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

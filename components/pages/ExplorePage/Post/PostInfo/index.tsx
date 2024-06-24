@@ -4,7 +4,7 @@ import axios from 'axios'
 
 const fetcher = (url: string) => axios.get(url).then(res => res.data)
 export const PostInfo = ({ id }: any) => {
-    const { data, error, isLoading } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/users/${id}`, fetcher)
+    const { data, error, isLoading } = useSWR(`http://localhost:3000/users/${id}`, fetcher)
 
     return (
         <Box display="flex">

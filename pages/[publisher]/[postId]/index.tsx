@@ -32,25 +32,28 @@ export default function PostID({
   );
 }
 
-export const getServerSideProps = async (
-  context: GetServerSidePropsContext
-) => {
-  const postId = context.query.postId;
-  try {
-    const post = (await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts/${postId}`)).data;
+// TEMPORARY OUT OF ORDER 
+// CAUSING: is 24.8 MB which exceeds the threshold of 128 kB, this amount of data can reduce performance.
 
-    return {
-      props: {
-        post,
-      },
-    };
-  } catch (error) {
-    // Handle errors, e.g., redirect to an error page
-    return {
-      redirect: {
-        destination: "/error", // Your error page
-        permanent: false,
-      },
-    };
-  }
-};
+// export const getServerSideProps = async (
+//   context: GetServerSidePropsContext
+// ) => {
+//   const postId = context.query.postId;
+//   try {
+//     const post = (await axios.get(`http://localhost:3000/posts/${postId}`)).data;
+
+//     return {
+//       props: {
+//         post,
+//       },
+//     };
+//   } catch (error) {
+//     // Handle errors, e.g., redirect to an error page
+//     return {
+//       redirect: {
+//         destination: "/error", // Your error page
+//         permanent: false,
+//       },
+//     };
+//   }
+// };

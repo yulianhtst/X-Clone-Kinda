@@ -8,7 +8,7 @@ type LoginArgs = {
 export const loginCS = async (userCredentials: LoginArgs) => {
 
   const user = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_ROUTE}/auth/login`,
+    `http://localhost:3000/auth/login`,
     userCredentials
   );
   return user.data;

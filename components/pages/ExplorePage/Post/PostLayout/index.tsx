@@ -21,14 +21,14 @@ export const PostLayout = ({ postId, publisherId, children, navigation }: any) =
             data: user,
             error: userError,
             isLoading: userLoading
-      } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/users/${publisherId}`, fetcher)
+      } = useSWR(`http://localhost:3000/users/${publisherId}`, fetcher)
 
       const {
             data: likesData,
             error: likeError,
             isLoading: likeLoading,
             mutate: mutateAllLikesData
-      } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
+      } = useSWR(`http://localhost:3000/likes/${postId}`, fetcher, { refreshInterval: 1000 * 60 })
 
 
       const loggedUser = auth?.user._id

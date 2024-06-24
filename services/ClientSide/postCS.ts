@@ -9,11 +9,11 @@ export const createPostCS = async (
     content,
   };
 
-  const createdPost = await axios.post(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`, postData);
+  const createdPost = await axios.post(`http://localhost:3000/posts`, postData);
   return createdPost.data;
 };
 
 export const getAllPostsCS = async () => {
-  const response = await axios.get(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`);
+  const response = await axios.get(`http://localhost:3000/posts`);
   return response.data;
 };

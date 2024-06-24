@@ -25,7 +25,7 @@ export default function ExplorePage() {
     const { auth } = useContext(AuthContext)
     const [postText, setPostText] = useState<string | undefined>(undefined)
 
-    const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`${process.env.NEXT_PUBLIC_API_ROUTE}/posts`, fetcher)
+    const { data: allPostsData, mutate: mutateAllPosts } = useSWR(`http://localhost:3000/posts`, fetcher)
 
 
     const onClick = async () => {
