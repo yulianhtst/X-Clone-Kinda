@@ -13,7 +13,7 @@ import SignUpModal from "../common/Modal/SignUpModal";
 
 export default function LandingComponent() {
   const { setModalState } = useContext(ModalContext);
-  const [modalLayout, setModalLayout] = useState("");
+  const [modalContent, setModalContent] = useState("");
 
   const modalLayouts = {
     signup: <SignUpModal />,
@@ -22,12 +22,12 @@ export default function LandingComponent() {
 
   const onSignUpClick = () => {
     setModalState(true);
-    setModalLayout("signup");
+    setModalContent("signup");
   };
 
   const onSignInClick = () => {
     setModalState(true);
-    setModalLayout("signin");
+    setModalContent("signin");
   };
 
   return (
@@ -36,7 +36,7 @@ export default function LandingComponent() {
         <Image src={logo} alt={"logo"} />
       </ContentWrapper>
 
-      <ModalLayout>{modalLayouts[modalLayout]}</ModalLayout>
+      <ModalLayout>{modalLayouts[modalContent]}</ModalLayout>
 
       <ContentWrapper flex={1}>
         <Box>
