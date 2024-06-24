@@ -37,13 +37,11 @@ export default function FirstModalStep({
     updateFormValue(name, value);
   };
   useEffect(() => {
-    const isFormValid = Boolean(
-      isNameValid && isEmailAvailable && isEmailValid
-    );
+    const isFormValid = !!(isNameValid && isEmailAvailable && isEmailValid);
     updateFormValue("isValid", isFormValid);
   }, [isEmailValid, isEmailAvailable, isNameValid]);
 
-  console.log({ ...error });
+  console.log( error,'emailerr');
   console.log({ isEmailValid, isEmailAvailable });
 
   return (
@@ -66,7 +64,7 @@ export default function FirstModalStep({
         <TextField
           onChange={onChangeEmailHandler}
           value={formData.email}
-          error={Boolean(error.emailError)}
+          error={!!(error.emailError)}
           helperText={error.emailError}
           name="email"
           label="Email"

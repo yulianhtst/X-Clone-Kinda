@@ -5,10 +5,10 @@ export const useErrorManager = () => {
 
   const setCustomError = (
     errorKey: string,
-    message: string,
+    message: string | null = null,
     err: Error | null = null
   ) => {
-    if (err instanceof Error) {
+    if (err instanceof Error || err === null) {
       setError((prevState: any) => {
         return {
           ...prevState,

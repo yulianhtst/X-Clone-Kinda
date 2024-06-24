@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 export const useValidateFields = (
   setCustomError: (
     errorKey: string,
-    message: string | null,
+    message?: string | null,
     err?: Error | null
   ) => void
 ) => {
@@ -13,10 +13,10 @@ export const useValidateFields = (
 
     useEffect(() => {
       if (email) {
-        const pattern = new RegExp("([a-zA-Z0-9]+)@([a-zA-Z]+)\\.([a-zA-Z]+)");
+        const pattern = new RegExp("([a-zA-Z0-9]+)@([a-z]+)\\.([a-z]+)");
         const emailValid = pattern.test(email);
         setIsEmailValid(emailValid);
-        
+
         if (!emailValid) {
           setCustomError(
             "emailError",
@@ -24,12 +24,10 @@ export const useValidateFields = (
             new Error("Invalid email")
           );
         } else {
-          setCustomError("emailError", null);
+          setCustomError("emailError");
         }
-      }
-
-      if (email === "") {
-        setCustomError("emailError", null);
+      } else {
+        setCustomError("emailError");
       }
     }, [email]);
 
