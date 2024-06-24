@@ -8,7 +8,7 @@ type LoginArgs = {
 export const loginCS = async (userCredentials: LoginArgs) => {
 
   const user = await axios.post(
-    `http://localhost:3000/auth/login`,
+    `http://localhost:3000/api/auth/login`,
     userCredentials
   );
   return user.data;

@@ -9,11 +9,11 @@ export const createPostCS = async (
     content,
   };
 
-  const createdPost = await axios.post(`http://localhost:3000/posts`, postData);
+  const createdPost = await axios.post(`http://localhost:3000/api/posts`, postData);
   return createdPost.data;
 };
 
 export const getAllPostsCS = async () => {
-  const response = await axios.get(`http://localhost:3000/posts`);
+  const response = await axios.get(`http://localhost:3000/api/posts`);
   return response.data;
 };
