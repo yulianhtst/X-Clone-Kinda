@@ -1,6 +1,6 @@
-import { Box, Typography, Button, Icon } from '@mui/material'
+import { Box, Typography, Icon } from '@mui/material'
 
-import { useRef, useEffect, useState, ReactNode, useContext } from 'react'
+import { useRef, useEffect, useState, ReactNode } from 'react'
 import { PostLayout } from './PostLayout'
 
 type PostProps = {

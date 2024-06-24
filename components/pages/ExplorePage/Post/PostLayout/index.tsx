@@ -1,12 +1,9 @@
 import { Box, Button, Typography } from '@mui/material'
 import useSWR from 'swr'
 import axios from 'axios'
-import { log } from 'util'
 import { setDislikeCS, setLikeCS } from '@/services/clientSide/likesCS'
 import { useState, useEffect, useContext } from 'react'
-import { GetServerSideProps, GetServerSidePropsContext } from 'next'
 import { AuthContext } from '@/context/AuthContext'
-import { createCommentCS } from '@/services/clientSide/commentsCS'
 import { useRouter } from 'next/router'
 import { useErrorManager } from '@/hooks/useErrorManager'
 

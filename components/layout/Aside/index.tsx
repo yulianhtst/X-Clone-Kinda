@@ -3,7 +3,6 @@ import { logoutCS } from "@/services/clientSide/authServiceCS";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { useContext } from 'react'
-import { headers } from 'next/headers'
 
 export default function AsideComponent() {
     const router = useRouter()

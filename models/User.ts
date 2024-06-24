@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, Types } from "mongoose";
+import mongoose, { Schema, Types } from "mongoose";
 // import Activity from "./Activity";
 const { ObjectId } = Types;
 

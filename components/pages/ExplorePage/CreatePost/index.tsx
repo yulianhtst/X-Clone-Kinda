@@ -1,10 +1,8 @@
-import * as React from 'react';
 import Paper from '@mui/material/Paper';
 import InputBase from '@mui/material/InputBase';
 import IconButton from '@mui/material/IconButton';
 import { Icon } from '@mui/material';
 import SendIcon from '@mui/icons-material/Send';
-import Image from 'next/image';
 
 
 export default function CustomizedInputBase({ onClick, onChange }) {

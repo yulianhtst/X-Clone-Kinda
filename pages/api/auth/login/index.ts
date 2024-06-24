@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { JWT_LOGIN_SECRET } from "@/Constants";
 import { loginSS } from "@/services/serverSide/authServiceSS";
 
 export default async function handler(

@@ -1,10 +1,6 @@
 import Layout from "@/components/layout/MainLayout";
 import ExplorePage from "@/components/pages/ExplorePage/ExplorePage";
-import { connectDb } from "@/dbConfig/dbConfig";
-import Post from "@/models/Post";
-import { getAllPostsSS } from "@/services/serverSide/postSS";
-import { GetServerSidePropsContext } from "next";
-import useSWR from "swr";
+
 
 export default function Explore() {
 

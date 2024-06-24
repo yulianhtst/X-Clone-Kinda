@@ -1,8 +1,7 @@
 import { ModalContext } from '@/context/ModalContext';
-import { useModalState } from '@/hooks/useModalState';
 import { Box, Modal, styled } from '@mui/material';
 import { useRouter } from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext} from 'react';
 
 
 

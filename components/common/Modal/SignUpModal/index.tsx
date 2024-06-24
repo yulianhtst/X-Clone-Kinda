@@ -2,7 +2,6 @@ import { Box, Typography, IconButton } from "@mui/material"
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 
 import { useState } from 'react'
-import ModalLayout from "@/components/layout/ModalLayout";
 
 import FirstModalStep from "./Steps/FirstStep";
 import SecondModalStep from "./Steps/SecondStep";

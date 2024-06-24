@@ -1,4 +1,3 @@
-import { JWT_LOGIN_SECRET } from "@/Constants";
 import jwt from "jsonwebtoken";
 import type { NextRequest } from "next/server";
 

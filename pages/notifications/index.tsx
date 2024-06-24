@@ -1,6 +1,5 @@
 import Layout from "@/components/layout/MainLayout";
 import NotificationsPage from "@/components/pages/NotificationsPage";
-import { GetServerSidePropsContext } from "next";
 
 export default function Notifications() {
 

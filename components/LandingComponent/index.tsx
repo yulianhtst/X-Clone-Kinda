@@ -5,9 +5,8 @@ import Image from "next/image";
 
 import ModalLayout from "../layout/ModalLayout";
 import Link from "next/link";
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import SignInModal from "../common/Modal/SignInModal";
-import SignInPage from "../pages/Auth/SignInPage";
 import { ModalContext } from "@/context/ModalContext";
 import SignUpModal from "../common/Modal/SignUpModal";
 

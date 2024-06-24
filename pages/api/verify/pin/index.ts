@@ -1,6 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import jwt from "jsonwebtoken";
-import { JWT_SESSION_SECRET } from "@/Constants";
 
 export default async function handler(
   req: NextApiRequest,

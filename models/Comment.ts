@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { Schema, model, Types } from "mongoose";
+import { Schema, Types } from "mongoose";
 const { ObjectId } = Types;
 
 const CommentSchema = new Schema(

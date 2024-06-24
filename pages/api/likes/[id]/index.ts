@@ -1,4 +1,3 @@
-import { setLikeSS } from "@/services/serverSide/likesSS";
 import { getAllLieksSS } from "@/services/serverSide/likesSS";
 import { NextApiRequest, NextApiResponse } from "next";
 

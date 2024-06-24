@@ -4,7 +4,7 @@ import { Post } from "./Post";
 import { AuthContext } from "@/context/AuthContext";
 import { ChangeEvent, useContext, useState } from 'react'
 import { createPostCS } from "@/services/clientSide/postCS";
-import useSWR, { mutate } from "swr";
+import useSWR from "swr";
 import axios from "axios";
 
 type Post = {
