@@ -22,7 +22,7 @@ export default async function handler(
   day.setDate(day.getDate() + 1);
 
   const token = jwt.sign(payload, process.env.JWT_LOGIN_SECRET, {
-    expiresIn: process.env.JWT_LOGIN_EXPIRATION_TIME,
+    expiresIn: process.env.JWT_LOGIN_EXPIRESIN,
   });
 
   res.setHeader("Set-Cookie", `loggedUser=${token};Expires=${day};Path=/;`);
