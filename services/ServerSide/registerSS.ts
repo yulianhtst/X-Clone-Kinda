@@ -21,7 +21,7 @@ export const sendEmails = async (name: string, email: string) => {
     from: process.env.NODEMAILER_USER,
     to: `${email}`,
     subject: `Hello ${name}`,
-    text: "ЗА НИЩО НЕ СТАВАШ",
+    text: "___", 
     html: `<p>This is a test email sent with <b>${PIN}</b>!</p>`,
   };
 
