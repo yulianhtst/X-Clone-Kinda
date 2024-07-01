@@ -6,7 +6,6 @@ export const ActivitySchema = new Schema({
   // title: { type: String },For testing
   // user: { type: ObjectId, ref: "User" },
   posts: { type: [ObjectId], ref: "Post" },
-
   // comments: { type: [ObjectId], ref: "Comment" },
   // comments_likes: { type: [ObjectId], ref: "Comment" },
   // posts_likes: { type: [ObjectId], ref: "Comment" },
@@ -19,6 +18,7 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   email: { type: String },
   bio: { type: String, default: "" },
+  verified:{type:Boolean,default:false},
   // profile_picture_url: { type: String },
   // activity: { type: ObjectId, ref: "Activity" },
   activity: ActivitySchema,
