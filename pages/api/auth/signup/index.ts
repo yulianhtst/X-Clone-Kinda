@@ -21,11 +21,12 @@ export default async function handler(
   const day = new Date();
   day.setDate(day.getDate() + 1);
 
+  //Cookie for authorization
   const token = jwt.sign(payload, process.env.JWT_LOGIN_SECRET, {
     expiresIn: process.env.JWT_LOGIN_EXPIRESIN,
   });
-
-  res.setHeader("Set-Cookie", `loggedUser=${token};Expires=${day};Path=/;`);
+  
+  // res.setHeader("Set-Cookie", `loggedUser=${token};Expires=${day};Path=/;`);
 
   res.json({
     message: "Successfully  created a user",

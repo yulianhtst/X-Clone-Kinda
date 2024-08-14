@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
 import jwt from "jsonwebtoken";
+import UserOTPVerification from "@/models/UserOTPVerification";
 
 let PIN: number;
 
 export const sendEmails = async (name: string, email: string) => {
-  
   const transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -13,7 +13,7 @@ export const sendEmails = async (name: string, email: string) => {
       pass: process.env.NODEMAILER_PASSWORD,
       clientId: process.env.OAUTH_CLIENTID,
       clientSecret: process.env.OAUTH_CLIENT_SECRET,
-      refreshToken:process.env.OAUTH_ACCESS_TOKEN,
+      refreshToken: process.env.OAUTH_ACCESS_TOKEN,
     },
   });
 
@@ -21,7 +21,7 @@ export const sendEmails = async (name: string, email: string) => {
     from: process.env.NODEMAILER_USER,
     to: `${email}`,
     subject: `Hello ${name}`,
-    text: "___", 
+    text: "___",
     html: `<p>This is a test email sent with <b>${PIN}</b>!</p>`,
   };
 
@@ -35,27 +35,3 @@ export const createSessionTokenSS = (email: string) => {
   });
   return token;
 };
-
-// export const createUser = async (userData: any) => {
-//   connectDb();
-//   const activity = await new Activity({}).save();
-
-//   return await new User({
-//     ...userData,
-//     activity,
-//   }).save();
-// };
-
-// export const createUser = async ({ name, email, password }:any) => {
-//   connect()
-//   const hashedPassword = await bcryptjs.hash(password, 10);
-
-//   const userSchema = new User({
-//     name,
-//     email,
-//     password: hashedPassword,
-//   });
-
-//   const createdUser = await userSchema.save();
-//   return createdUser;
-// };

@@ -12,15 +12,14 @@ export const findUserByIdSS = async (id: string | string[] | undefined) => {
 
 export const createUserSS = async (formData: any) => {
   connectDb();
-  const hashedPassword = await bcryptjs.hash(formData.password, 10);
+  // const hashedPassword = await bcryptjs.hash(formData.password, 10).then();
 
   const userData = {
     name: formData.name,
     email: formData.email,
-    password: hashedPassword,
+    // password: hashedPassword,
   };
 
-  // const activity =
   return await new User({
     ...userData,
     activity: {

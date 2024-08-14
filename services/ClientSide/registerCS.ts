@@ -3,7 +3,7 @@ import axios from "axios";
 export const createUserCS = async (form: any) => {
   try {
     const createdUser = await axios.post(
-      `http://localhost:3000/auth/signup`,
+      `http://localhost:3000/api/auth/signup`,
       form
     );
 

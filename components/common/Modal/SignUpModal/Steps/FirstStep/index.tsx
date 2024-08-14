@@ -24,8 +24,8 @@ export default function FirstModalStep({
 
   const { name, email } = formData;
 
-  const isNameValid = validateName(name);
   const isEmailAvailable = checkEmailDbExistance(email);
+  const isNameValid = validateName(name);
   const isEmailValid = validateEmail(email);
 
   const onChangeEmailHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,9 +40,6 @@ export default function FirstModalStep({
     const isFormValid = !!(isNameValid && isEmailAvailable && isEmailValid);
     updateFormValue("isValid", isFormValid);
   }, [isEmailValid, isEmailAvailable, isNameValid]);
-
-  console.log( error,'emailerr');
-  console.log({ isEmailValid, isEmailAvailable });
 
   return (
     <>

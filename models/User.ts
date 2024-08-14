@@ -15,7 +15,7 @@ export const ActivitySchema = new Schema({
 const UserSchema = new Schema({
   name: { type: String },
   // username: { type: String },
-  password: { type: String, required: true },
+  password: { type: String},
   email: { type: String },
   bio: { type: String, default: "" },
   verified:{type:Boolean,default:false},

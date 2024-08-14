@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import ModalButton from "../../../../Buttons/ModalButton/ModalButton";
-import { sendEmailCS } from "@/services/clientSide/registerCS";
+import { createUserCS, sendEmailCS } from "@/services/clientSide/registerCS";
 import { useErrorManager } from "@/hooks/useErrorManager";
 
 type ThirdModalStepProps = {
@@ -21,12 +21,15 @@ export default function ThirdModalStep({
   onFocusHandler,
   formData,
 }: ThirdModalStepProps) {
+  
   const { setCustomError } = useErrorManager();
 
   const onNextClickFetch = async () => {
     try {
-      const { sessionToken } = await sendEmailCS(formData);
-      window.sessionStorage.setItem("SignInSession", sessionToken);
+      const user=createUserCS({})
+      // const { sessionToken } = await sendEmailCS(formData);
+      window.sessionStorage.setItem("SignInSession", "");
+      // window.sessionStorage.setItem("SignInSession", sessionToken);
     } catch (error: any) {
       setCustomError("emailError", error.message, error);
     }
